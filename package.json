@@ -1,11 +1,13 @@
 {
-  "name": "solito-with-tailwind",
+  "name": "@novecirculos/rhea",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/*/*",
+    "apps/*"
   ],
   "devDependencies": {
+    "@novecirculos/cli": "*",
     "@types/react": "^18.0.17",
     "@types/react-native": "^0.69.5",
     "eslint": "^8.21.0",
@@ -15,8 +17,14 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "native": "cd apps/expo && expo start",
-    "web": "cd apps/next && yarn next"
+    "dev": "rhea dev",
+    "build": "rhea build",
+    "nuke": "yarn nuke:packages && yarn nuke:apps && yarn nuke:features && yarn nuke:lockfile",
+    "nuke:packages": "rm -r node_modules; for d in packages/*/*/node_modules; do echo $d; rm -r $d; done",
+    "nuke:apps": "rm -r node_modules; for d in apps/*/node_modules; do echo $d; rm -r $d; done",
+    "nuke:lockfile": "for d in ./*.lock; do echo $d; rm -rf $d; done",
+    "nuke:dist": "rm -r dist; for d in packages/features/*/*/dist; do echo $d; rm -r $d; done",
+    "reset": "yarn nuke && yarn install"
   },
   "engines": {
     "node": ">=16.0.0 <17.0.0"

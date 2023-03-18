@@ -1,5 +1,5 @@
 {
-  "name": "@yhva/react",
+  "name": "@novecirculos/react",
   "version": "3.3.1",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -8,9 +8,9 @@
   "devDependencies": {
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@yhva/eslint-config": "*",
-    "@yhva/tokens": "*",
-    "@yhva/ts-config": "*",
+    "@novecirculos/eslint-config": "*",
+    "@novecirculos/tokens": "*",
+    "@novecirculos/ts-config": "*",
     "react": "^18.2.0",
     "tsup": "^6.2.3",
     "typescript": "^4.8.4"

@@ -1,5 +1,5 @@
 {
-  "name": "@yhva/docs",
+  "name": "@novecirculos/storybook",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -28,10 +28,10 @@
   "dependencies": {
     "@storybook/addon-a11y": "^6.5.13",
     "@storybook/storybook-deployer": "^2.8.16",
-    "@yhva/eslint-config": "*",
-    "@yhva/react": "*",
-    "@yhva/tokens": "*",
-    "@yhva/ts-config": "*",
+    "@novecirculos/eslint-config": "*",
+    "@novecirculos/react": "*",
+    "@novecirculos/tokens": "*",
+    "@novecirculos/ts-config": "*",
     "phosphor-react": "^1.4.1",
     "polished": "^4.2.2",
     "react": "^18.2.0",

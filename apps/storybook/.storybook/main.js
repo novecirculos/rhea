@@ -1,32 +1,32 @@
 module.exports = {
   stories: [
-    "../src/pages/**/*.stories.mdx",
-    "../src/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    '../src/pages/**/*.stories.mdx',
+    '../src/stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/addon-a11y",
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
   ],
-  framework: "@storybook/react",
+  framework: '@storybook/react',
   core: {
-    builder: "@storybook/builder-vite",
+    builder: '@storybook/builder-vite',
   },
   features: {
     storyStoreV7: true,
   },
   options: {
     storySort: {
-      method: "alphabetical",
-      locales: "en-US",
+      method: 'alphabetical',
+      locales: 'en-US',
     },
   },
   viteFinal: (config, { configType }) => {
-    if (configType === "PRODUCTION") {
-      config.base = "/yhva/";
+    if (configType === 'PRODUCTION') {
+      config.base = '/novecirculos/'
     }
 
-    return config;
+    return config
   },
-};
+}

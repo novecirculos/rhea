@@ -10,7 +10,7 @@ import {
   shadows,
   borders,
   opacities,
-} from '@yhva/tokens'
+} from '@novecirculos/tokens'
 
 export const {
   styled,

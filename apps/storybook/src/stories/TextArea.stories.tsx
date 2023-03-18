@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Box, Text, TextArea, TextAreaProps } from '@yhva/react'
+import { Box, Text, TextArea, TextAreaProps } from '@novecirculos/react'
 
 export default {
   title: 'Form/Text Area',

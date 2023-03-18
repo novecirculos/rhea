@@ -1,5 +1,5 @@
 {
- "extends": "@yhva/ts-config/base.json",
+ "extends": "@novecirculos/ts-config/base.json",
  "include": [
   "src"
  ],

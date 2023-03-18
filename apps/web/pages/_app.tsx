@@ -1,7 +1,6 @@
 import 'raf/polyfill'
 import 'setimmediate'
 
-import { Provider } from 'app/provider'
 import Head from 'next/head'
 import React from 'react'
 
@@ -19,9 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Provider>
-        <Component {...pageProps} />
-      </Provider>
+      {/* <Provider> */}
+      <Component {...pageProps} />
+      {/* </Provider> */}
     </>
   )
 }

@@ -1,5 +1,5 @@
 {
-  "name": "next-app",
+  "name": "@novecirculos/web",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@expo/next-adapter": "5.0.2",
-    "app": "*",
     "next": "13.2.0",
     "raf": "^3.4.1",
     "react-native-web": "~0.18.11",

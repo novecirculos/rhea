@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Box, Text, TextInput, TextInputProps } from '@yhva/react'
+import { Box, Text, TextInput, TextInputProps } from '@novecirculos/react'
 import { Envelope } from 'phosphor-react'
 
 export default {
