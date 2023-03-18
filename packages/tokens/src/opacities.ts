@@ -1,15 +1,7 @@
-import {
-  OpacitySemiopaque,
-  OpacityIntense,
-  OpacityMedium,
-  OpacityLight,
-  OpacitySemi,
-} from '../build/js'
-
 export const opacities = {
-  semiTransparent: OpacitySemi,
-  light: OpacityLight,
-  medium: OpacityMedium,
-  intense: OpacityIntense,
-  semiOpaque: OpacitySemiopaque,
+  semiTransparent: 0.08,
+  light: 0.16,
+  medium: 0.32,
+  intense: 0.64,
+  semiOpaque: 0.72,
 }

@@ -12,7 +12,6 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "build-tokens": "style-dictionary build",
     "lint": "eslint src/**/*.ts* --fix"
   },
   "devDependencies": {
