@@ -1,0 +1,28 @@
+{
+  "name": "@yhva/react",
+  "version": "3.3.1",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@yhva/eslint-config": "*",
+    "@yhva/tokens": "*",
+    "@yhva/ts-config": "*",
+    "react": "^18.2.0",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --dts --watch --external react",
+    "lint": "eslint src/**/*.ts* --fix"
+  },
+  "dependencies": {
+    "@radix-ui/react-checkbox": "^1.0.1",
+    "@stitches/react": "^1.2.8",
+    "react-icons": "^4.6.0"
+  }
+}

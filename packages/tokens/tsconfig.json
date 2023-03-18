@@ -1,0 +1,12 @@
+{
+ "extends": "@yhva/ts-config/base.json",
+ "include": [
+  "src"
+ ],
+ "compilerOptions": {
+  "lib": [
+   "es2017",
+   "dom"
+  ]
+ }
+}
