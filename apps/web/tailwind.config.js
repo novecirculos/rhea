@@ -1,10 +1,19 @@
+const { theme } = require('@novecirculos/tokens')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,jsx,ts,tsx}',
-    '../../packages/**/*.{js,jsx,ts,tsx}',
+    './src/**/**/*.{js,jsx,ts,tsx,mdx}',
+    '../../packages/**/**/**/*.{js,jsx,ts,tsx,mdx}',
   ],
-  plugins: [require('nativewind/tailwind/css')],
   important: 'html',
-  theme: {},
+  darkMode: 'class',
+  plugins: [
+    require('nativewind/tailwind/css'),
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ],
+  theme: {
+    ...theme,
+  },
 }

@@ -19,14 +19,10 @@ _NativeWindStyleSheet.create({
       "borderStyle": "solid"
     },
     "html": {
-      "lineHeight": 1.5,
-      "fontFamily": "ui-sans-serif"
+      "height": "100%"
     },
     "body": {
-      "marginTop": 0,
-      "marginRight": 0,
-      "marginBottom": 0,
-      "marginLeft": 0
+      "display": "flex"
     },
     "hr": {
       "marginTop": 0,
@@ -256,17 +252,15 @@ _NativeWindStyleSheet.create({
       "borderBottomWidth": 1,
       "borderLeftWidth": 1
     },
-    ".font-secondary": {
-      "fontFamily": "Alice"
-    },
-    ".text-2xl": {
-      "fontSize": "1.5rem"
-    },
     ".text-primary": {
       "color": "rgba(168, 36, 36, 1)"
     },
-    ".lowercase": {
-      "textTransform": "lowercase"
+    "#__next": {
+      "flexShrink": 1,
+      "flexDirection": "column",
+      "flexGrow": 1,
+      "display": "flex",
+      "flexBasis": 0
     }
   }
 });

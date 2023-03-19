@@ -6,7 +6,7 @@
     "node": "^16"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx tailwindcss -i src/styles/global.css -o ./public/tailwind.css --postcss postcss.config.js && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,6 +20,7 @@
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {
+    "@novecirculos/react": "*",
     "@types/node": "17.0.21",
     "autoprefixer": "^10.4.7",
     "eslint-config-next": "13.2.0",
