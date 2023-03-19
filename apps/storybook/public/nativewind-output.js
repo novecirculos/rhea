@@ -9,22 +9,14 @@ _NativeWindStyleSheet.create({
       "borderRightWidth": 0,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
-      "borderStyle": "solid",
-      "borderTopColor": "#e5e7eb",
-      "borderRightColor": "#e5e7eb",
-      "borderBottomColor": "#e5e7eb",
-      "borderLeftColor": "#e5e7eb"
+      "borderStyle": "solid"
     },
     "": {
       "borderTopWidth": 0,
       "borderRightWidth": 0,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
-      "borderStyle": "solid",
-      "borderTopColor": "#e5e7eb",
-      "borderRightColor": "#e5e7eb",
-      "borderBottomColor": "#e5e7eb",
-      "borderLeftColor": "#e5e7eb"
+      "borderStyle": "solid"
     },
     "html": {
       "lineHeight": 1.5,
@@ -264,15 +256,14 @@ _NativeWindStyleSheet.create({
       "borderBottomWidth": 1,
       "borderLeftWidth": 1
     },
+    ".font-secondary": {
+      "fontFamily": "Alice"
+    },
     ".text-2xl": {
-      "fontSize": "1.5rem",
-      "lineHeight": "2rem"
+      "fontSize": "1.5rem"
     },
-    ".color-white": {
-      "color": "#fff"
-    },
-    ".text-white": {
-      "color": "rgba(255, 255, 255, 1)"
+    ".text-primary": {
+      "color": "rgba(168, 36, 36, 1)"
     }
   }
 });

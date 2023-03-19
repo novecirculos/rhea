@@ -6,4 +6,4 @@ module.exports = {
       output: './public/nativewind-output.js',
     },
   },
-};
+}

@@ -4,6 +4,7 @@
   "src"
  ],
  "compilerOptions": {
+  "isolatedModules": false,
   "lib": [
    "es2017",
    "dom"

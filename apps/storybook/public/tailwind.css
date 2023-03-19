@@ -16,7 +16,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #e5e7eb;
+  border-color: currentColor;
   /* 2 */
 }
 
@@ -456,13 +456,16 @@ html .border {
   border-width: 1px;
 }
 
-html .text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
+html .font-secondary {
+  font-family: Alice, serif;
 }
 
-html .text-white {
-  color: rgba(255, 255, 255, 1);
+html .text-2xl {
+  font-size: 1.5rem;
+}
+
+html .text-primary {
+  color: rgba(168, 36, 36, 1);
 }
 
 html .outline {
@@ -483,8 +486,4 @@ html .transition {
 
 html .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-}
-
-html .color-white {
-  color: #fff;
 }
