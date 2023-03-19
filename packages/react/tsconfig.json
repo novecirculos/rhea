@@ -1,7 +1,5 @@
 {
- "extends": [
-  "@novecirculos/ts-config/react.json"
- ],
+ "extends": "@novecirculos/ts-config/react.json",
  "include": [
   "src"
  ]

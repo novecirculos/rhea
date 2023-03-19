@@ -1,5 +1,3 @@
-const { theme } = require('app/design/tailwind/theme')
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -8,7 +6,5 @@ module.exports = {
   ],
   plugins: [require('nativewind/tailwind/css')],
   important: 'html',
-  theme: {
-    ...theme,
-  },
+  theme: {},
 }

@@ -23,7 +23,7 @@
     "nuke:packages": "rm -r node_modules; for d in packages/*/*/node_modules; do echo $d; rm -r $d; done",
     "nuke:apps": "rm -r node_modules; for d in apps/*/node_modules; do echo $d; rm -r $d; done",
     "nuke:lockfile": "for d in ./*.lock; do echo $d; rm -rf $d; done",
-    "nuke:dist": "rm -r dist; for d in packages/features/*/*/dist; do echo $d; rm -r $d; done",
+    "nuke:dist": "rm -r dist; for d in packages/*/dist; do echo $d; rm -r $d; done",
     "reset": "yarn nuke && yarn install"
   },
   "engines": {

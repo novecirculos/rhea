@@ -81,3 +81,5 @@ build/**
 !.yarn/sdks
 !.yarn/versions
 .yarn
+
+dist
