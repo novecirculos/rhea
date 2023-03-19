@@ -256,14 +256,20 @@ _NativeWindStyleSheet.create({
       "borderBottomWidth": 1,
       "borderLeftWidth": 1
     },
-    ".font-secondary": {
-      "fontFamily": "Alice"
+    ".font-serif": {
+      "fontFamily": "Noto Serif"
     },
     ".text-2xl": {
       "fontSize": "1.5rem"
     },
     ".text-primary": {
       "color": "rgba(168, 36, 36, 1)"
+    },
+    ".font-secondary": {
+      "fontFamily": "Alice"
+    },
+    ".w-1": {
+      "width": 4
     },
     ".lowercase": {
       "textTransform": "lowercase"
