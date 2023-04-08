@@ -243,25 +243,6 @@ _NativeWindStyleSheet.create({
     ".hidden": {
       "display": "none"
     },
-    ".truncate": {
-      "overflow": "hidden"
-    },
-    ".border": {
-      "borderTopWidth": 1,
-      "borderRightWidth": 1,
-      "borderBottomWidth": 1,
-      "borderLeftWidth": 1
-    },
-    ".text-primary": {
-      "color": "rgba(168, 36, 36, 1)"
-    },
-    "#__next": {
-      "flexShrink": 1,
-      "flexDirection": "column",
-      "flexGrow": 1,
-      "display": "flex",
-      "flexBasis": 0
-    },
     ".h-10": {
       "height": 40
     },
@@ -274,11 +255,20 @@ _NativeWindStyleSheet.create({
     ".justify-center": {
       "justifyContent": "center"
     },
+    ".truncate": {
+      "overflow": "hidden"
+    },
     ".rounded-full": {
       "borderTopLeftRadius": 9999,
       "borderTopRightRadius": 9999,
       "borderBottomRightRadius": 9999,
       "borderBottomLeftRadius": 9999
+    },
+    ".border": {
+      "borderTopWidth": 1,
+      "borderRightWidth": 1,
+      "borderBottomWidth": 1,
+      "borderLeftWidth": 1
     },
     ".border-2": {
       "borderTopWidth": 2,
@@ -309,8 +299,18 @@ _NativeWindStyleSheet.create({
     ".text-black": {
       "color": "rgba(0, 0, 0, 1)"
     },
+    ".text-primary": {
+      "color": "rgba(168, 36, 36, 1)"
+    },
     ".text-white": {
       "color": "rgba(255, 255, 255, 1)"
+    },
+    "#__next": {
+      "flexShrink": 1,
+      "flexDirection": "column",
+      "flexGrow": 1,
+      "display": "flex",
+      "flexBasis": 0
     },
     ".hover:bg-primary800:hover:bg-secondary800:hover": {
       "backgroundColor": "rgba(212, 53, 53, 1)"

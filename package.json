@@ -14,6 +14,7 @@
     "@novecirculos/cli": "*",
     "@types/react": "^18.0.17",
     "@types/react-native": "^0.69.5",
+    "dotenv": "^16.0.3",
     "eslint": "^8.21.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
@@ -21,6 +22,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
+    "prestart": "dotenv -e .env lerna run --scope=@novecirculos/* dev",
     "dev": "rhea dev",
     "build": "rhea build",
     "nuke": "yarn nuke:packages && yarn nuke:apps && yarn nuke:features && yarn nuke:lockfile",

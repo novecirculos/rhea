@@ -423,12 +423,24 @@ html .static {
   position: static;
 }
 
+html .fixed {
+  position: fixed;
+}
+
 html .absolute {
   position: absolute;
 }
 
 html .relative {
   position: relative;
+}
+
+html .block {
+  display: block;
+}
+
+html .inline {
+  display: inline;
 }
 
 html .flex {
@@ -443,6 +455,14 @@ html .hidden {
   display: none;
 }
 
+html .h-10 {
+  height: 40px;
+}
+
+html .h-12 {
+  height: 48px;
+}
+
 html .transform {
   transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
 }
@@ -451,18 +471,72 @@ html .resize {
   resize: both;
 }
 
+html .items-center {
+  align-items: center;
+}
+
+html .justify-center {
+  justify-content: center;
+}
+
+html .gap-2 {
+  gap: 8px;
+}
+
 html .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+html .rounded-full {
+  border-radius: 9999px;
+}
+
 html .border {
   border-width: 1px;
 }
 
+html .border-2 {
+  border-width: 2px;
+}
+
+html .bg-primary {
+  background-color: rgba(168, 36, 36, 1);
+}
+
+html .bg-secondary {
+  background-color: rgba(217, 135, 54, 1);
+}
+
+html .px-4 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+html .py-2 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+html .text-sm {
+  font-size: 0.875rem;
+}
+
+html .font-medium {
+  font-weight: 500;
+}
+
+html .text-black {
+  color: rgba(0, 0, 0, 1);
+}
+
 html .text-primary {
   color: rgba(168, 36, 36, 1);
+}
+
+html .text-white {
+  color: rgba(255, 255, 255, 1);
 }
 
 html .outline {
@@ -524,4 +598,33 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -ms-overflow-style: scrollbar;
+}
+
+html .hover\:bg-primary800:hover {
+  background-color: undefined;
+}
+
+html .hover\:bg-primary800:hover:bg-secondary800:hover {
+  background-color: rgba(212, 53, 53, 1);
+}
+
+html .hover\:bg-primary800:hover:bg-primary800:hover {
+  background-color: rgba(212, 53, 53, 1);
+}
+
+html .hover\:bg-secondary800:hover {
+  background-color: undefined;
+}
+
+html .hover\:bg-secondary800:hover:bg-secondary800:hover {
+  background-color: rgba(225, 162, 98, 1);
+}
+
+html .hover\:bg-secondary800:hover:bg-primary800:hover {
+  background-color: rgba(225, 162, 98, 1);
+}
+
+html .focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }

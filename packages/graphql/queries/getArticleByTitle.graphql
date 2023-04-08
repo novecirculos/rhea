@@ -5,7 +5,7 @@ query GetArticleByTitle($title: String) {
     articleType
     title
     content {
-      raw
+      json
       markdown
       html
     }
