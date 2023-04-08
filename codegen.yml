@@ -1,0 +1,13 @@
+schema: https://api-sa-east-1.hygraph.com/v2/clfzvq3a377hi01t7az16bc2a/master
+documents: ./packages/graphql/**/*.graphql
+generates:
+  ./packages/graphql/_generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      reactApolloVersion: 3
+      withHooks: true
+      withHOC: false
+      withComponent: false

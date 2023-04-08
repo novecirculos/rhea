@@ -261,6 +261,68 @@ _NativeWindStyleSheet.create({
       "flexGrow": 1,
       "display": "flex",
       "flexBasis": 0
+    },
+    ".h-10": {
+      "height": 40
+    },
+    ".h-12": {
+      "height": 48
+    },
+    ".items-center": {
+      "alignItems": "center"
+    },
+    ".justify-center": {
+      "justifyContent": "center"
+    },
+    ".rounded-full": {
+      "borderTopLeftRadius": 9999,
+      "borderTopRightRadius": 9999,
+      "borderBottomRightRadius": 9999,
+      "borderBottomLeftRadius": 9999
+    },
+    ".border-2": {
+      "borderTopWidth": 2,
+      "borderRightWidth": 2,
+      "borderBottomWidth": 2,
+      "borderLeftWidth": 2
+    },
+    ".bg-primary": {
+      "backgroundColor": "rgba(168, 36, 36, 1)"
+    },
+    ".bg-secondary": {
+      "backgroundColor": "rgba(217, 135, 54, 1)"
+    },
+    ".px-4": {
+      "paddingLeft": 16,
+      "paddingRight": 16
+    },
+    ".py-2": {
+      "paddingTop": 8,
+      "paddingBottom": 8
+    },
+    ".text-sm": {
+      "fontSize": "0.875rem"
+    },
+    ".font-medium": {
+      "fontWeight": "500"
+    },
+    ".text-black": {
+      "color": "rgba(0, 0, 0, 1)"
+    },
+    ".text-white": {
+      "color": "rgba(255, 255, 255, 1)"
+    },
+    ".hover:bg-primary800:hover:bg-secondary800:hover": {
+      "backgroundColor": "rgba(212, 53, 53, 1)"
+    },
+    ".hover:bg-primary800:hover:bg-primary800:hover": {
+      "backgroundColor": "rgba(212, 53, 53, 1)"
+    },
+    ".hover:bg-secondary800:hover:bg-secondary800:hover": {
+      "backgroundColor": "rgba(225, 162, 98, 1)"
+    },
+    ".hover:bg-secondary800:hover:bg-primary800:hover": {
+      "backgroundColor": "rgba(225, 162, 98, 1)"
     }
   }
 });

@@ -1,0 +1,13 @@
+query GetArticleByTitle($title: String) {
+  articleModel(where: { title: $title }) {
+    id
+    articleSlug
+    articleType
+    title
+    content {
+      raw
+      markdown
+      html
+    }
+  }
+}

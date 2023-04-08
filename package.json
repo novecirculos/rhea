@@ -7,6 +7,10 @@
     "apps/*"
   ],
   "devDependencies": {
+    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/typescript": "^3.0.3",
+    "@graphql-codegen/typescript-operations": "^3.0.3",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@novecirculos/cli": "*",
     "@types/react": "^18.0.17",
     "@types/react-native": "^0.69.5",
@@ -24,7 +28,8 @@
     "nuke:apps": "rm -r node_modules; for d in apps/*/node_modules; do echo $d; rm -r $d; done",
     "nuke:lockfile": "for d in ./*.lock; do echo $d; rm -rf $d; done",
     "nuke:dist": "rm -r dist; for d in packages/*/dist; do echo $d; rm -r $d; done",
-    "reset": "yarn nuke && yarn install"
+    "reset": "yarn nuke && yarn install",
+    "codegen": "graphql-codegen"
   },
   "engines": {
     "node": ">=16.0.0 <17.0.0"

@@ -83,3 +83,4 @@ build/**
 .yarn
 
 dist
+.env
