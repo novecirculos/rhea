@@ -6,8 +6,6 @@ import React from 'react'
 
 import '../styles/global.css'
 import { AppProps } from 'next/app'
-import { ApolloProvider } from '@apollo/client'
-import { client } from '@novecirculos/graphql'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -20,9 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ApolloProvider client={client}>
-        <Component {...pageProps} />
-      </ApolloProvider>
+      <Component {...pageProps} />
     </>
   )
 }

@@ -1,7 +1,7 @@
 schema: https://api-sa-east-1.hygraph.com/v2/clfzvq3a377hi01t7az16bc2a/master
 documents: ./packages/graphql/**/*.graphql
 generates:
-  ./packages/graphql/_generated.ts:
+  ./packages/graphql/generated/base.ts:
     plugins:
       - typescript
       - typescript-operations
@@ -11,3 +11,23 @@ generates:
       withHooks: true
       withHOC: false
       withComponent: false
+  ./packages/graphql/generated/ssr.tsx:
+    plugins:
+      - graphql-codegen-apollo-next-ssr
+    config:
+      documentMode: external
+      importDocumentNodeExternallyFrom: ./base
+      reactApolloVersion: 3
+      withHooks: true
+      contextType: 'ApolloClientContext'
+      contextTypeRequired: true
+      # withHOC: false
+      # excludePatterns: 'getComments'
+      # excludePatternsOptions: 'i'
+      # customDataIdFromObjectName: 'test'
+      # customDataIdFromObjectImport: 'abc'
+      apolloClientInstanceImport: '../lib/withApollo'
+      # apolloStateKey: '__APOLLO_STATE__'
+    preset: import-types
+    presetConfig:
+      typesPath: ./base

@@ -21,7 +21,6 @@
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {
-    "@novecirculos/context": "*",
     "@novecirculos/react": "*",
     "@novecirculos/graphql": "*",
     "@types/node": "17.0.21",

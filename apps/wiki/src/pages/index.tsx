@@ -1,42 +1,22 @@
-import { gql } from '@apollo/client'
-import { GetArticleByTitleDocument, client } from '@novecirculos/graphql'
-import { TestComponent } from '@novecirculos/react'
+import { ssrGetArticles, withApollo } from '@novecirculos/graphql'
+import Link from 'next/link'
 
-const Home = ({ data }: any) => {
+const Home = () => {
+  const { data } = ssrGetArticles.usePage()
+
   return (
-    <div>
-      Web
-      <TestComponent />
-    </div>
+    <ul>
+      {data?.articles.map((article) => (
+        <Link href={`${article.slug}`} key={article.id}>
+          <li>{article.title}</li>
+        </Link>
+      ))}
+    </ul>
   )
 }
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: gql`
-      query GetArticleByTitle {
-        articleModel(where: { title: "Kiverlia" }) {
-          id
-          articleSlug
-          articleType
-          title
-          content {
-            raw
-            markdown
-            html
-          }
-        }
-      }
-    `,
-  })
-
-  console.log(data)
-
-  return {
-    props: {
-      data: {},
-    },
-  }
+export async function getServerSideProps(ctx: any) {
+  return await ssrGetArticles.getServerPage({}, ctx)
 }
 
-export default Home
+export default withApollo(Home)

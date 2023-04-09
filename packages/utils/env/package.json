@@ -1,0 +1,13 @@
+{
+  "name": "@novecirculos/env",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "lodash.merge": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/lodash.merge": "^4.6.7"
+  }
+}
