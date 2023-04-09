@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <ul>
       {data?.articles.map((article) => (
-        <Link href={`${article.slug}`} key={article.id}>
+        <Link href={`/article/${article.slug}`} key={article.id}>
           <li>{article.title}</li>
         </Link>
       ))}
@@ -19,4 +19,4 @@ export async function getServerSideProps(ctx: any) {
   return await ssrGetArticles.getServerPage({}, ctx)
 }
 
-export default withApollo(Home)
+export default withApollo(ssrGetArticles.withPage(() => ({}))(Home))

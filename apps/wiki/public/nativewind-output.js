@@ -323,6 +323,9 @@ _NativeWindStyleSheet.create({
     },
     ".hover:bg-secondary800:hover:bg-primary800:hover": {
       "backgroundColor": "rgba(225, 162, 98, 1)"
+    },
+    ".lowercase": {
+      "textTransform": "lowercase"
     }
   }
 });
