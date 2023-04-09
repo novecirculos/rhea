@@ -19,6 +19,9 @@ const nextConfig = {
     'react-native-gesture-handler',
     '@novecirculos/react',
   ],
+  images: {
+    domains: ['media.graphassets.com', 'i.ibb.co'],
+  },
 }
 
 module.exports = withExpo(nextConfig)

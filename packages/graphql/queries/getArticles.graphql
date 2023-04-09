@@ -4,5 +4,8 @@ query GetArticles {
     title
     slug
     category
+    image {
+      url
+    }
   }
 }

@@ -119,11 +119,11 @@ export type ArticleUpdatedByArgs = {
 
 /** Category of the article */
 export enum ArticleCategory {
-  Character = 'character',
-  City = 'city',
-  Divinity = 'divinity',
-  Event = 'event',
-  Kingdom = 'kingdom'
+  Cidade = 'Cidade',
+  Divindade = 'Divindade',
+  Evento = 'Evento',
+  Personagem = 'Personagem',
+  Reino = 'Reino'
 }
 
 export type ArticleConnectInput = {
@@ -3645,19 +3645,19 @@ export type GetArticleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null } | null };
+export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
 export type GetArticleByTitleQueryVariables = Exact<{
   title?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetArticleByTitleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null } | null };
+export type GetArticleByTitleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug: string, category: ArticleCategory }> };
+export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug: string, category: ArticleCategory, image?: { __typename?: 'Asset', url: string } | null }> };
 
 
 export const GetArticleBySlugDocument = gql`
@@ -3671,6 +3671,9 @@ export const GetArticleBySlugDocument = gql`
       json
       markdown
       html
+    }
+    image {
+      url
     }
   }
 }
@@ -3715,6 +3718,9 @@ export const GetArticleByTitleDocument = gql`
       markdown
       html
     }
+    image {
+      url
+    }
   }
 }
     `;
@@ -3753,6 +3759,9 @@ export const GetArticlesDocument = gql`
     title
     slug
     category
+    image {
+      url
+    }
   }
 }
     `;

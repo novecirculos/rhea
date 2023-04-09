@@ -50,4 +50,5 @@ body {
   -ms-overflow-style: scrollbar;
   @apply bg-gray-700;
   @apply color-white;
+  @apply font-serif;
 }

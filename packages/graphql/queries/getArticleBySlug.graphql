@@ -9,5 +9,8 @@ query GetArticleBySlug($slug: String) {
       markdown
       html
     }
+    image {
+      url
+    }
   }
 }

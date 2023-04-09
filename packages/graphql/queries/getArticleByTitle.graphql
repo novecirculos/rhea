@@ -9,5 +9,8 @@ query GetArticleByTitle($title: String) {
       markdown
       html
     }
+    image {
+      url
+    }
   }
 }
