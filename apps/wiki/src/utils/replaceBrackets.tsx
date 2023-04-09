@@ -2,10 +2,13 @@ import Link from 'next/link'
 import React, { Fragment } from 'react'
 
 function slugify(text: string) {
-  // replace accents from Brazilian Portuguese with English letters
-  text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  text = text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f\u00c4-\u00e4]/g, (match) => {
+      return match[0] <= '\u036f' ? '' : match.toLowerCase()
+    })
 
-  // replace non-English letters with spaces
+  // remove any remaining non-English letters
   text = text.replace(/[^a-zA-Z]/g, ' ')
 
   // replace multiple spaces with a single hyphen
@@ -30,7 +33,12 @@ export function replace(domNode: any) {
 
         return (
           <Fragment key={i}>
-            <Link href={`/article/${slug}`}>{part}</Link>
+            <Link
+              className="hover:color-secondary-800 hover:underline"
+              href={`/article/${slug}`}
+            >
+              {part}
+            </Link>
           </Fragment>
         )
       })

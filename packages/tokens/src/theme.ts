@@ -12,9 +12,9 @@ import {
 } from './'
 
 export const theme = {
-  colors,
   fontSize: fontSizes,
   extend: {
+    colors,
     spacing: space,
     lineHeights,
     borders,

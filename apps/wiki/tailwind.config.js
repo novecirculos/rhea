@@ -12,6 +12,7 @@ module.exports = {
     require('nativewind/tailwind/css'),
     require('tailwindcss'),
     require('autoprefixer'),
+    require('@tailwindcss/typography'),
   ],
   theme: {
     ...theme,

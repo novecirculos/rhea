@@ -10,10 +10,10 @@ import { replace } from '../../utils/replaceBrackets'
 
 const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
   return (
-    <div>
-      <h1>{data?.article?.title}</h1>
-      <p>{data?.article?.category}</p>
-      <div>
+    <div className="mx-auto flex flex-col justify-center">
+      <h1 className="color- text-2xl font-medium">{data?.article?.title}</h1>
+      <h2 className="text-lg">{data?.article?.category}</h2>
+      <div className="prose prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300">
         {HTMLReactParser(data?.article?.content?.html as string, { replace })}
       </div>
     </div>
