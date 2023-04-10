@@ -15,8 +15,6 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="relative min-h-screen w-full ">
-        <div className="bg-blackAlpha-100 absolute top-0 left-0 z-10 h-full w-full"></div>
-
         <Image
           src={
             data?.article?.image?.url ||
@@ -27,16 +25,18 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
           className="absolute top-0 left-0 h-full w-full object-cover"
         />
 
-        <div className="absolute bottom-4 left-0 right-0 text-center">
+        <div className="absolute bottom-4 left-0 right-0 z-50 text-center">
           <SectionTitle
             title={data?.article?.title as string}
-            subtitle={`${data?.article?.category} - ${data?.article?.universeDate}`}
+            category={data?.article?.category as string}
+            universeDate={data?.article?.universeDate as string}
           />
           <span className="flex flex-col items-center justify-center">
             Role para continuar{' '}
             <FiChevronDown className="text-secondary-900 animate-bounce" />
           </span>
         </div>
+        <div className="bg-blackAlpha-100 absolute top-0 left-0 h-full w-full"></div>
       </div>
 
       <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 z-10 mt-auto h-full w-full overflow-auto">

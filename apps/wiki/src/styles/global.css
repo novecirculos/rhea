@@ -48,7 +48,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -ms-overflow-style: scrollbar;
-  @apply bg-gray-700;
+  @apply bg-gray-1000;
   @apply color-white;
   @apply font-serif;
 }

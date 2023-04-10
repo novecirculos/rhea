@@ -31,7 +31,7 @@ _NativeWindStyleSheet.create({
     },
     "body": {
       "display": "flex",
-      "backgroundColor": "rgba(31, 43, 55, 1)",
+      "backgroundColor": "rgba(11, 20, 31, 1)",
       "color": "#fff",
       "fontFamily": "Noto Serif"
     },
@@ -270,8 +270,8 @@ _NativeWindStyleSheet.create({
     ".z-10": {
       "zIndex": 10
     },
-    ".mb-4": {
-      "marginBottom": 16
+    ".z-50": {
+      "zIndex": 50
     },
     ".mt-auto": {
       "marginTop": "auto"
@@ -341,14 +341,17 @@ _NativeWindStyleSheet.create({
     ".text-center": {
       "textAlign": "center"
     },
-    ".text-2xl": {
-      "fontSize": "1.5rem"
+    ".font-secondary": {
+      "fontFamily": "Alice"
     },
-    ".text-lg": {
-      "fontSize": "1.125rem"
+    ".text-3xl": {
+      "fontSize": "1.875rem"
     },
     ".text-sm": {
       "fontSize": "0.875rem"
+    },
+    ".text-xl": {
+      "fontSize": "1.25rem"
     },
     ".font-bold": {
       "fontWeight": "700"
@@ -356,20 +359,26 @@ _NativeWindStyleSheet.create({
     ".font-medium": {
       "fontWeight": "500"
     },
+    ".font-semibold": {
+      "fontWeight": "600"
+    },
     ".lowercase": {
       "textTransform": "lowercase"
     },
+    ".leading-tight": {
+      "lineHeight": 1.25
+    },
     ".text-black": {
       "color": "rgba(0, 0, 0, 1)"
-    },
-    ".text-secondary-600": {
-      "color": "rgba(234, 188, 143, 1)"
     },
     ".text-secondary-900": {
       "color": "rgba(221, 148, 76, 1)"
     },
     ".text-white": {
       "color": "rgba(255, 255, 255, 1)"
+    },
+    ".color-secondary-700": {
+      "color": "#E5AF79"
     },
     "#__next": {
       "flexShrink": 1,
@@ -386,49 +395,6 @@ _NativeWindStyleSheet.create({
     },
     "*)))": {
       "color": "#d3d5da"
-    },
-    ".overflow-hidden": {
-      "overflow": "hidden"
-    },
-    ".px-1": {
-      "paddingLeft": 4,
-      "paddingRight": 4
-    },
-    ".text-6xl": {
-      "fontSize": "4rem"
-    },
-    ".font-extrabold": {
-      "fontWeight": "800"
-    },
-    ".leading-none": {
-      "lineHeight": 1
-    },
-    ".tracking-tighter": {
-      "letterSpacing": "-0.05em"
-    },
-    ".ml-4": {
-      "marginLeft": 16
-    },
-    ".text-3xl": {
-      "fontSize": "1.875rem"
-    },
-    ".mr-6": {
-      "marginRight": 24
-    },
-    ".mr-1": {
-      "marginRight": 4
-    },
-    ".mr-[4px]": {
-      "marginRight": 4
-    },
-    ".mr-[42px]": {
-      "marginRight": 42
-    },
-    ".mr-[2px]": {
-      "marginRight": 2
-    },
-    ".mr-2": {
-      "marginRight": 8
     }
   },
   topics: {

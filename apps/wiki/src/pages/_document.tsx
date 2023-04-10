@@ -3,6 +3,7 @@ import { AppRegistry } from 'react-native'
 
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from 'next/document'
+import Loader from '../components/Loader'
 
 class Document extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {
@@ -21,6 +22,10 @@ class Document extends NextDocument {
         <Head>
           <meta charSet="UTF-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Alice&family=Noto+Serif:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <body>
           <Main />

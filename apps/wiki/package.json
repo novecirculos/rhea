@@ -21,7 +21,9 @@
     "next": "13.2.0",
     "raf": "^3.4.1",
     "react-icons": "^4.8.0",
+    "react-loading-dot": "^1.0.6",
     "react-native-web": "~0.18.11",
+    "react-svg": "^16.1.7",
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {
