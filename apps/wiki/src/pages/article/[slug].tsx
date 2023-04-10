@@ -30,7 +30,7 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
         <div className="absolute bottom-4 left-0 right-0 text-center">
           <SectionTitle
             title={data?.article?.title as string}
-            subtitle={data?.article?.category as string}
+            subtitle={`${data?.article?.category} - ${data?.article?.universeDate}`}
           />
           <span className="flex flex-col items-center justify-center">
             Role para continuar{' '}
@@ -59,7 +59,10 @@ export const getStaticProps: GetServerSideProps = async ({ params, req }) => {
     }
   }
 
-  return res
+  return {
+    props: res.props,
+    revalidate: 60 * 60 * 24, // 24 hours
+  }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

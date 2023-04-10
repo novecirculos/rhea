@@ -25,7 +25,7 @@ export const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
             key={titleWords[index]}
             style={props}
             className={`text-3xl font-bold leading-none ${
-              index < titleWords.length - 1 ? 'mr-[4px]' : ''
+              index < titleWords.length - 1 ? 'mr-1' : ''
             }`}
           >
             {titleWords[index]}
@@ -37,7 +37,9 @@ export const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
           <animated.h2
             key={subtitleWords[index]}
             style={props}
-            className="text-secondary-600 text-lg font-medium"
+            className={`text-secondary-600 text-lg font-medium ${
+              index < titleWords.length - 1 ? 'mr-2' : ''
+            }`}
           >
             {subtitleWords[index]}
           </animated.h2>

@@ -4,6 +4,7 @@ query GetArticleBySlug($slug: String) {
     slug
     category
     title
+    universeDate
     content {
       json
       markdown

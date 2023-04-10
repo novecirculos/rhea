@@ -426,6 +426,9 @@ _NativeWindStyleSheet.create({
     },
     ".mr-[2px]": {
       "marginRight": 2
+    },
+    ".mr-2": {
+      "marginRight": 8
     }
   },
   topics: {
