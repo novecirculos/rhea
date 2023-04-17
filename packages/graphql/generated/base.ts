@@ -3645,7 +3645,7 @@ export type GetArticleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
+export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, createdAt: any, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
 export type GetArticleByTitleQueryVariables = Exact<{
   title?: InputMaybe<Scalars['String']>;
@@ -3668,6 +3668,7 @@ export const GetArticleBySlugDocument = gql`
     category
     title
     universeDate
+    createdAt
     content {
       json
       markdown

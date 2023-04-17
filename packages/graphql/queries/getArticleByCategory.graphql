@@ -1,0 +1,17 @@
+query GetArticleByCategory($category: String) {
+  article(where: { category: $category }) {
+    id
+    slug
+    category
+    title
+    universeDate
+    content {
+      json
+      markdown
+      html
+    }
+    image {
+      url
+    }
+  }
+}
