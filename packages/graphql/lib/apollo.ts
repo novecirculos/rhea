@@ -7,7 +7,7 @@ const throttle = pThrottle({
   interval: 1000,
 })
 
-const throttledFetch = async (uri, config) => {
+const throttledFetch = async (uri: any, config: any) => {
   const fetchCall = () => fetch(uri, config)
   const throttledCall = throttle(fetchCall)
   return throttledCall()
