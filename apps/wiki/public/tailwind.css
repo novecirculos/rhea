@@ -894,6 +894,18 @@ html .mb-2 {
   margin-bottom: 8px;
 }
 
+html .mr-1 {
+  margin-right: 4px;
+}
+
+html .mt-1 {
+  margin-top: 4px;
+}
+
+html .mt-7 {
+  margin-top: 28px;
+}
+
 html .mt-auto {
   margin-top: auto;
 }
@@ -934,6 +946,10 @@ html .h-48 {
   height: 12rem;
 }
 
+html .h-5 {
+  height: 20px;
+}
+
 html .h-full {
   height: 100%;
 }
@@ -950,12 +966,24 @@ html .w-2\/3 {
   width: 66.666667%;
 }
 
+html .w-5 {
+  width: 20px;
+}
+
 html .w-full {
   width: 100%;
 }
 
 html .max-w-2xl {
   max-width: 42rem;
+}
+
+html .max-w-full {
+  max-width: 100%;
+}
+
+html .flex-1 {
+  flex: 1 1 0%;
 }
 
 html .transform {
@@ -976,6 +1004,10 @@ html .transform {
 
 html .animate-bounce {
   animation: bounce 1s infinite;
+}
+
+html .cursor-not-allowed {
+  cursor: not-allowed;
 }
 
 html .cursor-pointer {
@@ -1002,8 +1034,16 @@ html .items-center {
   align-items: center;
 }
 
+html .items-baseline {
+  align-items: baseline;
+}
+
 html .justify-center {
   justify-content: center;
+}
+
+html .justify-between {
+  justify-content: space-between;
 }
 
 html .gap-2 {
@@ -1012,6 +1052,10 @@ html .gap-2 {
 
 html .gap-4 {
   gap: 16px;
+}
+
+html .self-center {
+  align-self: center;
 }
 
 html .overflow-auto {
@@ -1044,6 +1088,10 @@ html .rounded-lg {
   border-radius: 0.5rem;
 }
 
+html .rounded-sm {
+  border-radius: 0.125rem;
+}
+
 html .rounded-l-lg {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -1051,6 +1099,14 @@ html .rounded-l-lg {
 
 html .border {
   border-width: 1px;
+}
+
+html .border-0 {
+  border-width: 0px;
+}
+
+html .border-gray-900 {
+  border-color: rgba(19, 29, 40, 1);
 }
 
 html .border-primary-900 {
@@ -1069,12 +1125,20 @@ html .bg-gray-700 {
   background-color: rgba(31, 43, 55, 1);
 }
 
+html .bg-gray-900 {
+  background-color: rgba(19, 29, 40, 1);
+}
+
 html .bg-primary-900 {
   background-color: rgba(194, 41, 41, 1);
 }
 
 html .bg-secondary-900 {
   background-color: rgba(221, 148, 76, 1);
+}
+
+html .bg-transparent {
+  background-color: transparent;
 }
 
 html .object-cover {
@@ -1085,6 +1149,10 @@ html .object-cover {
 html .object-left-top {
   -o-object-position: left top;
      object-position: left top;
+}
+
+html .p-2 {
+  padding: 8px;
 }
 
 html .p-4 {
@@ -1105,6 +1173,10 @@ html .py-2 {
   padding-bottom: 8px;
 }
 
+html .pr-4 {
+  padding-right: 16px;
+}
+
 html .text-center {
   text-align: center;
 }
@@ -1115,10 +1187,6 @@ html .font-secondary {
 
 html .text-3xl {
   font-size: 1.875rem;
-}
-
-html .text-4xl {
-  font-size: 2.25rem;
 }
 
 html .text-base {
@@ -1161,6 +1229,10 @@ html .text-black {
   color: rgba(0, 0, 0, 1);
 }
 
+html .text-gray-300 {
+  color: rgba(211, 213, 218, 1);
+}
+
 html .text-gray-400 {
   color: rgba(143, 157, 176, 1);
 }
@@ -1171,6 +1243,26 @@ html .text-secondary-900 {
 
 html .text-white {
   color: rgba(255, 255, 255, 1);
+}
+
+html .placeholder-gray-400::-moz-placeholder {
+  color: undefined;
+}
+
+html .placeholder-gray-400::placeholder {
+  color: undefined;
+}
+
+html .placeholder-gray-400::-moz-placeholder::placeholder {
+  color: rgba(143, 157, 176, 1);
+}
+
+html .placeholder-gray-400::placeholder::placeholder {
+  color: rgba(143, 157, 176, 1);
+}
+
+html .opacity-50 {
+  opacity: 0.5;
 }
 
 html .shadow-lg {
@@ -1191,6 +1283,14 @@ html .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+html .duration-200 {
+  transition-duration: 200ms;
+}
+
+html .ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html .ease-out {
@@ -1256,6 +1356,22 @@ body {
   -ms-overflow-style: none;
 }
 
+.truncate-3-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html .placeholder\:text-sm::-moz-placeholder {
+  font-size: 0.875rem;
+}
+
+html .placeholder\:text-sm::placeholder {
+  font-size: 0.875rem;
+}
+
 html .hover\:underline:hover {
   text-decoration-line: underline;
 }
@@ -1267,6 +1383,14 @@ html .hover\:color-secondary-800:hover {
 html .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+html .group:focus .group-focus\:border-primary-900 {
+  border-color: undefined;
+}
+
+html .group:focus .group-focus\:border-primary-900:border-primary-900 {
+  border-color: rgba(194, 41, 41, 1);
 }
 
 html .prose-headings\:font-medium :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"] *))) {
