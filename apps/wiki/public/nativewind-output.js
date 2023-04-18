@@ -498,9 +498,6 @@ _NativeWindStyleSheet.create({
     ".text-black": {
       "color": "rgba(0, 0, 0, 1)"
     },
-    ".text-gray-300": {
-      "color": "rgba(211, 213, 218, 1)"
-    },
     ".text-gray-400": {
       "color": "rgba(143, 157, 176, 1)"
     },
@@ -549,6 +546,12 @@ _NativeWindStyleSheet.create({
     },
     "*)))": {
       "color": "#d3d5da"
+    },
+    ".text-blue-300": {
+      "color": "rgba(147, 197, 253, 1)"
+    },
+    ".text-gray-300": {
+      "color": "rgba(211, 213, 218, 1)"
     }
   },
   topics: {
