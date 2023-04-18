@@ -4,8 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "@novecirculos/env": "*",
     "@apollo/client": "^3.7.11",
-    "graphql": "^16.6.0"
+    "@novecirculos/env": "*",
+    "graphql": "^16.6.0",
+    "p-throttle": "^5.0.0"
   }
 }

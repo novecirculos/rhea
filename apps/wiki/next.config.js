@@ -8,6 +8,10 @@ const nextConfig = {
   // https://github.com/nandorojo/moti/issues/224
   // once that gets fixed, set this back to true
   reactStrictMode: false,
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
+  },
   transpilePackages: [
     'react-native',
     'react-native-web',
