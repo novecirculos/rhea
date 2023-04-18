@@ -40,7 +40,13 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
       </div>
 
       <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-auto h-full w-full overflow-auto">
-        {HTMLReactParser(data?.article?.content?.html as string, { replace })}
+        {data?.article?.content?.html &&
+          HTMLReactParser(data?.article?.content?.html, {
+            replace: (html) =>
+              replace({
+                domNode: html,
+              }),
+          })}
       </div>
     </div>
   )
