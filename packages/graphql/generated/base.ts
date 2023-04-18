@@ -31,6 +31,7 @@ export type Aggregate = {
 /** General articles on Nine Circles universe. */
 export type Article = Node & {
   __typename?: 'Article';
+  alias: Array<Scalars['String']>;
   category: ArticleCategory;
   content?: Maybe<ArticleContentRichText>;
   /** The time the document was created */
@@ -120,9 +121,12 @@ export type ArticleUpdatedByArgs = {
 /** Category of the article */
 export enum ArticleCategory {
   Cidade = 'Cidade',
+  Conhecimento = 'Conhecimento',
   Divindade = 'Divindade',
   Evento = 'Evento',
   Personagem = 'Personagem',
+  Raca = 'Raca',
+  Regiao = 'Regiao',
   Reino = 'Reino'
 }
 
@@ -169,6 +173,7 @@ export type ArticleContentRichTextReferencesArgs = {
 export type ArticleContentRichTextEmbeddedTypes = Article;
 
 export type ArticleCreateInput = {
+  alias?: InputMaybe<Array<Scalars['String']>>;
   category: ArticleCategory;
   content?: InputMaybe<Scalars['RichTextAST']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
@@ -212,6 +217,16 @@ export type ArticleManyWhereInput = {
   OR?: InputMaybe<Array<ArticleWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  /** Matches if the field array contains *all* items provided to the filter and order does match */
+  alias?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array contains *all* items provided to the filter */
+  alias_contains_all?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array does not contain any of the items provided to the filter */
+  alias_contains_none?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array contains at least one item provided to the filter */
+  alias_contains_some?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
+  alias_not?: InputMaybe<Array<Scalars['String']>>;
   category?: InputMaybe<ArticleCategory>;
   /** All values that are contained in given list. */
   category_in?: InputMaybe<Array<InputMaybe<ArticleCategory>>>;
@@ -353,6 +368,8 @@ export type ArticleManyWhereInput = {
 };
 
 export enum ArticleOrderByInput {
+  AliasAsc = 'alias_ASC',
+  AliasDesc = 'alias_DESC',
   CategoryAsc = 'category_ASC',
   CategoryDesc = 'category_DESC',
   CreatedAtAsc = 'createdAt_ASC',
@@ -372,6 +389,7 @@ export enum ArticleOrderByInput {
 }
 
 export type ArticleUpdateInput = {
+  alias?: InputMaybe<Array<Scalars['String']>>;
   category?: InputMaybe<ArticleCategory>;
   content?: InputMaybe<Scalars['RichTextAST']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
@@ -462,6 +480,16 @@ export type ArticleWhereInput = {
   OR?: InputMaybe<Array<ArticleWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  /** Matches if the field array contains *all* items provided to the filter and order does match */
+  alias?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array contains *all* items provided to the filter */
+  alias_contains_all?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array does not contain any of the items provided to the filter */
+  alias_contains_none?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array contains at least one item provided to the filter */
+  alias_contains_some?: InputMaybe<Array<Scalars['String']>>;
+  /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
+  alias_not?: InputMaybe<Array<Scalars['String']>>;
   category?: InputMaybe<ArticleCategory>;
   /** All values that are contained in given list. */
   category_in?: InputMaybe<Array<InputMaybe<ArticleCategory>>>;
@@ -618,6 +646,7 @@ export type ArticleWhereStageInput = {
 
 /** References Article record uniquely */
 export type ArticleWhereUniqueInput = {
+  alias?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
@@ -3645,19 +3674,29 @@ export type GetArticleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, createdAt: any, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
+export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
 export type GetArticleByTitleQueryVariables = Exact<{
   title?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetArticleByTitleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
+export type GetArticleByTitleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
-export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetArticlesQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug: string, category: ArticleCategory, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug: string, category: ArticleCategory, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+export type GetArticlesByCategoryQueryVariables = Exact<{
+  category?: InputMaybe<ArticleCategory>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetArticlesByCategoryQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 
 export const GetArticleBySlugDocument = gql`
@@ -3668,7 +3707,6 @@ export const GetArticleBySlugDocument = gql`
     category
     title
     universeDate
-    createdAt
     content {
       json
       markdown
@@ -3715,6 +3753,7 @@ export const GetArticleByTitleDocument = gql`
     slug
     category
     title
+    universeDate
     content {
       json
       markdown
@@ -3755,12 +3794,17 @@ export type GetArticleByTitleQueryHookResult = ReturnType<typeof useGetArticleBy
 export type GetArticleByTitleLazyQueryHookResult = ReturnType<typeof useGetArticleByTitleLazyQuery>;
 export type GetArticleByTitleQueryResult = Apollo.QueryResult<GetArticleByTitleQuery, GetArticleByTitleQueryVariables>;
 export const GetArticlesDocument = gql`
-    query GetArticles {
-  articles {
+    query GetArticles($skip: Int) {
+  articles(skip: $skip) {
     id
     title
     slug
     category
+    content {
+      json
+      markdown
+      html
+    }
     image {
       url
     }
@@ -3780,6 +3824,7 @@ export const GetArticlesDocument = gql`
  * @example
  * const { data, loading, error } = useGetArticlesQuery({
  *   variables: {
+ *      skip: // value for 'skip'
  *   },
  * });
  */
@@ -3794,3 +3839,51 @@ export function useGetArticlesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetArticlesQueryHookResult = ReturnType<typeof useGetArticlesQuery>;
 export type GetArticlesLazyQueryHookResult = ReturnType<typeof useGetArticlesLazyQuery>;
 export type GetArticlesQueryResult = Apollo.QueryResult<GetArticlesQuery, GetArticlesQueryVariables>;
+export const GetArticlesByCategoryDocument = gql`
+    query GetArticlesByCategory($category: ArticleCategory, $skip: Int) {
+  articles(where: {category: $category}, skip: $skip) {
+    id
+    slug
+    category
+    title
+    universeDate
+    content {
+      json
+      markdown
+      html
+    }
+    image {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetArticlesByCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetArticlesByCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticlesByCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticlesByCategoryQuery({
+ *   variables: {
+ *      category: // value for 'category'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useGetArticlesByCategoryQuery(baseOptions?: Apollo.QueryHookOptions<GetArticlesByCategoryQuery, GetArticlesByCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetArticlesByCategoryQuery, GetArticlesByCategoryQueryVariables>(GetArticlesByCategoryDocument, options);
+      }
+export function useGetArticlesByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticlesByCategoryQuery, GetArticlesByCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetArticlesByCategoryQuery, GetArticlesByCategoryQueryVariables>(GetArticlesByCategoryDocument, options);
+        }
+export type GetArticlesByCategoryQueryHookResult = ReturnType<typeof useGetArticlesByCategoryQuery>;
+export type GetArticlesByCategoryLazyQueryHookResult = ReturnType<typeof useGetArticlesByCategoryLazyQuery>;
+export type GetArticlesByCategoryQueryResult = Apollo.QueryResult<GetArticlesByCategoryQuery, GetArticlesByCategoryQueryVariables>;

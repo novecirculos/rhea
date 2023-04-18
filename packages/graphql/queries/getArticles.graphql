@@ -1,9 +1,14 @@
-query GetArticles {
-  articles {
+query GetArticles($skip: Int) {
+  articles(skip: $skip) {
     id
     title
     slug
     category
+    content {
+      json
+      markdown
+      html
+    }
     image {
       url
     }

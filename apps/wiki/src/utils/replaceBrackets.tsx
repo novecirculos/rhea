@@ -20,7 +20,17 @@ function slugify(text: string) {
   return text
 }
 
-export function replace(domNode: any) {
+export const extractFirstThreeLines = (htmlString: string) => {
+  const regex = /(<([^>]+)>)/gi
+  const strippedContent = htmlString.replace(regex, '')
+  const lines = strippedContent
+    .split('\n')
+    .filter((line) => line.trim() !== '')
+    .slice(0, 3)
+  return lines.join(' ')
+}
+
+export function replace({ domNode, noLinking }: any) {
   if (domNode.type === 'text' && /\[\[.*?\]\]/.test(domNode.data)) {
     const parts = domNode.data
       .split(/\[\[(.*?)\]\]/)
@@ -33,12 +43,16 @@ export function replace(domNode: any) {
 
         return (
           <Fragment key={i}>
-            <Link
-              className="hover:color-secondary-800 hover:underline"
-              href={`/article/${slug}`}
-            >
-              {part}
-            </Link>
+            {noLinking ? (
+              part
+            ) : (
+              <Link
+                className="hover:color-secondary-800 hover:underline"
+                href={`/article/${slug}`}
+              >
+                {part}
+              </Link>
+            )}
           </Fragment>
         )
       })

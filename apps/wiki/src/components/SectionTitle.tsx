@@ -30,7 +30,7 @@ export const SectionTitle = ({
         <h1 className="text-3xl font-bold leading-tight">{title}</h1>
       </div>
       <div className="flex">
-        {universeDate ? (
+        {universeDate && category === 'Evento' ? (
           <h2 className="color-secondary-700 font-secondary text-xl font-semibold">
             <Link
               className="hover:underline"

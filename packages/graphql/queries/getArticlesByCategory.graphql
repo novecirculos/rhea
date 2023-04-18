@@ -1,0 +1,17 @@
+query GetArticlesByCategory($category: ArticleCategory, $skip: Int) {
+  articles(where: { category: $category }, skip: $skip) {
+    id
+    slug
+    category
+    title
+    universeDate
+    content {
+      json
+      markdown
+      html
+    }
+    image {
+      url
+    }
+  }
+}

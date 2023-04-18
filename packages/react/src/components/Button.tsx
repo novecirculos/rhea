@@ -11,13 +11,14 @@ export const Button = ({
   as: Component = 'button',
   variant = 'primary',
   size = 'sm',
+  className,
   ...props
 }: ButtonProps) => (
   <Component
-    className={`flex items-center justify-center gap-2 rounded-full border-2 px-4 py-2 text-sm font-medium focus:outline-none ${
+    className={`${className} flex items-center justify-center gap-2 rounded px-4 py-2 text-sm font-medium focus:outline-none ${
       variant === 'primary'
-        ? 'bg-primary hover:bg-primary800 text-white'
-        : 'bg-secondary hover:bg-secondary800 text-black'
+        ? 'bg-primary-900 border-primary-900 text-white '
+        : 'bg-secondary-900 border-secondary-900 text-black '
     } ${size === 'sm' ? 'h-10' : 'h-12'}`}
     {...props}
   >

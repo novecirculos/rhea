@@ -112,3 +112,38 @@ export const ssrGetArticles = {
       withPage: withPageGetArticles,
       usePage: useGetArticles,
     }
+export async function getServerPageGetArticlesByCategory
+    (options: Omit<Apollo.QueryOptions<Types.GetArticlesByCategoryQueryVariables>, 'query'>, ctx: ApolloClientContext ){
+        const apolloClient = getApolloClient(ctx);
+        
+        const data = await apolloClient.query<Types.GetArticlesByCategoryQuery>({ ...options, query: Operations.GetArticlesByCategoryDocument });
+        
+        const apolloState = apolloClient.cache.extract();
+
+        return {
+            props: {
+                apolloState: apolloState,
+                data: data?.data,
+                error: data?.error ?? data?.errors ?? null,
+            },
+        };
+      }
+export const useGetArticlesByCategory = (
+  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticlesByCategoryQuery, Types.GetArticlesByCategoryQueryVariables>) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+  return useQuery(Operations.GetArticlesByCategoryDocument, options);
+};
+export type PageGetArticlesByCategoryComp = React.FC<{data?: Types.GetArticlesByCategoryQuery, error?: Apollo.ApolloError}>;
+export const withPageGetArticlesByCategory = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticlesByCategoryQuery, Types.GetArticlesByCategoryQueryVariables>) => (WrappedComponent:PageGetArticlesByCategoryComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.GetArticlesByCategoryDocument, options)    
+                return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrGetArticlesByCategory = {
+      getServerPage: getServerPageGetArticlesByCategory,
+      withPage: withPageGetArticlesByCategory,
+      usePage: useGetArticlesByCategory,
+    }

@@ -18,7 +18,7 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
         <Image
           src={
             data?.article?.image?.url ||
-            'https://media.graphassets.com/28RChkjeT1OHgOH4u5T8'
+            'https://media.graphassets.com/02xw7YgXRtKImvZ5Xlo4'
           }
           alt={data?.article?.title as string}
           fill
@@ -39,7 +39,7 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
         <div className="bg-blackAlpha-100 absolute top-0 left-0 h-full w-full"></div>
       </div>
 
-      <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 z-10 mt-auto h-full w-full overflow-auto">
+      <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-auto h-full w-full overflow-auto">
         {HTMLReactParser(data?.article?.content?.html as string, { replace })}
       </div>
     </div>
@@ -61,7 +61,7 @@ export const getStaticProps: GetServerSideProps = async ({ params, req }) => {
 
   return {
     props: res.props,
-    revalidate: 300, // 5 mins
+    revalidate: 10,
   }
 }
 
