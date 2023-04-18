@@ -61,7 +61,7 @@ export const getStaticProps: GetServerSideProps = async ({ params, req }) => {
 
   return {
     props: res.props,
-    revalidate: 60 * 60 * 24, // 24 hours
+    // revalidate: 60 * 60 * 24, // 24 hours
   }
 }
 
