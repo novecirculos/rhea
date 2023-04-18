@@ -23,7 +23,7 @@ export const {
   config,
 } = createStitches({
   theme: {
-    colors,
+    // colors,
     fonts,
     fontWeights,
     lineHeights,

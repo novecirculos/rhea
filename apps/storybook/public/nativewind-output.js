@@ -249,6 +249,12 @@ _NativeWindStyleSheet.create({
     ".relative": {
       "position": "relative"
     },
+    ".mr-1": {
+      "marginRight": 4
+    },
+    ".mt-1": {
+      "marginTop": 4
+    },
     ".flex": {
       "display": "flex"
     },
@@ -261,20 +267,49 @@ _NativeWindStyleSheet.create({
     ".h-12": {
       "height": 48
     },
+    ".h-5": {
+      "height": 20
+    },
+    ".w-5": {
+      "width": 20
+    },
+    ".w-full": {
+      "width": "100%"
+    },
+    ".max-w-full": {
+      "maxWidth": "100%"
+    },
+    ".flex-1": {
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "flexBasis": "0%"
+    },
     ".items-center": {
       "alignItems": "center"
+    },
+    ".items-baseline": {
+      "alignItems": "baseline"
     },
     ".justify-center": {
       "justifyContent": "center"
     },
+    ".self-center": {
+      "alignSelf": "center"
+    },
     ".truncate": {
       "overflow": "hidden"
     },
-    ".rounded-full": {
-      "borderTopLeftRadius": 9999,
-      "borderTopRightRadius": 9999,
-      "borderBottomRightRadius": 9999,
-      "borderBottomLeftRadius": 9999
+    ".rounded": {
+      "borderTopLeftRadius": "0.25rem",
+      "borderTopRightRadius": "0.25rem",
+      "borderBottomRightRadius": "0.25rem",
+      "borderBottomLeftRadius": "0.25rem"
+    },
+    ".rounded-sm": {
+      "borderTopLeftRadius": "0.125rem",
+      "borderTopRightRadius": "0.125rem",
+      "borderBottomRightRadius": "0.125rem",
+      "borderBottomLeftRadius": "0.125rem"
     },
     ".border": {
       "borderTopWidth": 1,
@@ -282,11 +317,47 @@ _NativeWindStyleSheet.create({
       "borderBottomWidth": 1,
       "borderLeftWidth": 1
     },
-    ".border-2": {
-      "borderTopWidth": 2,
-      "borderRightWidth": 2,
-      "borderBottomWidth": 2,
-      "borderLeftWidth": 2
+    ".border-0": {
+      "borderTopWidth": 0,
+      "borderRightWidth": 0,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0
+    },
+    ".border-gray-900": {
+      "borderTopColor": "rgba(19, 29, 40, 1)",
+      "borderRightColor": "rgba(19, 29, 40, 1)",
+      "borderBottomColor": "rgba(19, 29, 40, 1)",
+      "borderLeftColor": "rgba(19, 29, 40, 1)"
+    },
+    ".border-primary-900": {
+      "borderTopColor": "rgba(194, 41, 41, 1)",
+      "borderRightColor": "rgba(194, 41, 41, 1)",
+      "borderBottomColor": "rgba(194, 41, 41, 1)",
+      "borderLeftColor": "rgba(194, 41, 41, 1)"
+    },
+    ".border-secondary-900": {
+      "borderTopColor": "rgba(221, 148, 76, 1)",
+      "borderRightColor": "rgba(221, 148, 76, 1)",
+      "borderBottomColor": "rgba(221, 148, 76, 1)",
+      "borderLeftColor": "rgba(221, 148, 76, 1)"
+    },
+    ".bg-gray-900": {
+      "backgroundColor": "rgba(19, 29, 40, 1)"
+    },
+    ".bg-primary-900": {
+      "backgroundColor": "rgba(194, 41, 41, 1)"
+    },
+    ".bg-secondary-900": {
+      "backgroundColor": "rgba(221, 148, 76, 1)"
+    },
+    ".bg-transparent": {
+      "backgroundColor": "transparent"
+    },
+    ".p-2": {
+      "paddingTop": 8,
+      "paddingRight": 8,
+      "paddingBottom": 8,
+      "paddingLeft": 8
     },
     ".px-4": {
       "paddingLeft": 16,
@@ -311,8 +382,26 @@ _NativeWindStyleSheet.create({
     ".text-black": {
       "color": "rgba(0, 0, 0, 1)"
     },
+    ".text-gray-400": {
+      "color": "rgba(143, 157, 176, 1)"
+    },
     ".text-white": {
       "color": "rgba(255, 255, 255, 1)"
+    },
+    ".placeholder-gray-400": {
+      "color": "rgba(143, 157, 176, 1)"
+    },
+    ".opacity-50": {
+      "opacity": 0.5
+    },
+    ".placeholder:text-sm": {
+      "fontSize": "0.875rem"
+    },
+    ".group-focus:border-primary-900:border-primary-900": {
+      "borderTopColor": "rgba(194, 41, 41, 1)",
+      "borderRightColor": "rgba(194, 41, 41, 1)",
+      "borderBottomColor": "rgba(194, 41, 41, 1)",
+      "borderLeftColor": "rgba(194, 41, 41, 1)"
     }
   }
 });
