@@ -32,7 +32,7 @@ export const extractFirstThreeLines = (htmlString: string) => {
 }
 
 interface ReplaceParams {
-  domNode: DOMNode
+  domNode: any
   noLinking?: boolean
 }
 
