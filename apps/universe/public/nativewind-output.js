@@ -591,13 +591,10 @@ _NativeWindStyleSheet.create({
     },
     "50%@1": {
       "opacity": 0.5
-    },
-    "50%@2": {
-      "opacity": 0.5
     }
   },
   atRules: {
-    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]]]
+    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]]]
   },
   topics: {
     ".min-h-screen": ["height"]

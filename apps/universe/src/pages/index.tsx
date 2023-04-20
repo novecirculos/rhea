@@ -18,11 +18,19 @@ export default function Home() {
       </Link>
       <hr />
       <span>Ou</span>
-      <Link className="w-full" href="/api/auth/login">
-        <Button className="w-full flex-1" variant="secondary">
-          Login
-        </Button>
-      </Link>
+      {user ? (
+        <Link className="w-full" href="/api/auth/logout">
+          <Button className="w-full flex-1" variant="secondary">
+            Logout
+          </Button>
+        </Link>
+      ) : (
+        <Link className="w-full" href="/api/auth/login">
+          <Button className="w-full flex-1" variant="secondary">
+            Login
+          </Button>
+        </Link>
+      )}
     </div>
   )
 }

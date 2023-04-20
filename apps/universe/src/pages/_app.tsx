@@ -38,12 +38,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Nove Círculos - Wiki</title>
+        <title>Universo - Nove Círculos</title>
         <meta
           name="description"
           content="Nove Círculos é um universo de fantasia"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/public/favicon.ico" />
       </Head>
       <UserProvider>
         {isLoading ? <Loader /> : <Component {...pageProps} />}
