@@ -12,6 +12,7 @@ export const Button = ({
   variant = 'primary',
   size = 'sm',
   className,
+  disabled,
   ...props
 }: ButtonProps) => (
   <Component
@@ -19,7 +20,9 @@ export const Button = ({
       variant === 'primary'
         ? 'bg-primary-900 border-primary-900 text-white '
         : 'bg-secondary-900 border-secondary-900 text-black '
-    } ${size === 'sm' ? 'h-10' : 'h-12'}`}
+    } ${size === 'sm' ? 'h-10' : 'h-12'} ${
+      disabled && 'cursor-not-allowed bg-gray-400 text-black'
+    }`}
     {...props}
   >
     {children}

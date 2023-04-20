@@ -1,3 +1,4 @@
+import { DOMNode } from 'html-react-parser'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
@@ -30,7 +31,12 @@ export const extractFirstThreeLines = (htmlString: string) => {
   return lines.join(' ')
 }
 
-export function replace({ domNode, noLinking }: any) {
+interface ReplaceParams {
+  domNode: DOMNode
+  noLinking?: boolean
+}
+
+export function replace({ domNode, noLinking = false }: ReplaceParams) {
   if (domNode.type === 'text' && /\[\[.*?\]\]/.test(domNode.data)) {
     const parts = domNode.data
       .split(/\[\[(.*?)\]\]/)
@@ -48,7 +54,7 @@ export function replace({ domNode, noLinking }: any) {
             ) : (
               <Link
                 className="hover:color-secondary-800 hover:underline"
-                href={`/article/${slug}`}
+                href={`/articles/${slug}`}
               >
                 {part}
               </Link>

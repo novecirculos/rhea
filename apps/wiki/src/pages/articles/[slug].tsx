@@ -39,12 +39,12 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
         <div className="bg-blackAlpha-100 absolute top-0 left-0 h-full w-full"></div>
       </div>
 
-      <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-auto h-full w-full overflow-auto">
+      <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-4 h-full w-full overflow-auto px-6">
         {data?.article?.content?.html &&
           HTMLReactParser(data?.article?.content?.html, {
-            replace: (html) =>
+            replace: (domNode) =>
               replace({
-                domNode: html,
+                domNode,
               }),
           })}
       </div>
@@ -67,7 +67,7 @@ export const getStaticProps: GetServerSideProps = async ({ params, req }) => {
 
   return {
     props: res.props,
-    // revalidate: 10,
+    revalidate: 60 * 60,
   }
 }
 

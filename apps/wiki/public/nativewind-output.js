@@ -277,14 +277,28 @@ _NativeWindStyleSheet.create({
       "marginLeft": "auto",
       "marginRight": "auto"
     },
+    ".my-2": {
+      "marginTop": 8,
+      "marginBottom": 8
+    },
+    ".my-auto": {
+      "marginTop": "auto",
+      "marginBottom": "auto"
+    },
     ".mb-2": {
       "marginBottom": 8
+    },
+    ".mb-4": {
+      "marginBottom": 16
     },
     ".mr-1": {
       "marginRight": 4
     },
     ".mt-1": {
       "marginTop": 4
+    },
+    ".mt-4": {
+      "marginTop": 16
     },
     ".mt-7": {
       "marginTop": 28
@@ -304,6 +318,9 @@ _NativeWindStyleSheet.create({
     ".h-12": {
       "height": 48
     },
+    ".h-4": {
+      "height": 16
+    },
     ".h-5": {
       "height": 20
     },
@@ -313,11 +330,20 @@ _NativeWindStyleSheet.create({
     ".min-h-screen": {
       "minHeight": 100
     },
+    ".w-1/2": {
+      "width": "50%"
+    },
     ".w-1/3": {
       "width": "33.333333%"
     },
+    ".w-1/4": {
+      "width": "25%"
+    },
     ".w-2/3": {
       "width": "66.666667%"
+    },
+    ".w-3/4": {
+      "width": "75%"
     },
     ".w-5": {
       "width": 20
@@ -332,6 +358,9 @@ _NativeWindStyleSheet.create({
       "flexGrow": 1,
       "flexShrink": 1,
       "flexBasis": "0%"
+    },
+    "50%@0": {
+      "opacity": 0.5
     },
     ".flex-row": {
       "flexDirection": "row"
@@ -415,6 +444,12 @@ _NativeWindStyleSheet.create({
     ".bg-blackAlpha-100": {
       "backgroundColor": "rgba(0, 0, 0, 0.06)"
     },
+    ".bg-gray-400": {
+      "backgroundColor": "rgba(143, 157, 176, 1)"
+    },
+    ".bg-gray-600": {
+      "backgroundColor": "rgba(47, 60, 77, 1)"
+    },
     ".bg-gray-700": {
       "backgroundColor": "rgba(31, 43, 55, 1)"
     },
@@ -451,6 +486,10 @@ _NativeWindStyleSheet.create({
     ".px-4": {
       "paddingLeft": 16,
       "paddingRight": 16
+    },
+    ".px-6": {
+      "paddingLeft": 24,
+      "paddingRight": 24
     },
     ".py-2": {
       "paddingTop": 8,
@@ -550,6 +589,9 @@ _NativeWindStyleSheet.create({
     "*)))": {
       "color": "#d3d5da"
     }
+  },
+  atRules: {
+    "50%": [[["keyframes", "pulse"]]]
   },
   topics: {
     ".min-h-screen": ["height"]

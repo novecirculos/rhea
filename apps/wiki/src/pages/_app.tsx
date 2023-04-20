@@ -8,6 +8,8 @@ import '../styles/global.css'
 import { AppProps } from 'next/app'
 import Loader from '../components/Loader'
 import { useRouter } from 'next/router'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
+import { Analytics } from '@vercel/analytics/react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false)
@@ -39,11 +41,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Nove Círculos - Wiki</title>
         <meta
           name="description"
-          content="Expo + Next.js with Solito. By Fernando Rojo."
+          content="Nove Círculos é um universo de fantasia"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <>{isLoading ? <Loader /> : <Component {...pageProps} />}</>
+      <UserProvider>
+        {isLoading ? <Loader /> : <Component {...pageProps} />}
+        <Analytics />
+      </UserProvider>
     </>
   )
 }

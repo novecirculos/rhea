@@ -12,13 +12,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.11",
+    "@auth0/nextjs-auth0": "^2.5.0",
+    "@expo/next-adapter": "5.0.2",
     "@novecirculos/graphql": "*",
     "@novecirculos/react": "*",
     "@novecirculos/tokens": "*",
-    "@apollo/client": "^3.7.11",
-    "@expo/next-adapter": "5.0.2",
     "@react-spring/web": "^9.7.2",
     "@tailwindcss/typography": "^0.5.9",
+    "@vercel/analytics": "^1.0.0",
     "html-react-parser": "^3.0.15",
     "nativewind": "^2.0.11",
     "next": "13.2.0",
