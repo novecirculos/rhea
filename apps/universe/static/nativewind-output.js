@@ -711,10 +711,22 @@ _NativeWindStyleSheet.create({
     },
     "50%@41": {
       "opacity": 0.5
+    },
+    "50%@42": {
+      "opacity": 0.5
+    },
+    "50%@43": {
+      "opacity": 0.5
+    },
+    "50%@44": {
+      "opacity": 0.5
+    },
+    "50%@45": {
+      "opacity": 0.5
     }
   },
   atRules: {
-    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]]]
+    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]]]
   },
   topics: {
     ".min-h-screen": ["height"]
