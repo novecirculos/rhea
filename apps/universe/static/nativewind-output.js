@@ -591,10 +591,130 @@ _NativeWindStyleSheet.create({
     },
     "50%@1": {
       "opacity": 0.5
+    },
+    "50%@2": {
+      "opacity": 0.5
+    },
+    "50%@3": {
+      "opacity": 0.5
+    },
+    "50%@4": {
+      "opacity": 0.5
+    },
+    "50%@5": {
+      "opacity": 0.5
+    },
+    "50%@6": {
+      "opacity": 0.5
+    },
+    "50%@7": {
+      "opacity": 0.5
+    },
+    "50%@8": {
+      "opacity": 0.5
+    },
+    "50%@9": {
+      "opacity": 0.5
+    },
+    "50%@10": {
+      "opacity": 0.5
+    },
+    "50%@11": {
+      "opacity": 0.5
+    },
+    "50%@12": {
+      "opacity": 0.5
+    },
+    "50%@13": {
+      "opacity": 0.5
+    },
+    "50%@14": {
+      "opacity": 0.5
+    },
+    "50%@15": {
+      "opacity": 0.5
+    },
+    "50%@16": {
+      "opacity": 0.5
+    },
+    "50%@17": {
+      "opacity": 0.5
+    },
+    "50%@18": {
+      "opacity": 0.5
+    },
+    "50%@19": {
+      "opacity": 0.5
+    },
+    "50%@20": {
+      "opacity": 0.5
+    },
+    "50%@21": {
+      "opacity": 0.5
+    },
+    "50%@22": {
+      "opacity": 0.5
+    },
+    "50%@23": {
+      "opacity": 0.5
+    },
+    "50%@24": {
+      "opacity": 0.5
+    },
+    "50%@25": {
+      "opacity": 0.5
+    },
+    "50%@26": {
+      "opacity": 0.5
+    },
+    "50%@27": {
+      "opacity": 0.5
+    },
+    "50%@28": {
+      "opacity": 0.5
+    },
+    "50%@29": {
+      "opacity": 0.5
+    },
+    "50%@30": {
+      "opacity": 0.5
+    },
+    "50%@31": {
+      "opacity": 0.5
+    },
+    "50%@32": {
+      "opacity": 0.5
+    },
+    "50%@33": {
+      "opacity": 0.5
+    },
+    "50%@34": {
+      "opacity": 0.5
+    },
+    "50%@35": {
+      "opacity": 0.5
+    },
+    "50%@36": {
+      "opacity": 0.5
+    },
+    "50%@37": {
+      "opacity": 0.5
+    },
+    "50%@38": {
+      "opacity": 0.5
+    },
+    "50%@39": {
+      "opacity": 0.5
+    },
+    "50%@40": {
+      "opacity": 0.5
+    },
+    "50%@41": {
+      "opacity": 0.5
     }
   },
   atRules: {
-    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]]]
+    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]]]
   },
   topics: {
     ".min-h-screen": ["height"]

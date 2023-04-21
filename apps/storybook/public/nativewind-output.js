@@ -341,6 +341,9 @@ _NativeWindStyleSheet.create({
       "borderBottomColor": "rgba(221, 148, 76, 1)",
       "borderLeftColor": "rgba(221, 148, 76, 1)"
     },
+    ".bg-gray-400": {
+      "backgroundColor": "rgba(143, 157, 176, 1)"
+    },
     ".bg-gray-900": {
       "backgroundColor": "rgba(19, 29, 40, 1)"
     },

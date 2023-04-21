@@ -42,41 +42,6 @@ export const ssrGetArticleBySlug = {
       withPage: withPageGetArticleBySlug,
       usePage: useGetArticleBySlug,
     }
-export async function getServerPageGetArticleByTitle
-    (options: Omit<Apollo.QueryOptions<Types.GetArticleByTitleQueryVariables>, 'query'>, ctx: ApolloClientContext ){
-        const apolloClient = getApolloClient(ctx);
-        
-        const data = await apolloClient.query<Types.GetArticleByTitleQuery>({ ...options, query: Operations.GetArticleByTitleDocument });
-        
-        const apolloState = apolloClient.cache.extract();
-
-        return {
-            props: {
-                apolloState: apolloState,
-                data: data?.data,
-                error: data?.error ?? data?.errors ?? null,
-            },
-        };
-      }
-export const useGetArticleByTitle = (
-  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticleByTitleQuery, Types.GetArticleByTitleQueryVariables>) => {
-  const router = useRouter();
-  const options = optionsFunc ? optionsFunc(router) : {};
-  return useQuery(Operations.GetArticleByTitleDocument, options);
-};
-export type PageGetArticleByTitleComp = React.FC<{data?: Types.GetArticleByTitleQuery, error?: Apollo.ApolloError}>;
-export const withPageGetArticleByTitle = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticleByTitleQuery, Types.GetArticleByTitleQueryVariables>) => (WrappedComponent:PageGetArticleByTitleComp) : NextPage  => (props) => {
-                const router = useRouter()
-                const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.GetArticleByTitleDocument, options)    
-                return <WrappedComponent {...props} data={data} error={error} /> ;
-                   
-            }; 
-export const ssrGetArticleByTitle = {
-      getServerPage: getServerPageGetArticleByTitle,
-      withPage: withPageGetArticleByTitle,
-      usePage: useGetArticleByTitle,
-    }
 export async function getServerPageGetArticles
     (options: Omit<Apollo.QueryOptions<Types.GetArticlesQueryVariables>, 'query'>, ctx: ApolloClientContext ){
         const apolloClient = getApolloClient(ctx);
@@ -146,4 +111,39 @@ export const ssrGetArticlesByCategory = {
       getServerPage: getServerPageGetArticlesByCategory,
       withPage: withPageGetArticlesByCategory,
       usePage: useGetArticlesByCategory,
+    }
+export async function getServerPageGetArticlesByTitle
+    (options: Omit<Apollo.QueryOptions<Types.GetArticlesByTitleQueryVariables>, 'query'>, ctx: ApolloClientContext ){
+        const apolloClient = getApolloClient(ctx);
+        
+        const data = await apolloClient.query<Types.GetArticlesByTitleQuery>({ ...options, query: Operations.GetArticlesByTitleDocument });
+        
+        const apolloState = apolloClient.cache.extract();
+
+        return {
+            props: {
+                apolloState: apolloState,
+                data: data?.data,
+                error: data?.error ?? data?.errors ?? null,
+            },
+        };
+      }
+export const useGetArticlesByTitle = (
+  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticlesByTitleQuery, Types.GetArticlesByTitleQueryVariables>) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+  return useQuery(Operations.GetArticlesByTitleDocument, options);
+};
+export type PageGetArticlesByTitleComp = React.FC<{data?: Types.GetArticlesByTitleQuery, error?: Apollo.ApolloError}>;
+export const withPageGetArticlesByTitle = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticlesByTitleQuery, Types.GetArticlesByTitleQueryVariables>) => (WrappedComponent:PageGetArticlesByTitleComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.GetArticlesByTitleDocument, options)    
+                return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrGetArticlesByTitle = {
+      getServerPage: getServerPageGetArticlesByTitle,
+      withPage: withPageGetArticlesByTitle,
+      usePage: useGetArticlesByTitle,
     }

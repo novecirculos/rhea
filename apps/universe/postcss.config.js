@@ -3,7 +3,7 @@ module.exports = {
   plugins: {
     tailwindcss: {},
     'nativewind/postcss': {
-      output: './public/nativewind-output.js',
+      output: './static/nativewind-output.js',
     },
   },
 }

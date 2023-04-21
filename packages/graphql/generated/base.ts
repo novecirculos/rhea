@@ -3676,13 +3676,6 @@ export type GetArticleBySlugQueryVariables = Exact<{
 
 export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
-export type GetArticleByTitleQueryVariables = Exact<{
-  title?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type GetArticleByTitleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
-
 export type GetArticlesQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']>;
 }>;
@@ -3697,6 +3690,13 @@ export type GetArticlesByCategoryQueryVariables = Exact<{
 
 
 export type GetArticlesByCategoryQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+export type GetArticlesByTitleQueryVariables = Exact<{
+  title?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetArticlesByTitleQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 
 export const GetArticleBySlugDocument = gql`
@@ -3746,53 +3746,6 @@ export function useGetArticleBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetArticleBySlugQueryHookResult = ReturnType<typeof useGetArticleBySlugQuery>;
 export type GetArticleBySlugLazyQueryHookResult = ReturnType<typeof useGetArticleBySlugLazyQuery>;
 export type GetArticleBySlugQueryResult = Apollo.QueryResult<GetArticleBySlugQuery, GetArticleBySlugQueryVariables>;
-export const GetArticleByTitleDocument = gql`
-    query GetArticleByTitle($title: String) {
-  article(where: {title: $title}) {
-    id
-    slug
-    category
-    title
-    universeDate
-    content {
-      json
-      markdown
-      html
-    }
-    image {
-      url
-    }
-  }
-}
-    `;
-
-/**
- * __useGetArticleByTitleQuery__
- *
- * To run a query within a React component, call `useGetArticleByTitleQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetArticleByTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetArticleByTitleQuery({
- *   variables: {
- *      title: // value for 'title'
- *   },
- * });
- */
-export function useGetArticleByTitleQuery(baseOptions?: Apollo.QueryHookOptions<GetArticleByTitleQuery, GetArticleByTitleQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetArticleByTitleQuery, GetArticleByTitleQueryVariables>(GetArticleByTitleDocument, options);
-      }
-export function useGetArticleByTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticleByTitleQuery, GetArticleByTitleQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetArticleByTitleQuery, GetArticleByTitleQueryVariables>(GetArticleByTitleDocument, options);
-        }
-export type GetArticleByTitleQueryHookResult = ReturnType<typeof useGetArticleByTitleQuery>;
-export type GetArticleByTitleLazyQueryHookResult = ReturnType<typeof useGetArticleByTitleLazyQuery>;
-export type GetArticleByTitleQueryResult = Apollo.QueryResult<GetArticleByTitleQuery, GetArticleByTitleQueryVariables>;
 export const GetArticlesDocument = gql`
     query GetArticles($skip: Int) {
   articles(skip: $skip) {
@@ -3887,3 +3840,50 @@ export function useGetArticlesByCategoryLazyQuery(baseOptions?: Apollo.LazyQuery
 export type GetArticlesByCategoryQueryHookResult = ReturnType<typeof useGetArticlesByCategoryQuery>;
 export type GetArticlesByCategoryLazyQueryHookResult = ReturnType<typeof useGetArticlesByCategoryLazyQuery>;
 export type GetArticlesByCategoryQueryResult = Apollo.QueryResult<GetArticlesByCategoryQuery, GetArticlesByCategoryQueryVariables>;
+export const GetArticlesByTitleDocument = gql`
+    query GetArticlesByTitle($title: String) {
+  articles(where: {_search: $title}) {
+    id
+    slug
+    category
+    title
+    universeDate
+    content {
+      json
+      markdown
+      html
+    }
+    image {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetArticlesByTitleQuery__
+ *
+ * To run a query within a React component, call `useGetArticlesByTitleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticlesByTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticlesByTitleQuery({
+ *   variables: {
+ *      title: // value for 'title'
+ *   },
+ * });
+ */
+export function useGetArticlesByTitleQuery(baseOptions?: Apollo.QueryHookOptions<GetArticlesByTitleQuery, GetArticlesByTitleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetArticlesByTitleQuery, GetArticlesByTitleQueryVariables>(GetArticlesByTitleDocument, options);
+      }
+export function useGetArticlesByTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticlesByTitleQuery, GetArticlesByTitleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetArticlesByTitleQuery, GetArticlesByTitleQueryVariables>(GetArticlesByTitleDocument, options);
+        }
+export type GetArticlesByTitleQueryHookResult = ReturnType<typeof useGetArticlesByTitleQuery>;
+export type GetArticlesByTitleLazyQueryHookResult = ReturnType<typeof useGetArticlesByTitleLazyQuery>;
+export type GetArticlesByTitleQueryResult = Apollo.QueryResult<GetArticlesByTitleQuery, GetArticlesByTitleQueryVariables>;

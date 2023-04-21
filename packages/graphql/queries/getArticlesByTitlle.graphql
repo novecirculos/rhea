@@ -1,5 +1,5 @@
-query GetArticleByTitle($title: String) {
-  article(where: { title: $title }) {
+query GetArticlesByTitle($title: String) {
+  articles(where: { _search: $title }) {
     id
     slug
     category

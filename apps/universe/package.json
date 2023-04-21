@@ -6,7 +6,7 @@
     "node": "^16"
   },
   "scripts": {
-    "dev": "npx tailwindcss -i src/styles/global.css -o ./public/tailwind.css --postcss postcss.config.js && next dev",
+    "dev": "npx tailwindcss -i src/styles/global.css -o ./static/tailwind.css --postcss postcss.config.js && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

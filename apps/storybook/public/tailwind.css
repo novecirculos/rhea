@@ -556,6 +556,10 @@ html .border-secondary-900 {
   border-color: rgba(221, 148, 76, 1);
 }
 
+html .bg-gray-400 {
+  background-color: rgba(143, 157, 176, 1);
+}
+
 html .bg-gray-900 {
   background-color: rgba(19, 29, 40, 1);
 }

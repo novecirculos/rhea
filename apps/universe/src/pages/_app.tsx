@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="description"
           content="Nove Círculos é um universo de fantasia"
         />
-        <link rel="icon" href="/public/favicon.ico" />
+        <link rel="icon" href="/static/favicon.ico" />
       </Head>
       <UserProvider>
         {isLoading ? <Loader /> : <Component {...pageProps} />}

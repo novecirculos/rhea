@@ -4,10 +4,10 @@ import {
   ArticleCategory,
   GetArticlesQuery,
   ssrGetArticlesByCategory,
-  ssrGetArticleByTitle,
+  ssrGetArticlesByTitle,
 } from '@novecirculos/graphql'
 import { Button, TextInput } from '@novecirculos/react'
-import { useCallback, useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import ShimmerLoading from '../../components/ShimmerLoading'
 import { Card } from '../../components/Card'
@@ -27,9 +27,9 @@ const Home = () => {
       },
     }))
 
-  const { fetchMore: fetchByTitle } = ssrGetArticleByTitle.usePage()
+  const { fetchMore: fetchByTitle } = ssrGetArticlesByTitle.usePage()
 
-  const { data, fetchMore } = ssrGetArticles.usePage(() => ({
+  const { fetchMore } = ssrGetArticles.usePage(() => ({
     variables: {
       skip,
     },
@@ -91,34 +91,33 @@ const Home = () => {
     setLoading(false)
   }
 
-  const getArticleByTitle = async () => {
+  const getArticlesByTitle = async (e: FormEvent) => {
+    e.preventDefault()
     const { data } = await fetchByTitle({
       variables: {
         title,
       },
     })
 
-    setArticles([data.article as any])
+    setArticles(data.articles)
   }
 
   return (
     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-4 p-6">
-      <section className="flex items-center justify-between">
+      <form
+        onSubmit={getArticlesByTitle}
+        className="flex items-center justify-between"
+      >
         <TextInput
           onChange={(e) => setTitle(e.target.value)}
           className="pr-4"
           label="Pesquise por um artigo"
           placeholder="Exemplo: Kiverlia"
         />
-        <Button
-          onClick={getArticleByTitle}
-          className="mt-7"
-          size="sm"
-          variant="primary"
-        >
+        <Button type="submit" className="mt-7" size="sm" variant="primary">
           <FiSearch /> Pesquisar
         </Button>
-      </section>
+      </form>
       <h1 className="text-3xl font-medium text-white">Artigos</h1>
       <div className="no-scrollbar flex flex-row gap-4 overflow-hidden overflow-x-auto whitespace-nowrap">
         {categories.map((category) => (
@@ -135,7 +134,7 @@ const Home = () => {
         <ShimmerLoading count={3} />
       ) : (
         articles.map((article) => {
-          return <Card key={article.id} article={article} />
+          if (article) return <Card key={article.id} article={article} />
         })
       )}
       <section className="flex flex-row justify-between">
