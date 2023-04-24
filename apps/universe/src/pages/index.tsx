@@ -2,16 +2,19 @@ import { Button } from '@novecirculos/react'
 import { Text } from '@novecirculos/react'
 import Link from 'next/link'
 import { useUser } from '@auth0/nextjs-auth0/client'
+import { api } from '~/utils/api'
 
 export default function Home() {
   const { user } = useUser()
 
-  console.log(user)
+  const home = api.example.hello.useQuery({
+    text: user?.name as string,
+  })
 
   return (
     <div className="mx-auto my-auto flex max-w-xl flex-col items-center justify-center gap-2">
       <Text as="h1" size="4xl">
-        Bem vindo!
+        {home.data?.greeting}
       </Text>
       <Link className="w-full" href="/articles">
         <Button className="w-full flex-1">Ler artigos</Button>

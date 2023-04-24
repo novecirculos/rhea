@@ -5,7 +5,7 @@ import {
   withApollo,
 } from '@novecirculos/graphql'
 import { GetServerSideProps, GetStaticPaths } from 'next'
-import HTMLReactParser, { DOMNode } from 'html-react-parser'
+import HTMLReactParser from 'html-react-parser'
 import { replace } from '../../utils/replaceBrackets'
 import Image from 'next/image'
 import { FiChevronDown } from 'react-icons/fi'
@@ -22,7 +22,7 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
           }
           alt={data?.article?.title as string}
           fill
-          className="absolute top-0 left-0 h-full w-full object-cover"
+          className="absolute left-0 top-0 h-full w-full object-cover"
         />
 
         <div className="absolute bottom-4 left-0 right-0 z-50 text-center">
@@ -36,7 +36,7 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
             <FiChevronDown className="text-secondary-900 animate-bounce" />
           </span>
         </div>
-        <div className="bg-blackAlpha-100 absolute top-0 left-0 h-full w-full"></div>
+        <div className="bg-blackAlpha-100 absolute left-0 top-0 h-full w-full"></div>
       </div>
 
       <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-4 h-full w-full overflow-auto px-6">

@@ -1,4 +1,6 @@
-const { withExpo } = require('@expo/next-adapter')
+import { withExpo } from '@expo/next-adapter'
+
+await import('./src/env.mjs')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -28,4 +30,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withExpo(nextConfig)
+export default withExpo(nextConfig)
