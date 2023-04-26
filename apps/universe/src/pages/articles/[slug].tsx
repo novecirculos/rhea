@@ -10,6 +10,7 @@ import { replace } from '../../utils/replaceBrackets'
 import Image from 'next/image'
 import { FiChevronDown } from 'react-icons/fi'
 import { SectionTitle } from '../../components/SectionTitle'
+import { ParsedUrlQuery } from 'querystring'
 
 const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
   return (
@@ -75,9 +76,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { props } = await ssrGetArticles.getServerPage({}, { req: undefined })
 
   const paths =
-    props.data.articles.map((article) => ({
-      params: { slug: article.slug },
-    })) || []
+    props.data.articles
+      .filter((article) => typeof article.slug === 'string')
+      .map((article) => ({
+        params: { slug: article.slug } as ParsedUrlQuery,
+      })) || []
 
   return {
     paths,

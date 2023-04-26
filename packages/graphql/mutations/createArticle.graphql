@@ -1,0 +1,6 @@
+mutation createArticle($title: String!, $category: ArticleCategory!) {
+  createArticle(data: { title: $title, category: $category }) {
+    id
+    title
+  }
+}

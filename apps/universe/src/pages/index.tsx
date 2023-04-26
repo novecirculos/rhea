@@ -1,20 +1,15 @@
 import { Button } from '@novecirculos/react'
 import { Text } from '@novecirculos/react'
 import Link from 'next/link'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { api } from '~/utils/api'
+import { GetServerSidePropsContext } from 'next'
+import { getSession } from '@auth0/nextjs-auth0'
 
-export default function Home() {
-  const { user } = useUser()
-
-  const home = api.example.hello.useQuery({
-    text: user?.name as string,
-  })
-
+export default function Home({ user }: any) {
   return (
     <div className="mx-auto my-auto flex max-w-xl flex-col items-center justify-center gap-2">
       <Text as="h1" size="4xl">
-        {home.data?.greeting}
+        {user?.name}
       </Text>
       <Link className="w-full" href="/articles">
         <Button className="w-full flex-1">Ler artigos</Button>
@@ -37,3 +32,13 @@ export default function Home() {
     </div>
   )
 }
+
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const session = await getSession(context.req, context.res)
+
+//   return {
+//     props: {
+//       user: session?.user,
+//     },
+//   }
+// }

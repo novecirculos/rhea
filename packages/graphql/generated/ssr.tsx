@@ -7,6 +7,8 @@ import { QueryHookOptions, useQuery } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import type React from 'react';
 import { getApolloClient , ApolloClientContext} from '../lib/withApollo';
+
+
 export async function getServerPageGetArticleBySlug
     (options: Omit<Apollo.QueryOptions<Types.GetArticleBySlugQueryVariables>, 'query'>, ctx: ApolloClientContext ){
         const apolloClient = getApolloClient(ctx);

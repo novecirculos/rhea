@@ -1,0 +1,5 @@
+mutation editContent($content: RichTextAST, $id: ID) {
+  updateArticle(data: { content: $content }, where: { id: $id }) {
+    id
+  }
+}

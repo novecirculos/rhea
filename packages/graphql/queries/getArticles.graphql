@@ -1,5 +1,5 @@
 query GetArticles($skip: Int) {
-  articles(skip: $skip) {
+  articles(skip: $skip, orderBy: updatedAt_DESC) {
     id
     title
     slug
