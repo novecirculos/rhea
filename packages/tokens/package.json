@@ -1,16 +1,12 @@
 {
   "name": "@novecirculos/tokens",
   "version": "0.0.0",
-  "main": "./src/index.js",
+  "main": "index.js",
+  "types": "index.d.ts",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.21",
     "style-dictionary": "^3.7.1"
-  },
-  "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "lint": "eslint src/**/*.ts* --fix"
   },
   "devDependencies": {
     "@novecirculos/eslint-config": "*",

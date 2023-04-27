@@ -19380,6 +19380,11 @@ socks@^2.3.3, socks@^2.6.2, socks@^2.7.1:
     ip "^2.0.0"
     smart-buffer "^4.2.0"
 
+solito@^3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/solito/-/solito-3.2.6.tgz#aa2fdb0f2c4009980f80ee2b22d1053ef0f52d7f"
+  integrity sha512-hbD144gQBEp1lbP0F8z6h6T0abJJs38ur5gkOD49fNFvVZ+86ksc+/TQ7kGYcUphSFTkx+K9gVhiGRUDCaCoAw==
+
 sort-keys@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-2.0.0.tgz#658535584861ec97d730d6cf41822e1f56684128"

@@ -24,6 +24,7 @@ const nextConfig = {
     'nativewind',
     'react-native-gesture-handler',
     '@novecirculos/react',
+    '@novecirculos/tokens',
   ],
   images: {
     domains: ['media.graphassets.com', 'i.ibb.co'],

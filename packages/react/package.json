@@ -21,6 +21,7 @@
     "@radix-ui/react-checkbox": "^1.0.1",
     "@stitches/react": "^1.2.8",
     "nativewind": "^2.0.11",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "solito": "^3.2.6"
   }
 }
