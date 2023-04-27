@@ -1,4 +1,4 @@
-const { theme } = require('@novecirculos/tokens')
+const theme = require('@novecirculos/tokens')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

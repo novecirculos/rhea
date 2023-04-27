@@ -25,7 +25,7 @@
   },
   "scripts": {
     "prestart": "dotenv -e .env lerna run --scope=@novecirculos/* dev",
-    "dev": "turbo build --filter={packages/tokens} && rhea dev",
+    "dev": "rhea dev",
     "build": "turbo build",
     "nuke": "yarn nuke:packages && yarn nuke:apps && yarn nuke:features && yarn nuke:lockfile",
     "nuke:packages": "rm -r node_modules; for d in packages/*/*/node_modules; do echo $d; rm -r $d; done",

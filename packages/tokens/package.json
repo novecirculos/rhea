@@ -1,9 +1,7 @@
 {
   "name": "@novecirculos/tokens",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.js",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.21",

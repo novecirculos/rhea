@@ -1,4 +1,4 @@
-const { theme } = require('@novecirculos/tokens')
+const theme = require('@novecirculos/tokens')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,8 +10,6 @@ module.exports = {
   darkMode: 'class',
   plugins: [
     require('nativewind/tailwind/css'),
-    require('tailwindcss'),
-    require('autoprefixer'),
     require('@tailwindcss/typography'),
   ],
   theme: {

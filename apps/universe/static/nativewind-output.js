@@ -598,15 +598,93 @@ _NativeWindStyleSheet.create({
     "50%@3": {
       "opacity": 0.5
     },
+    ".hover:border:hover": {
+      "borderTopWidth": 1,
+      "borderRightWidth": 1,
+      "borderBottomWidth": 1,
+      "borderLeftWidth": 1
+    },
+    ".hover:border-white:hover:border-white:hover": {
+      "borderTopColor": "rgba(255, 255, 255, 1)",
+      "borderRightColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(255, 255, 255, 1)",
+      "borderLeftColor": "rgba(255, 255, 255, 1)"
+    },
     "50%@4": {
       "opacity": 0.5
     },
     "50%@5": {
       "opacity": 0.5
+    },
+    ".border-white": {
+      "borderTopColor": "rgba(255, 255, 255, 1)",
+      "borderRightColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(255, 255, 255, 1)",
+      "borderLeftColor": "rgba(255, 255, 255, 1)"
+    },
+    "50%@6": {
+      "opacity": 0.5
+    },
+    "50%@7": {
+      "opacity": 0.5
+    },
+    "50%@8": {
+      "opacity": 0.5
+    },
+    "50%@9": {
+      "opacity": 0.5
+    },
+    ".hover:border-white:hover:border-gray-400:hover": {
+      "borderTopColor": "rgba(255, 255, 255, 1)",
+      "borderRightColor": "rgba(255, 255, 255, 1)",
+      "borderBottomColor": "rgba(255, 255, 255, 1)",
+      "borderLeftColor": "rgba(255, 255, 255, 1)"
+    },
+    ".hover:border-gray-400:hover:border-gray-400:hover": {
+      "borderTopColor": "rgba(143, 157, 176, 1)",
+      "borderRightColor": "rgba(143, 157, 176, 1)",
+      "borderBottomColor": "rgba(143, 157, 176, 1)",
+      "borderLeftColor": "rgba(143, 157, 176, 1)"
+    },
+    ".hover:border-gray-400:hover:border-white:hover": {
+      "borderTopColor": "rgba(143, 157, 176, 1)",
+      "borderRightColor": "rgba(143, 157, 176, 1)",
+      "borderBottomColor": "rgba(143, 157, 176, 1)",
+      "borderLeftColor": "rgba(143, 157, 176, 1)"
+    },
+    "50%@10": {
+      "opacity": 0.5
+    },
+    "50%@11": {
+      "opacity": 0.5
+    },
+    "50%@12": {
+      "opacity": 0.5
+    },
+    "50%@13": {
+      "opacity": 0.5
+    },
+    "50%@14": {
+      "opacity": 0.5
+    },
+    ".focus:border-red-300:focus:border-red-300:focus": {
+      "borderTopColor": "rgba(252, 165, 165, 1)",
+      "borderRightColor": "rgba(252, 165, 165, 1)",
+      "borderBottomColor": "rgba(252, 165, 165, 1)",
+      "borderLeftColor": "rgba(252, 165, 165, 1)"
+    },
+    "50%@15": {
+      "opacity": 0.5
+    },
+    "50%@16": {
+      "opacity": 0.5
+    },
+    "50%@17": {
+      "opacity": 0.5
     }
   },
   atRules: {
-    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]]]
+    "50%": [[["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]], [["keyframes", "pulse"]]]
   },
   topics: {
     ".min-h-screen": ["height"]
