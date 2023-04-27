@@ -6,10 +6,10 @@ import {
 } from '@novecirculos/graphql'
 import { GetServerSideProps, GetStaticPaths } from 'next'
 import HTMLReactParser from 'html-react-parser'
-import { replace } from '../../utils/replaceBrackets'
+import { replace } from '../../../utils/replaceBrackets'
 import Image from 'next/image'
 import { FiChevronDown } from 'react-icons/fi'
-import { SectionTitle } from '../../components/SectionTitle'
+import { SectionTitle } from '../../../components/SectionTitle'
 import { ParsedUrlQuery } from 'querystring'
 
 const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {

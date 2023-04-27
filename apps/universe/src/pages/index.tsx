@@ -1,9 +1,8 @@
+import { getSession } from '@auth0/nextjs-auth0'
 import { Button } from '@novecirculos/react'
 import { Text } from '@novecirculos/react'
-import Link from 'next/link'
-import { api } from '~/utils/api'
 import { GetServerSidePropsContext } from 'next'
-import { getSession } from '@auth0/nextjs-auth0'
+import Link from 'next/link'
 
 export default function Home({ user }: any) {
   return (
@@ -33,12 +32,12 @@ export default function Home({ user }: any) {
   )
 }
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   const session = await getSession(context.req, context.res)
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context.req, context.res)
 
-//   return {
-//     props: {
-//       user: session?.user,
-//     },
-//   }
-// }
+  return {
+    props: {
+      user: session?.user || null,
+    },
+  }
+}
