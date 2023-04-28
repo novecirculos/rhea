@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-
-import { withNecessaryAccess } from '~/utils/withNecessaryAccess'
+import { withNecessaryAccesses } from '~/utils/withNecessaryAccesses'
 
 function ArticleEdit() {
   return <span>edit article</span>
 }
 
-export default ArticleEdit
+export default withNecessaryAccesses(ArticleEdit, ['Admin'])

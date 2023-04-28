@@ -54,7 +54,6 @@ export async function getUserRoles(
 
     return response.data.map((role: { name: string }) => role.name)
   } catch (error) {
-    console.error('Error getting user roles:', error)
     return null
   }
 }

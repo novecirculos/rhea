@@ -3,6 +3,7 @@ import { Button } from '@novecirculos/react'
 import { Text } from '@novecirculos/react'
 import { GetServerSidePropsContext } from 'next'
 import Link from 'next/link'
+import nookies from 'nookies'
 
 export default function Home({ user }: any) {
   return (
@@ -34,6 +35,8 @@ export default function Home({ user }: any) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context.req, context.res)
+
+  nookies.set(context, '@auth0/user-sub', session?.user.sub)
 
   return {
     props: {
