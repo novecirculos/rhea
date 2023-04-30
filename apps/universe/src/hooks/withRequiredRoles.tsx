@@ -1,27 +1,25 @@
 import { NextApiRequest, NextPage, NextPageContext } from 'next'
-import { getUserRoles } from './auth0'
+import { getUserRoles } from '~/utils/auth0'
 import nookies from 'nookies'
+import { NotAllowed } from '~/components/NotAllowed'
 
-interface WithNecessaryAccessProps {
+interface WithRequiredRolesProps {
   allowed: boolean
 }
 
-export const withNecessaryAccesses = (
+export const withRequiredRoles = (
   WrappedComponent: NextPage<any, any>,
   requiredRoles: string[]
 ) => {
-  const WithNecessaryAccess = ({
-    allowed,
-    ...props
-  }: WithNecessaryAccessProps) => {
+  const WithRequiredRoles = ({ allowed, ...props }: WithRequiredRolesProps) => {
     if (!allowed) {
-      return <div>You do not have the necessary access to view this page.</div>
+      return <NotAllowed />
     }
 
     return <WrappedComponent {...props} />
   }
 
-  WithNecessaryAccess.getInitialProps = async (context: NextPageContext) => {
+  WithRequiredRoles.getInitialProps = async (context: NextPageContext) => {
     const { '@auth0/user-sub': sub } = nookies.get(context, '@auth0/user-sub')
 
     const roles = await getUserRoles(context.req as NextApiRequest, sub)
@@ -36,5 +34,5 @@ export const withNecessaryAccesses = (
     }
   }
 
-  return WithNecessaryAccess
+  return WithRequiredRoles
 }
