@@ -3686,6 +3686,13 @@ export type EditContentMutationVariables = Exact<{
 
 export type EditContentMutation = { __typename?: 'Mutation', updateArticle?: { __typename?: 'Article', id: string } | null };
 
+export type PublishArticleMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type PublishArticleMutation = { __typename?: 'Mutation', publishArticle?: { __typename?: 'Article', publishedAt?: any | null } | null };
+
 export type GetArticleBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
@@ -3785,6 +3792,39 @@ export function useEditContentMutation(baseOptions?: Apollo.MutationHookOptions<
 export type EditContentMutationHookResult = ReturnType<typeof useEditContentMutation>;
 export type EditContentMutationResult = Apollo.MutationResult<EditContentMutation>;
 export type EditContentMutationOptions = Apollo.BaseMutationOptions<EditContentMutation, EditContentMutationVariables>;
+export const PublishArticleDocument = gql`
+    mutation publishArticle($id: ID) {
+  publishArticle(where: {id: $id}) {
+    publishedAt
+  }
+}
+    `;
+export type PublishArticleMutationFn = Apollo.MutationFunction<PublishArticleMutation, PublishArticleMutationVariables>;
+
+/**
+ * __usePublishArticleMutation__
+ *
+ * To run a mutation, you first call `usePublishArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePublishArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [publishArticleMutation, { data, loading, error }] = usePublishArticleMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePublishArticleMutation(baseOptions?: Apollo.MutationHookOptions<PublishArticleMutation, PublishArticleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PublishArticleMutation, PublishArticleMutationVariables>(PublishArticleDocument, options);
+      }
+export type PublishArticleMutationHookResult = ReturnType<typeof usePublishArticleMutation>;
+export type PublishArticleMutationResult = Apollo.MutationResult<PublishArticleMutation>;
+export type PublishArticleMutationOptions = Apollo.BaseMutationOptions<PublishArticleMutation, PublishArticleMutationVariables>;
 export const GetArticleBySlugDocument = gql`
     query GetArticleBySlug($slug: String) {
   article(where: {slug: $slug}) {

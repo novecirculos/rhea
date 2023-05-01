@@ -5,7 +5,7 @@ import { NotAllowed } from '~/components/NotAllowed'
 export const useRequiredRoles = (requiredRoles: string[]) => {
   const [allowed, setAllowed] = useState(false)
   const [loading, setLoading] = useState(true)
-  let content = null
+  let component = null
 
   useEffect(() => {
     const checkRoles = async () => {
@@ -35,10 +35,10 @@ export const useRequiredRoles = (requiredRoles: string[]) => {
   }, [requiredRoles])
 
   if (loading) {
-    content = <Loader />
+    component = <Loader />
   } else if (!allowed) {
-    content = <NotAllowed />
+    component = <NotAllowed />
   }
 
-  return { allowed, loading, content }
+  return { allowed, loading, component }
 }

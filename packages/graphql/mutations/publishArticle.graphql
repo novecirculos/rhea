@@ -1,0 +1,5 @@
+mutation publishArticle($id: ID) {
+  publishArticle(where: { id: $id }) {
+    publishedAt
+  }
+}

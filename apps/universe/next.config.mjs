@@ -29,6 +29,15 @@ const nextConfig = {
   images: {
     domains: ['media.graphassets.com', 'i.ibb.co'],
   },
+  webpack: (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      net: false,
+      os: false,
+      tls: false,
+    }
+    return config
+  },
 }
 
 export default withExpo(nextConfig)

@@ -1071,6 +1071,10 @@ html .flex {
   display: flex;
 }
 
+html .table {
+  display: table;
+}
+
 html .grid {
   display: grid;
 }
@@ -1097,6 +1101,10 @@ html .h-48 {
 
 html .h-5 {
   height: 20px;
+}
+
+html .h-\[85vh\] {
+  height: 85vh;
 }
 
 html .h-full {
@@ -1416,6 +1424,10 @@ html .font-semibold {
 
 html .lowercase {
   text-transform: lowercase;
+}
+
+html .italic {
+  font-style: italic;
 }
 
 html .leading-tight {
