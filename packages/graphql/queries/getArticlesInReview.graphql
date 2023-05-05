@@ -1,0 +1,16 @@
+query GetArticlesInReview($skip: Int) {
+  articles(skip: $skip, orderBy: updatedAt_DESC, stage: DRAFT) {
+    id
+    title
+    slug
+    category
+    content {
+      json
+      markdown
+      html
+    }
+    image {
+      url
+    }
+  }
+}

@@ -1051,6 +1051,10 @@ html .mt-4 {
   margin-top: 16px;
 }
 
+html .mt-6 {
+  margin-top: 24px;
+}
+
 html .mt-7 {
   margin-top: 28px;
 }
@@ -1189,6 +1193,16 @@ html .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html .animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 html .cursor-not-allowed {
   cursor: not-allowed;
 }
@@ -1305,11 +1319,6 @@ html .border-secondary-900 {
 
 html .bg-blackAlpha-100 {
   background-color: rgba(0, 0, 0, 0.06);
-}
-
-html .bg-gray-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(143 157 176 / var(--tw-bg-opacity));
 }
 
 html .bg-gray-600 {
@@ -1593,6 +1602,10 @@ html .placeholder\:text-sm::-moz-placeholder {
 
 html .placeholder\:text-sm::placeholder {
   font-size: 0.875rem;
+}
+
+html .hover\:cursor-pointer:hover {
+  cursor: pointer;
 }
 
 html .hover\:border-gray-200:hover {

@@ -150,3 +150,38 @@ export const ssrGetArticlesByTitle = {
       withPage: withPageGetArticlesByTitle,
       usePage: useGetArticlesByTitle,
     }
+export async function getServerPageGetArticlesInReview
+    (options: Omit<Apollo.QueryOptions<Types.GetArticlesInReviewQueryVariables>, 'query'>, ctx: ApolloClientContext ){
+        const apolloClient = getApolloClient(ctx);
+        
+        const data = await apolloClient.query<Types.GetArticlesInReviewQuery>({ ...options, query: Operations.GetArticlesInReviewDocument });
+        
+        const apolloState = apolloClient.cache.extract();
+
+        return {
+            props: {
+                apolloState: apolloState,
+                data: data?.data,
+                error: data?.error ?? data?.errors ?? null,
+            },
+        };
+      }
+export const useGetArticlesInReview = (
+  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticlesInReviewQuery, Types.GetArticlesInReviewQueryVariables>) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+  return useQuery(Operations.GetArticlesInReviewDocument, options);
+};
+export type PageGetArticlesInReviewComp = React.FC<{data?: Types.GetArticlesInReviewQuery, error?: Apollo.ApolloError}>;
+export const withPageGetArticlesInReview = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetArticlesInReviewQuery, Types.GetArticlesInReviewQueryVariables>) => (WrappedComponent:PageGetArticlesInReviewComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.GetArticlesInReviewDocument, options)    
+                return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrGetArticlesInReview = {
+      getServerPage: getServerPageGetArticlesInReview,
+      withPage: withPageGetArticlesInReview,
+      usePage: useGetArticlesInReview,
+    }

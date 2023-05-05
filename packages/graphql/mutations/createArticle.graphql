@@ -1,5 +1,12 @@
-mutation createArticle($title: String!, $category: ArticleCategory!) {
-  createArticle(data: { title: $title, category: $category }) {
+mutation createArticle(
+  $title: String!
+  $category: ArticleCategory!
+  $slug: String!
+  $content: RichTextAST
+) {
+  createArticle(
+    data: { title: $title, category: $category, content: $content, slug: $slug }
+  ) {
     id
     title
   }

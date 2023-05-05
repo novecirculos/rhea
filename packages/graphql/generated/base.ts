@@ -50,7 +50,7 @@ export type Article = Node & {
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
-  slug?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
   title: Scalars['String'];
@@ -179,7 +179,7 @@ export type ArticleCreateInput = {
   content?: InputMaybe<Scalars['RichTextAST']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<AssetCreateOneInlineInput>;
-  slug?: InputMaybe<Scalars['String']>;
+  slug: Scalars['String'];
   title: Scalars['String'];
   universeDate?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3673,6 +3673,8 @@ export enum _SystemDateTimeFieldVariation {
 export type CreateArticleMutationVariables = Exact<{
   title: Scalars['String'];
   category: ArticleCategory;
+  slug: Scalars['String'];
+  content?: InputMaybe<Scalars['RichTextAST']>;
 }>;
 
 
@@ -3698,14 +3700,14 @@ export type GetArticleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug?: string | null, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
+export type GetArticleBySlugQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
 
 export type GetArticlesQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug?: string | null, category: ArticleCategory, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug: string, category: ArticleCategory, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 export type GetArticlesByCategoryQueryVariables = Exact<{
   category?: InputMaybe<ArticleCategory>;
@@ -3713,19 +3715,28 @@ export type GetArticlesByCategoryQueryVariables = Exact<{
 }>;
 
 
-export type GetArticlesByCategoryQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug?: string | null, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetArticlesByCategoryQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 export type GetArticlesByTitleQueryVariables = Exact<{
   title?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetArticlesByTitleQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug?: string | null, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetArticlesByTitleQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, slug: string, category: ArticleCategory, title: string, universeDate?: string | null, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+export type GetArticlesInReviewQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetArticlesInReviewQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', id: string, title: string, slug: string, category: ArticleCategory, content?: { __typename?: 'ArticleContentRichText', json: any, markdown: string, html: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 
 export const CreateArticleDocument = gql`
-    mutation createArticle($title: String!, $category: ArticleCategory!) {
-  createArticle(data: {title: $title, category: $category}) {
+    mutation createArticle($title: String!, $category: ArticleCategory!, $slug: String!, $content: RichTextAST) {
+  createArticle(
+    data: {title: $title, category: $category, content: $content, slug: $slug}
+  ) {
     id
     title
   }
@@ -3748,6 +3759,8 @@ export type CreateArticleMutationFn = Apollo.MutationFunction<CreateArticleMutat
  *   variables: {
  *      title: // value for 'title'
  *      category: // value for 'category'
+ *      slug: // value for 'slug'
+ *      content: // value for 'content'
  *   },
  * });
  */
@@ -4013,3 +4026,49 @@ export function useGetArticlesByTitleLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetArticlesByTitleQueryHookResult = ReturnType<typeof useGetArticlesByTitleQuery>;
 export type GetArticlesByTitleLazyQueryHookResult = ReturnType<typeof useGetArticlesByTitleLazyQuery>;
 export type GetArticlesByTitleQueryResult = Apollo.QueryResult<GetArticlesByTitleQuery, GetArticlesByTitleQueryVariables>;
+export const GetArticlesInReviewDocument = gql`
+    query GetArticlesInReview($skip: Int) {
+  articles(skip: $skip, orderBy: updatedAt_DESC, stage: DRAFT) {
+    id
+    title
+    slug
+    category
+    content {
+      json
+      markdown
+      html
+    }
+    image {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetArticlesInReviewQuery__
+ *
+ * To run a query within a React component, call `useGetArticlesInReviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticlesInReviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticlesInReviewQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useGetArticlesInReviewQuery(baseOptions?: Apollo.QueryHookOptions<GetArticlesInReviewQuery, GetArticlesInReviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetArticlesInReviewQuery, GetArticlesInReviewQueryVariables>(GetArticlesInReviewDocument, options);
+      }
+export function useGetArticlesInReviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticlesInReviewQuery, GetArticlesInReviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetArticlesInReviewQuery, GetArticlesInReviewQueryVariables>(GetArticlesInReviewDocument, options);
+        }
+export type GetArticlesInReviewQueryHookResult = ReturnType<typeof useGetArticlesInReviewQuery>;
+export type GetArticlesInReviewLazyQueryHookResult = ReturnType<typeof useGetArticlesInReviewLazyQuery>;
+export type GetArticlesInReviewQueryResult = Apollo.QueryResult<GetArticlesInReviewQuery, GetArticlesInReviewQueryVariables>;

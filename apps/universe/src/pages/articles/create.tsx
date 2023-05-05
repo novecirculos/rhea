@@ -1,30 +1,23 @@
-import { usePublishArticleMutation, withApollo } from '@novecirculos/graphql'
+import { withRequiredRoles } from '~/hooks/withRequiredRoles'
 import {
-  PageGetArticleBySlugComp,
-  ssrGetArticleBySlug,
-  useEditContentMutation,
+  ArticleCategory,
+  usePublishArticleMutation,
 } from '@novecirculos/graphql'
-import { Button } from '@novecirculos/react'
+import { useCreateArticleMutation } from '@novecirculos/graphql'
+import { Button, Select, SelectOption, TextInput } from '@novecirculos/react'
 import { Editor } from '@tinymce/tinymce-react'
-import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
 import { FiLoader } from 'react-icons/fi'
-import { useRequiredRoles } from '~/hooks/useRequiredRoles'
 import { axiosApi } from '~/utils/api'
+import { slugify } from '~/utils/slugify'
 
-const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
+const CreateArticle = () => {
+  const [title, setTitle] = useState('')
+  const [category, setCategory] = useState('')
   const [editorContent, setEditorContent] = useState('')
-  const { allowed, loading, component } = useRequiredRoles(['Admin'])
 
   const [saveContent, { loading: editContentLoading }] =
-    useEditContentMutation()
-
-  const [publishContent, { loading: publishContentLoading }] =
-    usePublishArticleMutation()
-
-  if (loading || !allowed) {
-    return component
-  }
+    useCreateArticleMutation()
 
   const handleEditorChange = (content: string, editor: any) => {
     setEditorContent(content)
@@ -37,30 +30,61 @@ const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
 
     await saveContent({
       variables: {
+        title,
+        category: category as ArticleCategory,
         content: {
           children: astContent,
         },
-        id: data?.article?.id,
-      },
-    })
-
-    await publishContent({
-      variables: {
-        id: data?.article?.id,
+        slug: slugify(title),
       },
     })
   }
 
+  function getArticleCategoryOptions() {
+    const options: SelectOption[] = Object.entries(ArticleCategory).map(
+      ([key, value]) => {
+        const label = translateLabel(value)
+        return {
+          value: key,
+          label,
+        }
+      }
+    )
+
+    return options
+  }
+
+  function translateLabel(value: string): string {
+    const translations: { [key: string]: string } = {
+      Cidade: 'Cidade',
+      Conhecimento: 'Conhecimento',
+      Divindade: 'Divindade',
+      Evento: 'Evento',
+      Organizacao: 'Organização',
+      Personagem: 'Personagem',
+      Raca: 'Raça',
+      Regiao: 'Região',
+      Reino: 'Reino',
+    }
+
+    return translations[value] || value
+  }
+
   return (
     <div className="flex flex-col px-6">
-      <section className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">{data?.article?.title}</h1>
-          <h2 className="font-secondary">{data?.article?.category}</h2>
-          <strong>{data?.article?.universeDate}</strong>
-        </div>
-        <Button onClick={handleSave}>
-          {editContentLoading || publishContentLoading ? (
+      <section className="flex items-center justify-between gap-4">
+        <TextInput
+          onChange={(e) => setTitle(e.target.value)}
+          label="Título"
+          placeholder="Titúlo do seu artigo"
+        />
+        <Select
+          onChangeCapture={(e) => setCategory(e.currentTarget.value)}
+          label="Categoria"
+          options={getArticleCategoryOptions()}
+        />
+        <Button className="mt-6" onClick={handleSave}>
+          {editContentLoading ? (
             <FiLoader className="animate-spin" />
           ) : (
             'Salvar'
@@ -70,7 +94,6 @@ const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
       <div className="mt-4 h-[85vh]">
         <Editor
           apiKey={process.env.NEXT_PUBLIC_TINYMCE_KEY}
-          initialValue={data?.article?.content?.html || ''}
           init={{
             height: '100%',
             menubar: false,
@@ -95,30 +118,4 @@ const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
   )
 }
 
-export const getServerSideProps = async ({
-  req,
-  params,
-}: GetServerSidePropsContext) => {
-  const res = await ssrGetArticleBySlug.getServerPage(
-    {
-      variables: { slug: params?.slug?.toString() || '' },
-    },
-    { req }
-  )
-
-  if (res.props.error || !res.props.data?.article) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: res.props,
-  }
-}
-
-export default withApollo(
-  ssrGetArticleBySlug.withPage((arg) => ({
-    variables: { slug: arg?.query?.slug?.toString() || '' },
-  }))(ArticleEdit)
-)
+export default withRequiredRoles(CreateArticle, ['Admin', 'Player'])
