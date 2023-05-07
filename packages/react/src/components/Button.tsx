@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import { ElementType, ReactNode } from 'react'
 
-export type ButtonProps<T extends ElementType = 'button'> = {
-  as?: T
+export type ButtonProps = {
+  as?: ElementType
   children?: ReactNode
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md'
@@ -19,7 +19,7 @@ export const Button = ({
   size = 'sm',
   className,
   ...props
-}: ButtonProps<keyof JSX.IntrinsicElements>) => {
+}: ButtonProps) => {
   return (
     <Component
       className={`${
