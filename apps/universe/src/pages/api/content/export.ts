@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { promisify } from 'util'
-import fs from 'fs'
 import archiver from 'archiver'
-import path from 'path'
 import { htmlToText } from 'html-to-text'
 import { getUserRoles } from '~/utils/auth0'
 import nookies from 'nookies'
@@ -11,11 +8,6 @@ import {
   client,
   ExportArticlesQuery,
 } from '@novecirculos/graphql'
-
-const writeFile = promisify(fs.writeFile)
-const __dirname = path.resolve('src', 'pages', 'api', 'content', 'data')
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,11 +27,20 @@ export default async function handler(
       return
     }
 
-    // Ensure the directory exists
-    fs.mkdirSync(`${__dirname}`, { recursive: true })
-
     let skip = 0
     let hasMore = true
+
+    // Create a new archiver instance
+    const archive = archiver('zip', {
+      zlib: { level: 9 }, // Sets the compression level.
+    })
+
+    // Set the headers for the download
+    res.setHeader('Content-Disposition', 'attachment; filename=articles.zip')
+    res.setHeader('Content-Type', 'application/zip')
+
+    // Pipe archive data to the response
+    archive.pipe(res)
 
     while (hasMore) {
       const { data }: { data: ExportArticlesQuery } = await new Promise(
@@ -68,7 +69,11 @@ export default async function handler(
           })
           // Replace escaped double square brackets
           markdown = markdown.replace(/\\\[\[(.*?)\\\]\]/g, '[[$1]]')
-          await writeFile(`${__dirname}/${item.title}.md`, markdown)
+
+          // Append the markdown data to the archive
+          archive.append(markdown, {
+            name: `${item.title}.md`,
+          })
         })
 
         await Promise.all(markdownPromises)
@@ -79,46 +84,7 @@ export default async function handler(
       }
     }
 
-    // Create a file to stream archive data to.
-    const zipPath = `${__dirname}/articles-${new Date().toISOString()}.zip`
-    const output = fs.createWriteStream(zipPath)
-    const archive = archiver('zip', {
-      zlib: { level: 9 }, // Sets the compression level.
-    })
-
-    // Pipe archive data to the file
-    archive.pipe(output)
-
-    // Append all the .md files to the archive
-    fs.readdirSync(`${__dirname}`).forEach((file) => {
-      archive.append(fs.createReadStream(`${__dirname}/${file}`), {
-        name: file,
-      })
-    })
-
-    archive.on('error', function (err) {
-      res.status(500).send({ error: err.message })
-    })
-
-    // On finish of zip file, send success response
-    output.on('close', function () {
-      res.setHeader(
-        'Content-Disposition',
-        'attachment; filename=' + path.basename(zipPath)
-      )
-      res.setHeader('Content-Transfer-Encoding', 'binary')
-      res.setHeader('Content-Type', 'application/octet-stream')
-
-      const readStream = fs.createReadStream(zipPath)
-
-      readStream.pipe(res)
-
-      readStream.on('end', function () {
-        // Delete all files and subdirectories in the data directory
-        return fs.rmSync(`${__dirname}`, { recursive: true, force: true })
-      })
-    })
-
-    await archive.finalize()
+    // Finalize the archive (this will end the response)
+    archive.finalize()
   }
 }
