@@ -389,6 +389,13 @@ export enum ArticleOrderByInput {
   UpdatedAtDesc = 'updatedAt_DESC'
 }
 
+/** Status of the Article */
+export enum ArticleStatus {
+  Draft = 'draft',
+  InReview = 'in_review',
+  Published = 'published'
+}
+
 export type ArticleUpdateInput = {
   alias?: InputMaybe<Array<Scalars['String']>>;
   category?: InputMaybe<ArticleCategory>;
@@ -1457,7 +1464,7 @@ export type ImageTransformationInput = {
 /** Locale system enumeration */
 export enum Locale {
   /** System locale */
-  En = 'en'
+  PtBr = 'ptBR'
 }
 
 /** Representing a geolocation point with latitude and longitude */
@@ -3695,6 +3702,13 @@ export type PublishArticleMutationVariables = Exact<{
 
 export type PublishArticleMutation = { __typename?: 'Mutation', publishArticle?: { __typename?: 'Article', publishedAt?: any | null } | null };
 
+export type ExportArticlesQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type ExportArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, content?: { __typename?: 'ArticleContentRichText', html: string } | null }> };
+
 export type GetArticleBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
@@ -3838,6 +3852,45 @@ export function usePublishArticleMutation(baseOptions?: Apollo.MutationHookOptio
 export type PublishArticleMutationHookResult = ReturnType<typeof usePublishArticleMutation>;
 export type PublishArticleMutationResult = Apollo.MutationResult<PublishArticleMutation>;
 export type PublishArticleMutationOptions = Apollo.BaseMutationOptions<PublishArticleMutation, PublishArticleMutationVariables>;
+export const ExportArticlesDocument = gql`
+    query ExportArticles($skip: Int) {
+  articles(skip: $skip, orderBy: updatedAt_DESC) {
+    slug
+    title
+    content {
+      html
+    }
+  }
+}
+    `;
+
+/**
+ * __useExportArticlesQuery__
+ *
+ * To run a query within a React component, call `useExportArticlesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportArticlesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportArticlesQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useExportArticlesQuery(baseOptions?: Apollo.QueryHookOptions<ExportArticlesQuery, ExportArticlesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ExportArticlesQuery, ExportArticlesQueryVariables>(ExportArticlesDocument, options);
+      }
+export function useExportArticlesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExportArticlesQuery, ExportArticlesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ExportArticlesQuery, ExportArticlesQueryVariables>(ExportArticlesDocument, options);
+        }
+export type ExportArticlesQueryHookResult = ReturnType<typeof useExportArticlesQuery>;
+export type ExportArticlesLazyQueryHookResult = ReturnType<typeof useExportArticlesLazyQuery>;
+export type ExportArticlesQueryResult = Apollo.QueryResult<ExportArticlesQuery, ExportArticlesQueryVariables>;
 export const GetArticleBySlugDocument = gql`
     query GetArticleBySlug($slug: String) {
   article(where: {slug: $slug}) {
