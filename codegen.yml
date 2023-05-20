@@ -21,13 +21,7 @@ generates:
       withHooks: true
       contextType: 'ApolloClientContext'
       contextTypeRequired: true
-      # withHOC: false
-      # excludePatterns: 'getComments'
-      # excludePatternsOptions: 'i'
-      # customDataIdFromObjectName: 'test'
-      # customDataIdFromObjectImport: 'abc'
       apolloClientInstanceImport: '../lib/withApollo'
-      # apolloStateKey: '__APOLLO_STATE__'
     preset: import-types
     presetConfig:
       typesPath: ./base

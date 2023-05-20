@@ -35,7 +35,7 @@
     "reset": "yarn nuke && yarn install",
     "codegen": "graphql-codegen"
   },
-  "engines": {
-    "node": ">=16.0.0 <17.0.0"
+  "dependencies": {
+    "vercel": "^29.3.0"
   }
 }

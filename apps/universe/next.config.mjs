@@ -25,6 +25,7 @@ const nextConfig = {
     'react-native-gesture-handler',
     '@novecirculos/react',
     '@novecirculos/tokens',
+    '@novecirculos/graphql',
   ],
   images: {
     domains: ['media.graphassets.com', 'i.ibb.co'],

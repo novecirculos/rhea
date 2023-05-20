@@ -37,16 +37,6 @@ export const SectionTitle = ({
         </Link>
       )
     },
-    Divindade: () => {
-      return (
-        <Link
-          className="color-secondary-700 font-secondary text-xl font-semibold hover:underline"
-          href={`/categories/${category.toLowerCase()}`}
-        >
-          {category} - {universeDate}
-        </Link>
-      )
-    },
   }
 
   return (

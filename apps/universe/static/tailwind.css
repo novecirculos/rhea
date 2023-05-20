@@ -1302,6 +1302,14 @@ html .border-0 {
   border-width: 0px;
 }
 
+html .border-2 {
+  border-width: 2px;
+}
+
+html .border-dashed {
+  border-style: dashed;
+}
+
 html .border-gray-900 {
   --tw-border-opacity: 1;
   border-color: rgb(19 29 40 / var(--tw-border-opacity));

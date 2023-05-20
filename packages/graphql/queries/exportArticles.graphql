@@ -5,5 +5,6 @@ query ExportArticles($skip: Int) {
     content {
       html
     }
+    createdAt
   }
 }
