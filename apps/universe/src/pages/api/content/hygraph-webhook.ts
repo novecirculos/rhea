@@ -32,6 +32,7 @@ export default async function handler(
       id: data.slug,
       text: markdown,
       metadata: {
+        source: 'hygraph',
         created_at: data.createdAt,
       },
     }
