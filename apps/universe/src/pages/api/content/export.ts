@@ -8,6 +8,7 @@ import {
   client,
   ExportArticlesQuery,
 } from '@novecirculos/graphql'
+import axios from 'axios'
 
 export default async function handler(
   req: NextApiRequest,
@@ -30,17 +31,16 @@ export default async function handler(
     let skip = 0
     let hasMore = true
 
-    // Create a new archiver instance
     const archive = archiver('zip', {
-      zlib: { level: 9 }, // Sets the compression level.
+      zlib: { level: 9 },
     })
 
-    // Set the headers for the download
     res.setHeader('Content-Disposition', 'attachment; filename=articles.zip')
     res.setHeader('Content-Type', 'application/zip')
 
-    // Pipe archive data to the response
     archive.pipe(res)
+
+    const documents: any = []
 
     while (hasMore) {
       const { data }: { data: ExportArticlesQuery } = await new Promise(
@@ -57,26 +57,31 @@ export default async function handler(
             } catch (error) {
               reject(error)
             }
-          }, 200) // Adjusted delay for 5 requests per second
+          }, 200)
         }
       )
 
       if (data?.articles.length) {
-        // Loop over the data and convert it to Markdown
-        const markdownPromises = data.articles.map(async (item) => {
+        data.articles.forEach((item) => {
           let markdown = htmlToText(item.content?.html as string, {
             wordwrap: false,
           })
-          // Replace escaped double square brackets
           markdown = markdown.replace(/\\\[\[(.*?)\\\]\]/g, '[[$1]]')
 
-          // Append the markdown data to the archive
           archive.append(markdown, {
             name: `${item.title}.md`,
           })
-        })
 
-        await Promise.all(markdownPromises)
+          const doc = {
+            id: item.slug,
+            text: markdown,
+            metadata: {
+              created_at: item.createdAt,
+            },
+          }
+
+          documents.push(doc)
+        })
 
         skip += data.articles.length
       } else {
@@ -84,7 +89,25 @@ export default async function handler(
       }
     }
 
-    // Finalize the archive (this will end the response)
+    await axios
+      .post(
+        'https://biblioteca-espiral.fly.dev/upsert',
+        {
+          documents,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.PLUGIN_BEARER_TOKEN}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.error(`Error in axios post: ${error}`)
+      })
+
     archive.finalize()
   }
 }
