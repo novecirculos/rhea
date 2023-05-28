@@ -34,7 +34,7 @@ export default async function handler(
       id: data.slug,
       text: markdown,
       metadata: {
-        source: 'novecirculosrpg@gmail.com',
+        source: 'email',
         source_id: 'hygraph',
         url: 'https://api-sa-east-1.hygraph.com/v2/clfzvq3a377hi01t7az16bc2a/master',
         author: 'Hygraph',
