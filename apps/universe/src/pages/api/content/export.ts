@@ -89,24 +89,25 @@ export default async function handler(
       }
     }
 
-    await axios
-      .post(
-        'https://biblioteca-espiral.fly.dev/upsert',
-        {
-          documents,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.PLUGIN_BEARER_TOKEN}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.error(`Error in axios post: ${error}`)
-      })
+    // uncomment this if you want to send all the data to pinecone.
+    // await axios
+    //   .post(
+    //     'https://biblioteca-espiral.fly.dev/upsert',
+    //     {
+    //       documents,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${process.env.PLUGIN_BEARER_TOKEN}`,
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     console.log(response)
+    //   })
+    //   .catch((error) => {
+    //     console.error(`Error in axios post: ${error}`)
+    //   })
 
     archive.finalize()
   }

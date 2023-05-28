@@ -28,15 +28,19 @@ export default async function handler(
       wordwrap: false,
     })
 
+    markdown = markdown.replace(/\\\[\[(.*?)\\\]\]/g, '[[$1]]')
+
     const doc = {
       id: data.slug,
       text: markdown,
       metadata: {
+        source: 'novecirculosrpg@gmail.com',
+        source_id: 'hygraph',
+        url: 'https://api-sa-east-1.hygraph.com/v2/clfzvq3a377hi01t7az16bc2a/master',
+        author: 'Hygraph',
         created_at: data.createdAt,
       },
     }
-
-    markdown = markdown.replace(/\\\[\[(.*?)\\\]\]/g, '[[$1]]')
 
     const documents = [doc]
 
