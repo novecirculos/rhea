@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import archiver from 'archiver'
 import { htmlToText } from 'html-to-text'
-import { getUserRoles } from '~/utils/auth0'
+import { getUserRoles } from '~/services/auth0'
 import nookies from 'nookies'
 import {
   ExportArticlesDocument,
@@ -9,6 +9,7 @@ import {
   ExportArticlesQuery,
 } from '@novecirculos/graphql'
 import axios from 'axios'
+import { extractLinks } from '~/utils/extractLinks'
 
 export default async function handler(
   req: NextApiRequest,
@@ -40,7 +41,7 @@ export default async function handler(
 
     archive.pipe(res)
 
-    const documents: any = []
+    let documents: any = []
 
     while (hasMore) {
       const { data }: { data: ExportArticlesQuery } = await new Promise(
@@ -66,6 +67,7 @@ export default async function handler(
           let markdown = htmlToText(item.content?.html as string, {
             wordwrap: false,
           })
+
           markdown = markdown.replace(/\\\[\[(.*?)\\\]\]/g, '[[$1]]')
 
           archive.append(markdown, {
@@ -76,6 +78,10 @@ export default async function handler(
             id: item.slug,
             text: markdown,
             metadata: {
+              source: 'email',
+              source_id: 'hygraph',
+              url: process.env.HYGRAPH_URL,
+              author: 'Hygraph',
               created_at: item.createdAt,
             },
           }

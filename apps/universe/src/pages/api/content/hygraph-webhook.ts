@@ -36,7 +36,7 @@ export default async function handler(
       metadata: {
         source: 'email',
         source_id: 'hygraph',
-        url: 'https://api-sa-east-1.hygraph.com/v2/clfzvq3a377hi01t7az16bc2a/master',
+        url: process.env.HYGRAPH_URL,
         author: 'Hygraph',
         created_at: data.createdAt,
       },

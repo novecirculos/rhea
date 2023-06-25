@@ -8,7 +8,7 @@ import { Button, Select, SelectOption, TextInput } from '@novecirculos/react'
 import { Editor } from '@tinymce/tinymce-react'
 import { useState } from 'react'
 import { FiLoader } from 'react-icons/fi'
-import { axiosApi } from '~/utils/api'
+import { axiosApi } from '~/services/api'
 import { slugify } from '~/utils/slugify'
 
 const CreateArticle = () => {

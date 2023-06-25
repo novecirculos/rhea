@@ -3,7 +3,7 @@ import { withFileUpload } from 'next-multiparty'
 import { promises as fsPromises } from 'fs'
 
 import { Readable } from 'stream'
-import { openai } from '~/utils/openai'
+import { openai } from '~/services/openai'
 
 export const config = {
   api: {

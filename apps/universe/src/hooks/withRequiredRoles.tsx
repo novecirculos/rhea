@@ -1,5 +1,5 @@
 import { NextApiRequest, NextPage, NextPageContext } from 'next'
-import { getUserRoles } from '~/utils/auth0'
+import { getUserRoles } from '~/services/auth0'
 import nookies from 'nookies'
 import { NotAllowed } from '~/components/NotAllowed'
 

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { openai } from '~/utils/openai'
+import { openai } from '~/services/openai'
 
 export default async function handler(
   req: NextApiRequest,

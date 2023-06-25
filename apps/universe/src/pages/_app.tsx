@@ -10,7 +10,7 @@ import Loader from '../components/Loader'
 import { useRouter } from 'next/router'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { Analytics } from '@vercel/analytics/react'
-import { api } from '~/utils/api'
+import { api } from '~/services/api'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '@novecirculos/graphql'
 

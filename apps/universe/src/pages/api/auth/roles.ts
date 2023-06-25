@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getUserRoles } from '../../../utils/auth0'
+import { getUserRoles } from '../../../services/auth0'
 import nookies from 'nookies'
 
 const rolesHandler = async (req: NextApiRequest, res: NextApiResponse) => {

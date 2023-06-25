@@ -10,7 +10,7 @@ import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
 import { FiLoader } from 'react-icons/fi'
 import { useRequiredRoles } from '~/hooks/useRequiredRoles'
-import { axiosApi } from '~/utils/api'
+import { axiosApi } from '~/services/api'
 
 const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
   const [editorContent, setEditorContent] = useState('')

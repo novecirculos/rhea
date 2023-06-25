@@ -2,6 +2,7 @@ query ExportArticles($skip: Int) {
   articles(skip: $skip, orderBy: updatedAt_DESC) {
     slug
     title
+    alias
     content {
       html
     }
