@@ -12,7 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.11",
     "@auth0/nextjs-auth0": "^2.5.0",
-    "@expo/next-adapter": "5.0.2",
+    "@expo/next-adapter": "^5.0.2",
     "@graphcms/html-to-slate-ast": "^0.13.1",
     "@graphcms/rich-text-html-renderer": "^0.2.0",
     "@hookform/resolvers": "^3.1.0",
@@ -20,15 +20,11 @@
     "@novecirculos/react": "*",
     "@novecirculos/tokens": "*",
     "@pinecone-database/pinecone": "^0.1.6",
-    "@prisma/client": "^4.14.0",
+    "@prisma/client": "^4.16.1",
     "@react-spring/web": "^9.7.2",
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/react-query": "^4.29.3",
     "@tinymce/tinymce-react": "^4.3.0",
-    "@trpc/client": "^10.21.1",
-    "@trpc/next": "^10.21.1",
-    "@trpc/react-query": "^10.21.1",
-    "@trpc/server": "^10.21.1",
     "@vercel/analytics": "^1.0.0",
     "@vercel/postgres": "^0.3.0",
     "archiver": "^5.3.1",
@@ -41,7 +37,7 @@
     "midjourney": "^2.1.30",
     "midjourney-client": "^1.0.8",
     "nativewind": "^2.0.11",
-    "next": "^13.3.1",
+    "next": "^13.4.7",
     "next-multiparty": "^0.7.0",
     "nookies": "^2.5.2",
     "openai": "^3.2.1",
@@ -67,7 +63,7 @@
     "@types/turndown": "^5.0.1",
     "autoprefixer": "^10.4.7",
     "eslint-config-next": "13.2.0",
-    "prisma": "^4.14.0",
+    "prisma": "^4.16.1",
     "tailwindcss": "^3.0.24"
   }
 }

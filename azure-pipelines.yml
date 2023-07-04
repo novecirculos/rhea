@@ -1,13 +1,21 @@
 trigger:
-- main
- 
+  - main
+
 pool:
   vmImage: ubuntu-latest
- 
+
 steps:
-- task: vercel-deployment-task@1
-  inputs:
-    vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
-    vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f' 
-    vercelToken: $(VERCEL_TOKEN)
-    production: true
+  - task: vercel-deployment-task@1
+    inputs:
+      displayName: 'Deploy Universe to Vercel'
+      vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
+  - task: vercel-deployment-task@1
+    inputs:
+      displayName: 'Deploy Table to Vercel'
+      vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
