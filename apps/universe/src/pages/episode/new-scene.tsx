@@ -1,4 +1,4 @@
-import { Button, TextInput } from '@novecirculos/react'
+import { Button, TextInput } from '@novecirculos/components'
 import { withRequiredRoles } from '~/hooks/withRequiredRoles'
 import { useDropzone } from 'react-dropzone'
 import { useForm } from 'react-hook-form'

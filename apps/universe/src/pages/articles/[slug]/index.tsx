@@ -49,7 +49,7 @@ const ArticlePage: PageGetArticleBySlugComp = ({ data }) => {
           <div className="bg-blackAlpha-100 absolute left-0 top-0 h-full w-full"></div>
         </div>
 
-        <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline dark:prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-4 h-full w-full overflow-auto px-6">
+        <div className="prose prose-headings:font-medium prose-headings:color-gray-300 prose-ul:color-gray-300 prose-a:color-secondary-700 prose-a:no-underline prose-invert prose-p:color-gray-300 prose-blockquote:color-gray-300 prose-strong:text-gray-300 z-10 mt-4 h-full w-full overflow-auto px-6">
           {data?.article?.content &&
             HTMLReactParser(
               `<h1>${data.article.title}</h1>${data.article.content.html}`,

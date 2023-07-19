@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react'
-import { TestComponent } from '@novecirculos/react'
+import { TestComponent } from '@novecirculos/components'
 
 export default {
   title: 'Home',

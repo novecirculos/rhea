@@ -4,13 +4,22 @@ import {
   ssrGetArticleBySlug,
   useEditContentMutation,
 } from '@novecirculos/graphql'
-import { Button } from '@novecirculos/react'
+import { Button } from '@novecirculos/components'
 import { Editor } from '@tinymce/tinymce-react'
 import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
 import { FiLoader } from 'react-icons/fi'
 import { useRequiredRoles } from '~/hooks/useRequiredRoles'
 import { axiosApi } from '~/services/api'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import TextAlign from '@tiptap/extension-text-align'
+import Image from '@tiptap/extension-image'
+import ListItem from '@tiptap/extension-list-item'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Link from '@tiptap/extension-link'
+import Placeholder from '@tiptap/extension-placeholder'
+import { DocumentToolbar } from '~/components/EditorToolbar'
 
 const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
   const [editorContent, setEditorContent] = useState('')
@@ -22,12 +31,34 @@ const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
   const [publishContent, { loading: publishContentLoading }] =
     usePublishArticleMutation()
 
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Image,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      ListItem,
+      OrderedList,
+      Link.configure({
+        HTMLAttributes: {
+          class: 'cursor-pointer text-blue-700',
+        },
+      }),
+      Placeholder.configure({
+        placeholder: 'Escreva algo aqui...',
+      }),
+    ],
+    content: `<h1>Primeiro Teste</h1>`,
+    editorProps: {
+      attributes: {
+        class: 'outline-none',
+      },
+    },
+  })
+
   if (loading || !allowed) {
     return component
-  }
-
-  const handleEditorChange = (content: string, editor: any) => {
-    setEditorContent(content)
   }
 
   const handleSave = async () => {
@@ -53,42 +84,16 @@ const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
 
   return (
     <div className="flex flex-col px-6">
-      <section className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">{data?.article?.title}</h1>
-          <h2 className="font-secondary">{data?.article?.category}</h2>
-          <strong>{data?.article?.universeDate}</strong>
+      {editor && (
+        <div className="fixed right-0 left-0 top-0 z-10 mb-4 w-[98%] flex-1 overflow-hidden rounded-lg md:mx-auto">
+          <DocumentToolbar editor={editor} />
         </div>
-        <Button onClick={handleSave}>
-          {editContentLoading || publishContentLoading ? (
-            <FiLoader className="animate-spin" />
-          ) : (
-            'Salvar'
-          )}
-        </Button>
-      </section>
-      <div className="mt-4 h-[85vh]">
-        <Editor
-          apiKey={process.env.NEXT_PUBLIC_TINYMCE_KEY}
-          initialValue={data?.article?.content?.html || ''}
-          init={{
-            height: '100%',
-            menubar: false,
-            plugins: [
-              'advlist autolink lists link image charmap print preview anchor',
-              'searchreplace visualblocks code fullscreen',
-              'insertdatetime media table paste code help wordcount',
-            ],
-            toolbar:
-              'undo redo | formatselect | bold italic backcolor | \
-            alignleft aligncenter alignright alignjustify | \
-            bullist numlist outdent indent | removeformat | help',
-            content_style:
-              'body { font-family:Noto Serif, serif; font-size:14px }',
-            skin: 'oxide-dark',
-            content_css: 'dark',
-          }}
-          onEditorChange={handleEditorChange}
+      )}
+
+      <div className="mt-24 flex min-h-screen w-full">
+        <EditorContent
+          className="prose prose-invert min-h-screen max-w-6xl"
+          editor={editor}
         />
       </div>
     </div>

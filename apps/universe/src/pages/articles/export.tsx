@@ -1,4 +1,4 @@
-import { Button } from '@novecirculos/react'
+import { Button } from '@novecirculos/components'
 import { withRequiredRoles } from '~/hooks/withRequiredRoles'
 
 function ExportArticles() {

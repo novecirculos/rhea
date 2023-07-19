@@ -1,6 +1,6 @@
 import { withExpo } from '@expo/next-adapter'
 
-await import('./src/env.mjs')
+await import('./app/env.mjs')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -23,7 +23,7 @@ const nextConfig = {
     'react-native-reanimated',
     'nativewind',
     'react-native-gesture-handler',
-    '@novecirculos/react',
+    '@novecirculos/components',
     '@novecirculos/tokens',
     '@novecirculos/graphql',
   ],

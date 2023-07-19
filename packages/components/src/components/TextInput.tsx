@@ -2,12 +2,20 @@ import { ComponentProps } from 'react'
 
 export interface TextInputProps extends ComponentProps<'input'> {
   label?: string
+  register?: any
+  registerName?: string
+  required?: boolean
+  error?: string | boolean
 }
 
 export function TextInput({
   children,
   label,
   className,
+  register,
+  registerName,
+  required = false,
+  error,
   ...props
 }: TextInputProps) {
   return (
@@ -20,7 +28,9 @@ export function TextInput({
           </div>
         )}
         <input
+          name={registerName}
           {...props}
+          {...(register && register(registerName, { required }))}
           className={`${
             props.disabled ? 'cursor-not-allowed' : ''
           } group-focus:border-primary-900 w-full border-0 bg-transparent text-sm text-white placeholder-gray-400 placeholder:text-sm focus:outline-none ${
@@ -28,6 +38,8 @@ export function TextInput({
           }`}
         />
       </div>
+
+      {error ? <small className="text-xs text-red-600">{error}</small> : null}
     </div>
   )
 }

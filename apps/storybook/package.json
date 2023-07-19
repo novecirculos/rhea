@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@novecirculos/eslint-config": "*",
-    "@novecirculos/react": "*",
+    "@novecirculos/components": "*",
     "@novecirculos/tokens": "*",
     "@novecirculos/ts-config": "*",
     "@storybook/addon-a11y": "^6.5.13",
