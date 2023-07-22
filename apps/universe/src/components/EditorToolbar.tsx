@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BubbleButton } from '@novecirculos/ui'
+import { BubbleButton } from '@novecirculos/design'
 import * as Toolbar from '@radix-ui/react-toolbar'
 
 import {
@@ -28,7 +28,7 @@ import {
   TextInput as Input,
   Modal,
   ModalWrapper,
-} from '@novecirculos/ui'
+} from '@novecirculos/design'
 import { FiLoader } from 'react-icons/fi'
 
 interface setLinkForm {
@@ -268,7 +268,7 @@ export const DocumentToolbar = ({ editor, handleSave, loading }: any) => {
                     error={errors.link && 'É necessário informar a url do link'}
                   />
                 </div>
-                <div className="mobile:flex-col-reverse flex w-full items-center justify-end gap-2 border-t-2 border-slate-100 py-4 px-6">
+                <div className="mobile:flex-col-reverse flex w-full items-center justify-end gap-2 border-t-2 border-slate-100 px-6 py-4">
                   <Dialog.Close asChild>
                     <Button className="mobile:w-[100%]">Cancelar</Button>
                   </Dialog.Close>

@@ -23,7 +23,7 @@ const nextConfig = {
     'react-native-reanimated',
     'nativewind',
     'react-native-gesture-handler',
-    '@novecirculos/ui',
+    '@novecirculos/design',
     '@novecirculos/tokens',
     '@novecirculos/graphql',
   ],

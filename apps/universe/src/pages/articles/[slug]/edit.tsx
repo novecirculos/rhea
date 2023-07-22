@@ -4,7 +4,7 @@ import {
   ssrGetArticleBySlug,
   useEditContentMutation,
 } from '@novecirculos/graphql'
-import { Button } from '@novecirculos/ui'
+import { Button } from '@novecirculos/design'
 import { Editor } from '@tinymce/tinymce-react'
 import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
@@ -85,7 +85,7 @@ const ArticleEdit: PageGetArticleBySlugComp = ({ data }) => {
   return (
     <div className="flex flex-col px-6">
       {editor && (
-        <div className="fixed right-0 left-0 top-0 z-10 mb-4 w-[98%] flex-1 overflow-hidden rounded-lg md:mx-auto">
+        <div className="fixed left-0 right-0 top-0 z-10 mb-4 w-[98%] flex-1 overflow-hidden rounded-lg md:mx-auto">
           <DocumentToolbar editor={editor} />
         </div>
       )}

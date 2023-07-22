@@ -1,43 +1,6 @@
-const colors = {
-  gray: {
-    50: 'hsl(210, 14%, 97%)',
-    100: 'hsl(180, 11%, 98%)',
-    200: 'hsl(220, 13%, 96%)',
-    300: 'hsl(223, 9%, 84%)',
-    400: 'hsl(215, 17%, 63%)',
-    500: 'hsl(217, 12%, 50%)',
-    600: 'hsl(214, 24%, 24%)',
-    700: 'hsl(210, 28%, 17%)',
-    800: 'hsl(214, 28%, 15%)',
-    900: 'hsl(211, 36%, 12%)',
-    950: 'hsl(213, 48%, 8%)',
-  },
-  primary: {
-    100: 'hsl(0, 67%, 94%)',
-    200: 'hsl(0, 64%, 88%)',
-    300: 'hsl(0, 65%, 82%)',
-    400: 'hsl(0, 66%, 76%)',
-    500: 'hsl(0, 65%, 70%)',
-    600: 'hsl(0, 65%, 64%)',
-    700: 'hsl(0, 65%, 58%)',
-    800: 'hsl(0, 65%, 52%)',
-    900: 'hsl(0, 65%, 46%)',
-  },
-  secondary: {
-    100: 'hsl(30, 68%, 91%)',
-    200: 'hsl(30, 67%, 89%)',
-    300: 'hsl(29, 68%, 83%)',
-    400: 'hsl(30, 68%, 84%)',
-    500: 'hsl(30, 68%, 79%)',
-    600: 'hsl(30, 68%, 74%)',
-    700: 'hsl(30, 68%, 69%)',
-    800: 'hsl(30, 68%, 63%)',
-    900: 'hsl(30, 68%, 58%)',
-  },
-}
-
 module.exports = {
-  extend: {
+  darkMode: ['class'],
+  theme: {
     container: {
       center: true,
       padding: '2rem',
@@ -46,6 +9,13 @@ module.exports = {
       },
     },
     extend: {
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          '2xl': '1400px',
+        },
+      },
       fontFamily: {
         primary: 'Noto Serif, serif',
         secondary: 'Alice, serif',
@@ -59,15 +29,41 @@ module.exports = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          ...colors.primary,
+          100: 'hsl(0, 67%, 94%)',
+          200: 'hsl(0, 64%, 88%)',
+          300: 'hsl(0, 65%, 82%)',
+          400: 'hsl(0, 66%, 76%)',
+          500: 'hsl(0, 65%, 70%)',
+          600: 'hsl(0, 65%, 64%)',
+          700: 'hsl(0, 65%, 58%)',
+          800: 'hsl(0, 65%, 52%)',
+          900: 'hsl(0, 65%, 46%)',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
-          ...colors.secondary,
+          100: 'hsl(30, 68%, 91%)',
+          200: 'hsl(30, 67%, 89%)',
+          300: 'hsl(29, 68%, 83%)',
+          400: 'hsl(30, 68%, 84%)',
+          500: 'hsl(30, 68%, 79%)',
+          600: 'hsl(30, 68%, 74%)',
+          700: 'hsl(30, 68%, 69%)',
+          800: 'hsl(30, 68%, 63%)',
+          900: 'hsl(30, 68%, 58%)',
         },
         gray: {
-          ...colors.gray,
+          50: 'hsl(210, 14%, 97%)',
+          100: 'hsl(180, 11%, 98%)',
+          200: 'hsl(220, 13%, 96%)',
+          300: 'hsl(223, 9%, 84%)',
+          400: 'hsl(215, 17%, 63%)',
+          500: 'hsl(217, 12%, 50%)',
+          600: 'hsl(214, 24%, 24%)',
+          700: 'hsl(210, 28%, 17%)',
+          800: 'hsl(214, 28%, 15%)',
+          900: 'hsl(211, 36%, 12%)',
+          950: 'hsl(213, 48%, 8%)',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -111,4 +107,11 @@ module.exports = {
       },
     },
   },
+  plugins: [
+    require('tailwindcss'),
+    require('autoprefixer'),
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+  ],
 }

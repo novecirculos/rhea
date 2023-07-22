@@ -1,4 +1,4 @@
-const theme = require('@novecirculos/tokens')
+const tailwindConfig = require('@novecirculos/tokens')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,13 +7,5 @@ module.exports = {
     './app/**/*.{js,jsx,ts,tsx,mdx}',
     '../../packages/**/**/**/*.{js,jsx,ts,tsx,mdx}',
   ],
-  important: 'html',
-  darkMode: 'class',
-  plugins: [
-    require('nativewind/tailwind/css'),
-    require('@tailwindcss/typography'),
-  ],
-  theme: {
-    ...theme,
-  },
+  ...tailwindConfig,
 }

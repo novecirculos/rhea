@@ -6,7 +6,7 @@ import {
   ssrGetArticlesByCategory,
   ssrGetArticlesByTitle,
 } from '@novecirculos/graphql'
-import { Button, TextInput } from '@novecirculos/ui'
+import { Button, TextInput } from '@novecirculos/design'
 import { FormEvent, useCallback, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import ShimmerLoading from '../../components/ShimmerLoading'

@@ -16,7 +16,7 @@
     "@graphcms/html-to-slate-ast": "^0.13.1",
     "@graphcms/rich-text-html-renderer": "^0.2.0",
     "@hookform/resolvers": "^3.1.0",
-    "@novecirculos/ui": "*",
+    "@novecirculos/design": "*",
     "@novecirculos/graphql": "*",
     "@novecirculos/tokens": "*",
     "@pinecone-database/pinecone": "^0.1.6",

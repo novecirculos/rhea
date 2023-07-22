@@ -1,4 +1,4 @@
-import { Button } from '@novecirculos/ui'
+import { Button } from '@novecirculos/design'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FiArrowLeft, FiLogIn, FiUser } from 'react-icons/fi'
