@@ -1,0 +1,10 @@
+{
+  "name": "@novecirculos/theme-provider",
+  "version": "1.0.0",
+  "main": "index.tsx",
+  "license": "MIT",
+  "dependencies": {
+    "jotai": "^2.2.2",
+    "next-themes": "^0.2.1"
+  }
+}
