@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react'
-import { TestComponent } from '@novecirculos/components'
 
 export default {
   title: 'Home',
@@ -8,8 +7,8 @@ export default {
 export const Home = () => {
   return (
     <div>
-      <h1 className="text-primary font-secondary text-2xl">
-        Home <TestComponent />
+      <h1 className="text-primary font-secondary text-2xl text-gray-200">
+        Home
       </h1>
     </div>
   )

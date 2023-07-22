@@ -11,7 +11,7 @@
   "dependencies": {
     "@expo/next-adapter": "^5.0.2",
     "@novecirculos/graphql": "*",
-    "@novecirculos/components": "*",
+    "@novecirculos/ui": "*",
     "@novecirculos/tokens": "*",
     "ai": "2.1.14",
     "langchain": "^0.0.99",
@@ -28,7 +28,7 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "13.4.4-canary.11",
     "postcss": "^8.4.23",
-    "tailwindcss": "^3.3.2",
+    "tailwindcss": "^3.3.3",
     "typescript": "5.1.3"
   }
 }

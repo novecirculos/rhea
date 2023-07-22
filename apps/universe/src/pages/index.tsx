@@ -1,6 +1,6 @@
 import { getSession } from '@auth0/nextjs-auth0'
-import { Button } from '@novecirculos/components'
-import { Text } from '@novecirculos/components'
+import { Button } from '@novecirculos/ui'
+import { Text } from '@novecirculos/ui'
 import { GetServerSidePropsContext } from 'next'
 import Link from 'next/link'
 import nookies from 'nookies'

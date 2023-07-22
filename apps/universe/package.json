@@ -16,7 +16,7 @@
     "@graphcms/html-to-slate-ast": "^0.13.1",
     "@graphcms/rich-text-html-renderer": "^0.2.0",
     "@hookform/resolvers": "^3.1.0",
-    "@novecirculos/components": "*",
+    "@novecirculos/ui": "*",
     "@novecirculos/graphql": "*",
     "@novecirculos/tokens": "*",
     "@pinecone-database/pinecone": "^0.1.6",
@@ -75,6 +75,6 @@
     "autoprefixer": "^10.4.7",
     "eslint-config-next": "13.2.0",
     "prisma": "^4.16.1",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.3.3"
   }
 }

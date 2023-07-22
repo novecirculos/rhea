@@ -1,5 +1,5 @@
 {
-  "name": "@novecirculos/components",
+  "name": "@novecirculos/ui",
   "version": "3.3.1",
   "license": "MIT",
   "main": "./src/index.ts",
@@ -7,6 +7,8 @@
     "@novecirculos/eslint-config": "*",
     "@novecirculos/tokens": "*",
     "@novecirculos/ts-config": "*",
+    "@tailwindcss/forms": "^0.5.4",
+    "@tailwindcss/typography": "^0.5.9",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "react": "^18.2.0",
@@ -18,10 +20,16 @@
     "lint": "eslint src/**/*.ts* --fix"
   },
   "dependencies": {
+    "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-checkbox": "^1.0.1",
     "@stitches/react": "^1.2.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.263.0",
     "nativewind": "^2.0.11",
     "react-icons": "^4.6.0",
-    "solito": "^3.2.6"
+    "solito": "^3.2.6",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.6"
   }
 }

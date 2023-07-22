@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BubbleButton } from '@novecirculos/components'
+import { BubbleButton } from '@novecirculos/ui'
 import * as Toolbar from '@radix-ui/react-toolbar'
 
 import {
@@ -28,7 +28,7 @@ import {
   TextInput as Input,
   Modal,
   ModalWrapper,
-} from '@novecirculos/components'
+} from '@novecirculos/ui'
 import { FiLoader } from 'react-icons/fi'
 
 interface setLinkForm {

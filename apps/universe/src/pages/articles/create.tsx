@@ -4,12 +4,7 @@ import {
   usePublishArticleMutation,
 } from '@novecirculos/graphql'
 import { useCreateArticleMutation } from '@novecirculos/graphql'
-import {
-  Button,
-  Select,
-  SelectOption,
-  TextInput,
-} from '@novecirculos/components'
+import { Button, Select, SelectOption, TextInput } from '@novecirculos/ui'
 import { Editor } from '@tinymce/tinymce-react'
 import { useState } from 'react'
 import { FiLoader } from 'react-icons/fi'

@@ -4,7 +4,7 @@ import {
   ssrGetArticleBySlug,
   useEditContentMutation,
 } from '@novecirculos/graphql'
-import { Button } from '@novecirculos/components'
+import { Button } from '@novecirculos/ui'
 import { Editor } from '@tinymce/tinymce-react'
 import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'

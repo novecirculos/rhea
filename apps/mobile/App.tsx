@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native'
-import { TestComponent } from '@novecirculos/components'
+import { TestComponent } from '@novecirculos/ui'
 
 export default function App() {
   return (
