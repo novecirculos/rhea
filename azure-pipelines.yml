@@ -7,15 +7,22 @@ pool:
 steps:
   - task: vercel-deployment-task@1
     inputs:
-      displayName: 'Deploy Universe to Vercel'
-      vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+      displayName: 'Deploy Storybook to Vercel'
+      vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
       vercelToken: $(VERCEL_TOKEN)
       production: true
   - task: vercel-deployment-task@1
     inputs:
-      displayName: 'Deploy Table to Vercel'
+      displayName: 'Deploy Universe to Vercel'
       vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
       vercelToken: $(VERCEL_TOKEN)
       production: true
+  # - task: vercel-deployment-task@1
+  #   inputs:
+  #     displayName: 'Deploy Table to Vercel'
+  #     vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+  #     vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+  #     vercelToken: $(VERCEL_TOKEN)
+  #     production: true
