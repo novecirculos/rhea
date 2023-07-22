@@ -1,5 +1,5 @@
 {
-  "name": "@novecirculos/theme-provider",
+  "name": "@novecirculos/theme-context",
   "version": "1.0.0",
   "main": "index.tsx",
   "license": "MIT",

@@ -7,7 +7,7 @@ import { Provider } from 'jotai'
 const ThemeBlock = ({ children }) => {
   return (
     <div
-      className={`mt-2 h-full min-h-screen w-full rounded-sm bg-gray-50 p-2 dark:bg-gray-950 `}
+      className={`mt-2 h-full min-h-screen w-full rounded-sm bg-gray-200 p-2 dark:bg-gray-950 `}
     >
       {children}
     </div>
@@ -24,7 +24,7 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'secondary',
+      default: 'primary',
       values: [
         {
           name: 'primary',

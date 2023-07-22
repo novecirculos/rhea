@@ -3,17 +3,4 @@
  "include": [
   "src"
  ],
- "compilerOptions": {
-  "paths": {
-   "@/*": [
-    "./src/*"
-   ],
-   "@components/*": [
-    "./src/components/*"
-   ],
-   "@lib/*": [
-    "./src/lib/*"
-   ]
-  },
- }
 }
