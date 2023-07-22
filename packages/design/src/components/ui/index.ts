@@ -1,6 +1,5 @@
 export * from './BubbleButton'
 export * from './Modal'
-export * from './Avatar'
 export * from './Button'
 export * from './ThemeSwitcher'
 export * from './Card'
