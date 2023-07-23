@@ -14,15 +14,15 @@ export const Default = () => {
         variant="outline"
         onClick={() => {
           toast({
-            title: 'Scheduled: Catch up ',
-            description: 'Friday, February 10, 2023 at 5:57 PM',
+            title: 'Postagem de artigo agendada!',
+            description: 'Sexta, 10 de Agosto, 2023',
             action: (
-              <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+              <ToastAction altText="Desfazer agendamento">Desfazer</ToastAction>
             ),
           })
         }}
       >
-        Add to calendar
+        Agendar postagem
       </Button>
     </div>
   )

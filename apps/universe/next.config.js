@@ -1,13 +1,10 @@
-import { withExpo } from '@expo/next-adapter'
-
-await import('./app/env.mjs')
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: false,
+module.exports = {
+  reactStrictMode: true,
   experimental: {
     workerThreads: false,
     cpus: 1,
+    serverActions: true,
   },
   transpilePackages: [
     '@novecirculos/design',
@@ -27,5 +24,3 @@ const nextConfig = {
     return config
   },
 }
-
-export default withExpo(nextConfig)

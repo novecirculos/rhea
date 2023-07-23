@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx tailwindcss -i src/styles/global.css -o ./static/tailwind.css --postcss postcss.config.js && next dev",
-    "postinstall": "prisma generate",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -47,7 +46,6 @@
     "lucide-react": "^0.261.0",
     "midjourney": "^2.1.30",
     "midjourney-client": "^1.0.8",
-    "nativewind": "^2.0.11",
     "next": "^13.4.7",
     "next-multiparty": "^0.7.0",
     "nookies": "^2.5.2",
@@ -57,7 +55,6 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-loading-dot": "^1.0.6",
-    "react-native-web": "~0.18.11",
     "react-svg": "^16.1.7",
     "remark-html": "^15.0.2",
     "setimmediate": "^1.0.5",

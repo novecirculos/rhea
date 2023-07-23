@@ -35,7 +35,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.263.0",
-    "nativewind": "^2.0.11",
     "react-icons": "^4.6.0",
     "solito": "^3.2.6",
     "tailwind-merge": "^1.14.0",

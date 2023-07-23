@@ -12,6 +12,7 @@ import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { Analytics } from '@vercel/analytics/react'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '@novecirculos/graphql'
+import { RootProvider } from '@novecirculos/root-context'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false)
@@ -47,12 +48,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/static/favicon.ico" />
       </Head>
-      <ApolloProvider client={client}>
-        <UserProvider>
-          {isLoading ? <Loader /> : <Component {...pageProps} />}
-          <Analytics />
-        </UserProvider>
-      </ApolloProvider>
+      <RootProvider>
+        <ApolloProvider client={client}>
+          <UserProvider>
+            {isLoading ? <Loader /> : <Component {...pageProps} />}
+            <Analytics />
+          </UserProvider>
+        </ApolloProvider>
+      </RootProvider>
     </>
   )
 }

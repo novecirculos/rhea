@@ -13,6 +13,7 @@ type ButtonVariants =
   | 'secondary'
   | 'ghost'
   | 'link'
+  | 'gradient'
 
 export const AllVariants = () => {
   const variantNames: ButtonVariants[] = [
@@ -22,6 +23,7 @@ export const AllVariants = () => {
     'ghost',
     'link',
     'outline',
+    'gradient',
   ]
 
   return (

@@ -5,7 +5,6 @@ import { z } from 'zod'
  * built with invalid env vars.
  */
 const server = z.object({
-  POSTGRES_URL: z.string().url(),
   NODE_ENV: z.enum(['development', 'test', 'production']),
   AUTH0_SECRET: z.string(),
   AUTH0_BASE_URL: z.string().url(),
@@ -35,7 +34,6 @@ const client = z.object(
  * @type {Record<keyof z.infer<typeof server> | keyof z.infer<typeof client>, string | undefined>}
  */
 const processEnv = {
-  POSTGRES_URL: process.env.POSTGRES_URL,
   NODE_ENV: process.env.NODE_ENV,
   AUTH0_SECRET: process.env.AUTH0_SECRET,
   AUTH0_BASE_URL: process.env.AUTH0_BASE_URL,

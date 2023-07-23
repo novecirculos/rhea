@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   darkMode: ['class'],
   theme: {
     container: {
@@ -27,7 +28,7 @@ module.exports = {
         background: 'hsl(210, 14%, 97%)',
         foreground: 'hsl(213, 58%, 8%)',
         primary: {
-          DEFAULT: 'hsl(0, 65%, 46%)',
+          DEFAULT: 'hsl(0, 65%, 40%)',
           foreground: 'hsl(210, 14%, 97%)',
           100: 'hsl(0, 67%, 94%)',
           200: 'hsl(0, 64%, 88%)',
@@ -40,7 +41,7 @@ module.exports = {
           900: 'hsl(0, 65%, 46%)',
         },
         secondary: {
-          DEFAULT: 'hsl(30, 68%, 58%)',
+          DEFAULT: 'hsl(30, 68%, 53%)',
           foreground: 'hsl(213, 58%, 8%)',
           100: 'hsl(30, 68%, 91%)',
           200: 'hsl(30, 67%, 89%)',
@@ -90,6 +91,10 @@ module.exports = {
         lg: '0.5rem',
         md: 'calc(0.5rem - 2px)',
         sm: 'calc(0.5rem - 4px)',
+      },
+      backgroundImage: {
+        'primary-to-secondary':
+          'linear-gradient(90deg, #a82424 25%, #d98736 89%);',
       },
       keyframes: {
         'accordion-down': {

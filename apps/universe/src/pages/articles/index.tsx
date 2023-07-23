@@ -6,7 +6,7 @@ import {
   ssrGetArticlesByCategory,
   ssrGetArticlesByTitle,
 } from '@novecirculos/graphql'
-import { Button, TextInput } from '@novecirculos/design'
+import { Button, Input } from '@novecirculos/design'
 import { FormEvent, useCallback, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import ShimmerLoading from '../../components/ShimmerLoading'
@@ -108,13 +108,12 @@ const Home = () => {
         onSubmit={getArticlesByTitle}
         className="flex items-center justify-between"
       >
-        <TextInput
+        <Input
           onChange={(e) => setTitle(e.target.value)}
           className="pr-4"
-          label="Pesquise por um artigo"
           placeholder="Exemplo: Kiverlia"
         />
-        <Button type="submit" className="mt-7" size="sm" variant="primary">
+        <Button type="submit" className="mt-7" size="sm">
           <FiSearch /> Pesquisar
         </Button>
       </form>

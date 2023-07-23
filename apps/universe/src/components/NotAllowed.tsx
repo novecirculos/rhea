@@ -9,7 +9,7 @@ export const NotAllowed = () => {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2">
       Você não tem o nível de acesso necessário para ver essa página.
-      <Button as="a" variant="secondary" onClick={() => router.back()}>
+      <Button variant="secondary" onClick={() => router.back()}>
         <FiArrowLeft /> Voltar
       </Button>
       <span>Ou</span>

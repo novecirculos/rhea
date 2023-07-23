@@ -32,7 +32,6 @@
     "@storybook/addon-interactions": "^7.1.0",
     "@storybook/addon-links": "^7.1.0",
     "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/addon-react-native-web": "^0.0.21",
     "@storybook/addons": "^7.1.0",
     "@storybook/blocks": "^7.1.0",
     "@storybook/react": "^7.1.0",

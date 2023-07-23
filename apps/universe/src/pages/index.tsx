@@ -1,6 +1,6 @@
 import { getSession } from '@auth0/nextjs-auth0'
 import { Button } from '@novecirculos/design'
-import { Text } from '@novecirculos/design'
+
 import { GetServerSidePropsContext } from 'next'
 import Link from 'next/link'
 import nookies from 'nookies'
@@ -8,9 +8,6 @@ import nookies from 'nookies'
 export default function Home({ user }: any) {
   return (
     <div className="mx-auto my-auto flex max-w-xl flex-col items-center justify-center gap-2">
-      <Text as="h1" size="4xl">
-        {user?.name}
-      </Text>
       <Link className="w-full" href="/articles">
         <Button className="w-full flex-1">Ler artigos</Button>
       </Link>

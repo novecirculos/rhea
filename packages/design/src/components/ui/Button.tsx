@@ -14,6 +14,7 @@ const buttonVariants = cva(
           'dark:bg-destructive dark:text-destructive-foreground dark:hover:bg-destructive/90 hover:bg-destructive-foreground/90 bg-destructive-foreground text-destructive',
         matching:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90 dark:hover:bg-destructive-foreground/90 dark:bg-destructive-foreground dark:text-destructive',
+        gradient: 'border border-input bg-accent hover:text-accent ',
         outline:
           'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground dark:text-gray-50 dark:hover:text-gray-950',
         secondary:
@@ -45,6 +46,22 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
+
+    if (variant === 'gradient') {
+      return (
+        <div className="from-primary to-secondary relative overflow-hidden rounded-md bg-gradient-to-r p-[1px]">
+          <Comp
+            className={cn(
+              'relative z-10 w-full transition-all hover:bg-transparent',
+              buttonVariants({ variant, size, className })
+            )}
+            ref={ref}
+            {...props}
+          />
+        </div>
+      )
+    }
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}

@@ -1,21 +1,9 @@
 import React from 'react'
-import { AppRegistry } from 'react-native'
 
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from 'next/document'
-import Loader from '../components/Loader'
 
 class Document extends NextDocument {
-  static async getInitialProps(ctx: DocumentContext) {
-    AppRegistry.registerComponent('Main', () => Main)
-    // @ts-ignore
-    const { getStyleElement } = AppRegistry.getApplication('Main')
-    const styles = [getStyleElement()]
-
-    const initialProps = await NextDocument.getInitialProps(ctx)
-    return { ...initialProps, styles: React.Children.toArray(styles) }
-  }
-
   render() {
     return (
       <Html lang="en">
