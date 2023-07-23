@@ -1,8 +1,9 @@
 import { Checkbox, Label } from '@novecirculos/design'
 
 export default {
-  title: 'Components/Forms/Label',
-  component: Label,
+  title: 'Components/Forms/Checkbox',
+  component: Checkbox,
+  subcomponents: { Label },
 }
 
 export function Default() {
