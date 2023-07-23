@@ -10,7 +10,7 @@
     "cssVariables": false
   },
   "aliases": {
-    "components": "./",
-    "utils": "../../lib/utils"
+    "components": "@novecirculos/design",
+    "utils": "@novecirculos/design"
   }
 }
