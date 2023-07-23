@@ -3,7 +3,6 @@
   "version": "3.3.2",
   "license": "MIT",
   "main": "./src/index.ts",
-  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@novecirculos/eslint-config": "*",
     "@novecirculos/tokens": "*",
@@ -29,6 +28,7 @@
     "@radix-ui/react-progress": "^1.0.3",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.263.0",

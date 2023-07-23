@@ -2,12 +2,12 @@ import 'tailwindcss/tailwind.css'
 import React from 'react'
 import type { Preview } from '@storybook/react'
 import { ThemeSwitcher } from '@novecirculos/design'
-import { Provider } from 'jotai'
+import { RootProvider } from '@novecirculos/root-context'
 
 const ThemeBlock = ({ children }) => {
   return (
     <div
-      className={`mt-2 h-full min-h-screen w-full rounded-sm bg-gray-200 p-2 dark:bg-gray-950 `}
+      className={`bg-background dark:bg-foreground mt-2 h-full min-h-screen w-full rounded-sm p-2 `}
     >
       {children}
     </div>
@@ -40,14 +40,14 @@ const preview: Preview = {
 
   decorators: [
     (Story) => (
-      <Provider>
+      <RootProvider>
         <div className="flex w-full justify-end">
           <ThemeSwitcher />
         </div>
         <ThemeBlock>
           <Story />
         </ThemeBlock>
-      </Provider>
+      </RootProvider>
     ),
   ],
 }

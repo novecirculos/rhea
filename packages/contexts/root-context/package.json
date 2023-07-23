@@ -1,0 +1,11 @@
+{
+  "name": "@novecirculos/root-context",
+  "version": "1.0.0",
+  "main": "index.tsx",
+  "license": "MIT",
+  "dependencies": {
+    "jotai": "^2.2.2",
+    "@novecirculos/theme-context": "*",
+    "@novecirculos/toast-context": "*"
+  }
+}

@@ -40,7 +40,7 @@ export function CardWithForm() {
               <Label htmlFor="category">Categoria</Label>
               <Select>
                 <SelectTrigger id="category">
-                  <SelectValue placeholder="Select" />
+                  <SelectValue placeholder="Selecione uma categoria" />
                 </SelectTrigger>
                 <SelectContent position="popper">
                   <SelectItem value="divinity">Divindade</SelectItem>

@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@novecirculos/design": "*",
-    "@novecirculos/theme-context": "*",
+    "@novecirculos/root-context": "*",
+    "@novecirculos/toast-context": "*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.263.0",
