@@ -15,7 +15,7 @@ export default {
 
 export function Default() {
   return (
-    <div>
+    <div className="flex justify-center">
       <Select>
         <SelectTrigger className="max-w-xs">
           <SelectValue placeholder="Selecione uma divindade" />

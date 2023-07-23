@@ -19,7 +19,7 @@ export const Default = () => {
     'Reino',
   ]
   return (
-    <div className="flex items-center justify-center space-x-4">
+    <div className="flex flex-wrap items-center justify-center space-x-4">
       {categories.map((category) => (
         <Toggle key={category}>{category}</Toggle>
       ))}

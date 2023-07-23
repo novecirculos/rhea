@@ -17,7 +17,7 @@ export const Default = () => {
   const sizes: sizeType[] = ['default', 'md', 'lg']
 
   return (
-    <div className="flex justify-center space-x-4">
+    <div className="flex justify-center space-x-8">
       {sizes.map((size) => (
         <section className="flex flex-col">
           <Avatar key={size} size={size}>
