@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
 
-import { cn } from '@novecirculos/design'
+import { cn } from '../../lib/utils'
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
@@ -11,7 +11,7 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'peer h-4 w-4 shrink-0 rounded-sm border border-gray-200 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-gray-900 data-[state=checked]:text-gray-50 dark:border-gray-800 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-800 dark:data-[state=checked]:bg-gray-50 dark:data-[state=checked]:text-gray-900',
+      'data-[state=checked]:bg-primary animate-duration-[250ms] peer h-4 w-4 shrink-0 rounded-sm border border-gray-200 bg-gray-300 ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:text-gray-50 dark:border-gray-800 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-800 dark:data-[state=checked]:text-gray-50',
       className
     )}
     {...props}

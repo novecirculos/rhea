@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from './DropdownMenu'
 
-export function ThemeSwitcher() {
+export const ThemeSwitcher = () => {
   const [, setTheme] = useTheme()
 
   return (

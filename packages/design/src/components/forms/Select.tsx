@@ -2,13 +2,24 @@ import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown } from 'lucide-react'
 
-import { cn } from '@novecirculos/design'
+import { cn } from '../../lib/utils'
 
 const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
-const SelectValue = SelectPrimitive.Value
+const SelectValue = ({
+  children,
+  ...props
+}: SelectPrimitive.SelectValueProps) => (
+  <SelectPrimitive.Value
+    color="#ffffff"
+    className="dark:text-gray-50"
+    {...props}
+  >
+    {children}
+  </SelectPrimitive.Value>
+)
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
@@ -17,7 +28,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-10 w-full items-center justify-between rounded-md border  border-gray-200 bg-transparent px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus:ring-gray-800',
+      'flex h-10 w-full items-center justify-between rounded-md border border-gray-200 bg-transparent px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:text-gray-50 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus:ring-gray-800',
       className
     )}
     {...props}

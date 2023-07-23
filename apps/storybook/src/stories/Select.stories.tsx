@@ -18,7 +18,10 @@ export function Default() {
     <div>
       <Select>
         <SelectTrigger className="max-w-xs">
-          <SelectValue placeholder="Selecione uma divindade" />
+          <SelectValue
+            className="dark:text-gray-50"
+            placeholder="Selecione uma divindade"
+          />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
