@@ -5,7 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "jotai": "^2.2.2",
-    "@novecirculos/theme-context": "*",
-    "@novecirculos/toast-context": "*"
+    "@novecirculos/theme-context": "*"
   }
 }
