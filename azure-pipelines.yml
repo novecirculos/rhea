@@ -1,55 +1,28 @@
 trigger:
   - main
 
-jobs:
-  - job: DeployStorybook
-    displayName: Deploy Storybook to Vercel
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - task: vercel-deployment-task@1
-        inputs:
-          vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
-          vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-          vercelToken: $(VERCEL_TOKEN)
-          production: true
+pool:
+  vmImage: ubuntu-latest
 
-  - job: DeployUniverse
-    displayName: Deploy Universe to Vercel
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - task: vercel-deployment-task@1
-        inputs:
-          vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
-          vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-          vercelToken: $(VERCEL_TOKEN)
-          production: true
-# trigger:
-#   - main
-
-# pool:
-#   vmImage: ubuntu-latest
-
-# steps:
-#   - task: vercel-deployment-task@1
-#     displayName: 'Deploy Storybook to Vercel'
-#     inputs:
-#       vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
-#       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-#       vercelToken: $(VERCEL_TOKEN)
-#       production: true
-#   - task: vercel-deployment-task@1
-#     displayName: 'Deploy Universe to Vercel'
-#     inputs:
-#       vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
-#       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-#       vercelToken: $(VERCEL_TOKEN)
-#       production: true
-# - task: vercel-deployment-task@1
-#   inputs:
-#     displayName: 'Deploy Table to Vercel'
-#     vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
-#     vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-#     vercelToken: $(VERCEL_TOKEN)
-#     production: true
+steps:
+  - task: vercel-deployment-task@1
+    displayName: 'Deploy Storybook to Vercel'
+    inputs:
+      vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
+  - task: vercel-deployment-task@1
+    displayName: 'Deploy Universe to Vercel'
+    inputs:
+      vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
+  # - task: vercel-deployment-task@1
+  #   inputs:
+  #     displayName: 'Deploy Table to Vercel'
+  #     vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+  #     vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+  #     vercelToken: $(VERCEL_TOKEN)
+  #     production: true

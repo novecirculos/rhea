@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactNode } from 'react'
 import { MdOutlineClose } from 'react-icons/md'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -19,14 +21,14 @@ export interface ModalWrapperTypes {
 export const Modal = React.forwardRef(
   (
     { children, width, title, description, loadingTitle }: ModalTypes,
-    forwardedRef: React.ForwardedRef<HTMLDivElement>,
+    forwardedRef: React.ForwardedRef<HTMLDivElement>
   ) => {
     return (
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 z-30 bg-black bg-opacity-50" />
         <Dialog.Content
           ref={forwardedRef}
-          className={`data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] z-30 overflow-hidden ${
+          className={`data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] z-30 overflow-hidden ${
             width || 'w-[700px]'
           } max-w-[98%] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white pt-6 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none`}
         >
@@ -59,7 +61,7 @@ export const Modal = React.forwardRef(
         </Dialog.Content>
       </Dialog.Portal>
     )
-  },
+  }
 )
 
 export const ModalWrapper = ({
