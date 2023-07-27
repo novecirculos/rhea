@@ -1,3 +1,5 @@
+'use client'
+
 import { ComponentProps, ReactNode } from 'react'
 
 interface BubbleButtonTypes extends ComponentProps<'button'> {
