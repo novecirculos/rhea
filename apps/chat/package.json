@@ -14,8 +14,8 @@
     "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
-    "@novecirculos/tokens": "*",
     "@novecirculos/design": "*",
+    "@novecirculos/tokens": "*",
     "@vercel/analytics": "^1.0.0",
     "@vercel/kv": "^0.2.1",
     "@vercel/og": "^0.5.7",

@@ -6,6 +6,8 @@ import { getSharedChat } from '@/app/actions'
 import { ChatList } from '@/components/chat-list'
 import { FooterText } from '@/components/footer'
 
+export const runtime = 'edge'
+
 export const preferredRegion = 'home'
 
 interface SharePageProps {
