@@ -1,25 +1,35 @@
 import { ImageResponse } from 'next/server'
 
 import { getSharedChat } from '@/app/actions'
+import path from 'path'
+import fs from 'fs'
 
 export const runtime = 'edge'
 
-export const alt = 'AI Chatbot'
+export const alt = 'Chat - Nove Círculos'
 
 export const size = {
   width: 1200,
-  height: 630
+  height: 630,
 }
 
 export const contentType = 'image/png'
 
-const interRegular = fetch(
-  new URL('../../../assets/fonts/Inter-Regular.woff', import.meta.url)
-).then(res => res.arrayBuffer())
+const fontPathRegular = path.join(
+  process.cwd(),
+  'public',
+  'fonts',
+  'NotoSerif-Regular.ttf'
+)
+const fontPathBold = path.join(
+  process.cwd(),
+  'public',
+  'fonts',
+  'NotoSerif-Bold.ttf'
+)
 
-const interBold = fetch(
-  new URL('../../../assets/fonts/Inter-Bold.woff', import.meta.url)
-).then(res => res.arrayBuffer())
+const notoSerif = fs.readFileSync(fontPathRegular)
+const notoSerifBold = fs.readFileSync(fontPathBold)
 
 interface ImageProps {
   params: {
@@ -38,10 +48,10 @@ export default async function Image({ params }: ImageProps) {
 
   return new ImageResponse(
     (
-      <div tw="flex w-full items-start h-full flex-col bg-[#09090b] text-white p-[80px]">
+      <div tw="flex w-full items-start h-full flex-col bg-[#091320] text-white p-[80px]">
         <div tw="flex flex-col w-full pt-[40px]">
           <div tw={`flex w-full ${textAlign}`}>
-            <div tw="flex h-18 w-18 items-center justify-center rounded-md border border-[#9b9ba4]">
+            <div tw="flex h-18 w-18 items-center justify-center rounded-md border border-[#f3f4f6]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 256 256"
@@ -59,7 +69,7 @@ export default async function Image({ params }: ImageProps) {
             </div>
           </div>
           <div tw="flex w-full mt-14 items-start">
-            <div tw="flex h-18 w-18 items-center justify-center rounded-md border border-[#9b9ba4]">
+            <div tw="flex h-18 w-18 items-center justify-center rounded-md border border-[#f3f4f6]">
               <svg
                 fill="currentColor"
                 viewBox="0 0 24 24"
@@ -81,19 +91,20 @@ export default async function Image({ params }: ImageProps) {
             <svg
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
-              fill="#9b9ba4"
+              fill="#f3f4f6"
               width={40}
               height={40}
             >
               <path d="M24 22.525H0l12-21.05 12 21.05z" />
             </svg>
-            <div tw="flex text-[1.8rem] ml-4 text-[#9b9ba4]">
-              Built with{' '}
-              <div tw="flex text-[#eaeaf0] ml-2 mr-2">Vercel AI SDK</div> &
-              <div tw="flex text-[#eaeaf0] ml-2">KV</div>
+            <div tw="flex text-[1.8rem] ml-4 text-[#f3f4f6]">
+              Criado no universo de fantasia{' '}
+              <div tw="flex text-[#a82424] ml-2 mr-2">Nove Círculos</div>
             </div>
           </div>
-          <div tw="text-[1.8rem] ml-auto text-[#9b9ba4]">chat.vercel.ai</div>
+          <div tw="text-[1.8rem] ml-auto text-[#f3f4f6]">
+            chat.novecirculos.com.br
+          </div>
         </div>
       </div>
     ),
@@ -101,18 +112,18 @@ export default async function Image({ params }: ImageProps) {
       ...size,
       fonts: [
         {
-          name: 'Inter',
-          data: await interRegular,
+          name: 'Noto-Serif',
+          data: notoSerif,
           style: 'normal',
-          weight: 400
+          weight: 400,
         },
         {
-          name: 'Inter',
-          data: await interBold,
+          name: 'Noto-Serif',
+          data: notoSerifBold,
           style: 'normal',
-          weight: 700
-        }
-      ]
+          weight: 700,
+        },
+      ],
     }
   )
 }

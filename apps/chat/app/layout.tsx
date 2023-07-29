@@ -9,6 +9,10 @@ import { Header } from '@/components/header'
 import { RootProvider } from '@novecirculos/root-context'
 
 export const metadata: Metadata = {
+  metadataBase:
+    process.env.NODE_ENV === 'production'
+      ? (`https://${process.env.VERCEL_URL}` as unknown as URL)
+      : ('http://localhost:3000' as unknown as URL),
   title: {
     default: 'Chat - Nove Círculos',
     template: `%s - Nove Círculos`,
