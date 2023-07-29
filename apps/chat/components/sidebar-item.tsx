@@ -5,13 +5,9 @@ import { usePathname } from 'next/navigation'
 
 import { type Chat } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@novecirculos/design'
 import { IconMessage, IconUsers } from '@/components/ui/icons'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@novecirculos/design'
 
 interface SidebarItemProps {
   chat: Chat
@@ -31,7 +27,7 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
           <Tooltip delayDuration={1000}>
             <TooltipTrigger
               tabIndex={-1}
-              className="focus:bg-muted focus:ring-1 focus:ring-ring"
+              className="focus:bg-muted focus:ring-ring focus:ring-1"
             >
               <IconUsers className="mr-2" />
             </TooltipTrigger>

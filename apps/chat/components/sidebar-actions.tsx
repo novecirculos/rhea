@@ -14,30 +14,26 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+  AlertDialogTitle,
+} from '@novecirculos/design'
+import { Button } from '@novecirculos/design'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog'
+  DialogTitle,
+} from '@novecirculos/design'
 import {
   IconShare,
   IconSpinner,
   IconTrash,
-  IconUsers
+  IconUsers,
 } from '@/components/ui/icons'
 import Link from 'next/link'
-import { badgeVariants } from '@/components/ui/badge'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
+import { badgeVariants } from '@novecirculos/design'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@novecirculos/design'
 
 interface SidebarActionsProps {
   chat: Chat
@@ -48,7 +44,7 @@ interface SidebarActionsProps {
 export function SidebarActions({
   chat,
   removeChat,
-  shareChat
+  shareChat,
 }: SidebarActionsProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
@@ -70,12 +66,12 @@ export function SidebarActions({
         borderRadius: '10px',
         background: '#333',
         color: '#fff',
-        fontSize: '14px'
+        fontSize: '14px',
       },
       iconTheme: {
         primary: 'white',
-        secondary: 'black'
-      }
+        secondary: 'black',
+      },
     })
   }, [])
 
@@ -86,7 +82,7 @@ export function SidebarActions({
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
-              className="h-6 w-6 p-0 hover:bg-background"
+              className="hover:bg-background h-6 w-6 p-0"
               onClick={() => setShareDialogOpen(true)}
             >
               <IconShare />
@@ -99,7 +95,7 @@ export function SidebarActions({
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
-              className="h-6 w-6 p-0 hover:bg-background"
+              className="hover:bg-background h-6 w-6 p-0"
               disabled={isRemovePending}
               onClick={() => setDeleteDialogOpen(true)}
             >
@@ -143,7 +139,7 @@ export function SidebarActions({
               onClick={() => {
                 startShareTransition(async () => {
                   if (chat.sharePath) {
-                    await new Promise(resolve => setTimeout(resolve, 500))
+                    await new Promise((resolve) => setTimeout(resolve, 500))
                     copyShareLink(chat)
                     return
                   }
@@ -186,12 +182,12 @@ export function SidebarActions({
             </AlertDialogCancel>
             <AlertDialogAction
               disabled={isRemovePending}
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault()
                 startRemoveTransition(async () => {
                   const result = await removeChat({
                     id: chat.id,
-                    path: chat.path
+                    path: chat.path,
                   })
 
                   if (result && 'error' in result) {

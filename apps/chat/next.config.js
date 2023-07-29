@@ -4,23 +4,24 @@ module.exports = {
   experimental: {
     workerThreads: false,
     cpus: 1,
-    serverActions: true
+    serverActions: true,
   },
-  transpilePackages: [
-    '@novecirculos/design',
-    '@novecirculos/tokens',
-    '@novecirculos/graphql'
-  ],
+  transpilePackages: ['@novecirculos/design', '@novecirculos/tokens'],
   images: {
-    domains: ['media.graphassets.com', 'i.ibb.co', 'github.com']
+    domains: [
+      'media.graphassets.com',
+      'i.ibb.co',
+      'github.com',
+      'lh3.googleusercontent.com',
+    ],
   },
-  webpack: config => {
+  webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       net: false,
       os: false,
-      tls: false
+      tls: false,
     }
     return config
-  }
+  },
 }

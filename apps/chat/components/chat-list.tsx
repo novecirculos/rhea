@@ -1,6 +1,6 @@
 import { type Message } from 'ai'
 
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@novecirculos/design'
 import { ChatMessage } from '@/components/chat-message'
 
 export interface ChatList {

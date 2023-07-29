@@ -2,14 +2,14 @@
 
 import * as React from 'react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@novecirculos/design'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger
-} from '@/components/ui/sheet'
+  SheetTrigger,
+} from '@novecirculos/design'
 import { IconSidebar } from '@/components/ui/icons'
 
 export interface SidebarProps {

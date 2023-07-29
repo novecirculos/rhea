@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
-    "@auth0/nextjs-auth0": "^2.5.0",
+    "@auth0/nextjs-auth0": "^3.0.0",
     "@expo/next-adapter": "^5.0.2",
     "@graphcms/html-to-slate-ast": "^0.13.1",
     "@graphcms/rich-text-html-renderer": "^0.2.0",

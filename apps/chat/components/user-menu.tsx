@@ -4,14 +4,14 @@ import Image from 'next/image'
 import { type Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@novecirculos/design'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+  DropdownMenuTrigger,
+} from '@novecirculos/design'
 import { IconExternalLink } from '@/components/ui/icons'
 
 export interface UserMenuProps {
@@ -38,7 +38,7 @@ export function UserMenu({ user }: UserMenuProps) {
                 height={24}
               />
             ) : (
-              <div className="flex h-7 w-7 shrink-0 select-none items-center justify-center rounded-full bg-muted/50 text-xs font-medium uppercase text-muted-foreground">
+              <div className="bg-muted/50 text-muted-foreground flex h-7 w-7 shrink-0 select-none items-center justify-center rounded-full text-xs font-medium uppercase">
                 {user?.name ? getUserInitials(user?.name) : null}
               </div>
             )}
@@ -65,7 +65,7 @@ export function UserMenu({ user }: UserMenuProps) {
           <DropdownMenuItem
             onClick={() =>
               signOut({
-                callbackUrl: '/'
+                callbackUrl: '/',
               })
             }
             className="text-xs"
