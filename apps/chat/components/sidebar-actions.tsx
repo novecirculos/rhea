@@ -54,14 +54,14 @@ export function SidebarActions({
 
   const copyShareLink = React.useCallback(async (chat: Chat) => {
     if (!chat.sharePath) {
-      return toast.error('Could not copy share link to clipboard')
+      return toast.error('Não foi possível copiar o link')
     }
 
     const url = new URL(window.location.href)
     url.pathname = chat.sharePath
     navigator.clipboard.writeText(url.toString())
     setShareDialogOpen(false)
-    toast.success('Share link copied to clipboard', {
+    toast.success('O link foi copiado para a sua área de transferência', {
       style: {
         borderRadius: '10px',
         background: '#333',
@@ -86,10 +86,10 @@ export function SidebarActions({
               onClick={() => setShareDialogOpen(true)}
             >
               <IconShare />
-              <span className="sr-only">Share</span>
+              <span className="sr-only">Compartilhar</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Share chat</TooltipContent>
+          <TooltipContent>Compartilhar conversa</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -100,24 +100,24 @@ export function SidebarActions({
               onClick={() => setDeleteDialogOpen(true)}
             >
               <IconTrash />
-              <span className="sr-only">Delete</span>
+              <span className="sr-only">Deletar</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Delete chat</TooltipContent>
+          <TooltipContent>Deletar conversa</TooltipContent>
         </Tooltip>
       </div>
       <Dialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Share link to chat</DialogTitle>
+            <DialogTitle>Compartilhar conversa</DialogTitle>
             <DialogDescription>
-              Anyone with the URL will be able to view the shared chat.
+              Qualquer um com o link poderá ver a sua conversa.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-1 rounded-md border p-4 text-sm">
             <div className="font-medium">{chat.title}</div>
             <div className="text-muted-foreground">
-              {formatDate(chat.createdAt)} · {chat.messages.length} messages
+              {formatDate(chat.createdAt)} · {chat.messages.length} mensagens
             </div>
           </div>
           <DialogFooter className="items-center">
@@ -126,7 +126,7 @@ export function SidebarActions({
                 href={chat.sharePath}
                 className={cn(
                   badgeVariants({ variant: 'secondary' }),
-                  'mr-auto'
+                  'mr-auto',
                 )}
                 target="_blank"
               >
@@ -158,10 +158,10 @@ export function SidebarActions({
               {isSharePending ? (
                 <>
                   <IconSpinner className="mr-2 animate-spin" />
-                  Copying...
+                  Copiando...
                 </>
               ) : (
-                <>Copy link</>
+                <>Copiar link</>
               )}
             </Button>
           </DialogFooter>
@@ -170,15 +170,14 @@ export function SidebarActions({
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete your chat message and remove your
-              data from our servers.
+              Isso irá mandar essa conversa para o vazio.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isRemovePending}>
-              Cancel
+              Cancelar
             </AlertDialogCancel>
             <AlertDialogAction
               disabled={isRemovePending}
@@ -203,7 +202,7 @@ export function SidebarActions({
               }}
             >
               {isRemovePending && <IconSpinner className="mr-2 animate-spin" />}
-              Delete
+              Confirmar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

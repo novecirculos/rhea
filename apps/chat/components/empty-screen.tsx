@@ -22,7 +22,7 @@ const exampleMessages = [
 export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
   return (
     <div className="mx-auto max-w-2xl px-4">
-      <div className="bg-background rounded-lg border p-8">
+      <div className="rounded-lg border bg-white p-8 shadow">
         <h1 className="mb-2 text-lg font-semibold">
           Seja bem vindo(a) aos Nove Círculos
         </h1>
@@ -37,7 +37,7 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
             <Button
               key={index}
               variant="link"
-              className="h-auto p-0 text-base"
+              className="text-primary h-auto p-0 text-base"
               onClick={() => setInput(message.message)}
             >
               <IconArrowRight className="text-muted-foreground mr-2" />

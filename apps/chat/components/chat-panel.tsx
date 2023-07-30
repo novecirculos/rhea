@@ -4,7 +4,7 @@ import { Button } from '@novecirculos/design'
 import { PromptForm } from '@/components/prompt-form'
 import { ButtonScrollToBottom } from '@/components/button-scroll-to-bottom'
 import { IconRefresh, IconStop } from '@/components/ui/icons'
-import { FooterText } from '@/components/footer'
+import { FooterText } from './footer'
 
 export interface ChatPanelProps
   extends Pick<
@@ -38,26 +38,26 @@ export function ChatPanel({
           {isLoading ? (
             <Button
               variant="outline"
+              className="hover:border-primary mb-2 bg-white hover:bg-white/50"
               onClick={() => stop()}
-              className="bg-background"
             >
               <IconStop className="mr-2" />
-              Stop generating
+              Parar
             </Button>
           ) : (
             messages?.length > 0 && (
               <Button
                 variant="outline"
+                className="hover:border-primary mb-2 bg-white hover:bg-white/50"
                 onClick={() => reload()}
-                className="bg-background"
               >
                 <IconRefresh className="mr-2" />
-                Regenerate response
+                Refazer resposta
               </Button>
             )
           )}
         </div>
-        <div className="bg-background space-y-4 border-t px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
+        <div className="space-y-4 border-t bg-white px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
           <PromptForm
             onSubmit={async (value) => {
               await append({

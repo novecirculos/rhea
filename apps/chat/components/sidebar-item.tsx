@@ -22,7 +22,7 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
 
   return (
     <div className="relative">
-      <div className="absolute left-2 top-1 flex h-6 w-6 items-center justify-center">
+      <div className="absolute left-2 top-2 flex h-6 w-6 items-center justify-center">
         {chat.sharePath ? (
           <Tooltip delayDuration={1000}>
             <TooltipTrigger
@@ -31,7 +31,7 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
             >
               <IconUsers className="mr-2" />
             </TooltipTrigger>
-            <TooltipContent>This is a shared chat.</TooltipContent>
+            <TooltipContent>Essa é uma conversa compartilhada</TooltipContent>
           </Tooltip>
         ) : (
           <IconMessage className="mr-2" />
@@ -42,7 +42,7 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
         className={cn(
           buttonVariants({ variant: 'ghost' }),
           'group w-full pl-8 pr-16',
-          isActive && 'bg-accent'
+          isActive && 'bg-accent',
         )}
       >
         <div
@@ -52,7 +52,7 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
           <span className="whitespace-nowrap">{chat.title}</span>
         </div>
       </Link>
-      {isActive && <div className="absolute right-2 top-1">{children}</div>}
+      {isActive && <div className="absolute right-2 top-2">{children}</div>}
     </div>
   )
 }

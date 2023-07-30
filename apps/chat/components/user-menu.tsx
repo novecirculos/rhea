@@ -53,12 +53,12 @@ export function UserMenu({ user }: UserMenuProps) {
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <a
-              href="https://vercel.com"
+              href="https://universo.novecirculos.com.br"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-between text-xs"
+              className="inline-flex w-full items-center justify-between text-xs hover:cursor-pointer"
             >
-              Vercel Homepage
+              Informações do universo
               <IconExternalLink className="ml-auto h-3 w-3" />
             </a>
           </DropdownMenuItem>
@@ -68,7 +68,7 @@ export function UserMenu({ user }: UserMenuProps) {
                 callbackUrl: '/',
               })
             }
-            className="text-xs"
+            className="text-xs hover:cursor-pointer"
           >
             Log Out
           </DropdownMenuItem>
