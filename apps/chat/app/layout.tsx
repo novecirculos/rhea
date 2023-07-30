@@ -17,7 +17,8 @@ export const metadata: Metadata = {
     default: 'Chat - Nove Círculos',
     template: `%s - Nove Círculos`,
   },
-  description: 'An AI-powered chatbot template built with Next.js and Vercel.',
+  description:
+    'Bem-vindo ao Nove Círculos, um universo onde realidade e fantasia colidem. Embarque em jornadas épicas, enfrente desafios intrigantes e interaja com personagens únicos neste reino digital.',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
