@@ -1,21 +1,14 @@
 import { kv } from '@vercel/kv'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { Configuration, OpenAIApi } from 'openai-edge'
-
+import { StreamingTextResponse, LangChainStream, Message } from 'ai'
+import { ChatOpenAI } from 'langchain/chat_models/openai'
+import { AIMessage, HumanMessage } from 'langchain/schema'
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 
 export const runtime = 'edge'
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-})
-
-const openai = new OpenAIApi(configuration)
-
 export async function POST(req: Request) {
-  const json = await req.json()
-  const { messages, previewToken } = json
+  const { messages } = await req.json()
   const userId = (await auth())?.user.id
 
   if (!userId) {
@@ -24,21 +17,10 @@ export async function POST(req: Request) {
     })
   }
 
-  if (previewToken) {
-    configuration.apiKey = previewToken
-  }
-
-  const res = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo-16k',
-    messages,
-    temperature: 0.7,
-    stream: true,
-  })
-
-  const stream = OpenAIStream(res, {
-    async onCompletion(completion) {
-      const title = json.messages[0].content.substring(0, 100)
-      const id = json.id ?? nanoid()
+  const { stream, handlers } = LangChainStream({
+    onCompletion: async (fullResponse) => {
+      const title = messages[0].content.substring(0, 100)
+      const id = messages.id ?? nanoid()
       const createdAt = Date.now()
       const path = `/chat/${id}`
       const payload = {
@@ -50,7 +32,7 @@ export async function POST(req: Request) {
         messages: [
           ...messages,
           {
-            content: completion,
+            content: fullResponse,
             role: 'assistant',
           },
         ],
@@ -62,6 +44,22 @@ export async function POST(req: Request) {
       })
     },
   })
+
+  const llm = new ChatOpenAI({
+    streaming: true,
+  })
+
+  llm
+    .call(
+      (messages as Message[]).map((m) =>
+        m.role == 'user'
+          ? new HumanMessage(m.content)
+          : new AIMessage(m.content),
+      ),
+      {},
+      [handlers],
+    )
+    .catch(console.error)
 
   return new StreamingTextResponse(stream)
 }

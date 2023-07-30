@@ -15,7 +15,7 @@ const exampleMessages = [
   },
   {
     heading: 'Produzir conteúdo',
-    message: `Você será meu assistente para escrever um artigo sobre o reino de Kiverlia \n`,
+    message: `Você será meu assistente para escrever a história de um personagem que nasceu no reino de Kiverlia \n`,
   },
 ]
 
