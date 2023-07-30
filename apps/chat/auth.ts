@@ -30,7 +30,13 @@ export const {
       }
       return token
     },
-    authorized({ auth }) {
+    authorized({ auth, request }) {
+      const url = request.nextUrl
+
+      if (url.pathname.startsWith('/share/')) {
+        return true
+      }
+
       return !!auth?.user // this ensures there is a logged in user for -every- request
     },
   },
