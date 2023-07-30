@@ -9,7 +9,7 @@ import { Sidebar } from '@/components/sidebar'
 import { SidebarList } from '@/components/sidebar-list'
 import {
   IconGitHub,
-  IconNextChat,
+  IconBrandRed,
   IconSeparator,
   IconVercel,
 } from '@/components/ui/icons'
@@ -38,8 +38,7 @@ export async function Header() {
           </Sidebar>
         ) : (
           <Link href="/" target="_blank" rel="nofollow">
-            <IconNextChat className="mr-2 h-6 w-6 dark:hidden" inverted />
-            <IconNextChat className="mr-2 hidden h-6 w-6 dark:block" />
+            <IconBrandRed className="mr-2 h-6 w-6" />
           </Link>
         )}
         <div className="flex items-center">
