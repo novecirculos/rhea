@@ -17,8 +17,21 @@ export const metadata: Metadata = {
     default: 'Chat - Nove Círculos',
     template: `%s - Nove Círculos`,
   },
+  openGraph: {
+    type: 'website',
+    url: 'https://chat.novecirculos.com.br',
+    title: 'Chat - Nove Círculos',
+    description:
+      'Bem-vindo ao Nove Círculos, um universo onde realidade e fantasia colidem. Embarque em jornadas épicas, enfrente desafios intrigantes e interaja com personagens únicos.',
+    siteName: 'Nove Círculos',
+    images: [
+      {
+        url: 'https://media.graphassets.com/W2LHS096TICNGU4Eys1V',
+      },
+    ],
+  },
   description:
-    'Bem-vindo ao Nove Círculos, um universo onde realidade e fantasia colidem. Embarque em jornadas épicas, enfrente desafios intrigantes e interaja com personagens únicos neste reino digital.',
+    'Bem-vindo ao Nove Círculos, um universo onde realidade e fantasia colidem. Embarque em jornadas épicas, enfrente desafios intrigantes e interaja com personagens únicos.',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
