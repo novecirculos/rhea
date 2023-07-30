@@ -17,6 +17,12 @@ export const metadata: Metadata = {
     default: 'Chat - Nove Círculos',
     template: `%s - Nove Círculos`,
   },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@novecirculos',
+    creator: '@novecirculos',
+    images: 'https://media.graphassets.com/W2LHS096TICNGU4Eys1V',
+  },
   openGraph: {
     type: 'website',
     url: 'https://chat.novecirculos.com.br',
