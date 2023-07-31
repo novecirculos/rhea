@@ -54,7 +54,7 @@ export async function POST(req: Request) {
   // Customize the prompt to your needs
   const template = `
   You are a chatbot helping humans with their questions. Related to a fantasy universe called "Nove Círculos".
-  You should always answers on: pt-BR
+  You should always answers using the language: pt-BR
   
   {context}
   

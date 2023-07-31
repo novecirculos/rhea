@@ -38,7 +38,7 @@ export function ChatPanel({
           {isLoading ? (
             <Button
               variant="outline"
-              className="hover:border-primary mb-2 bg-white hover:bg-white/50"
+              className="hover:border-primary mb-2 bg-white hover:bg-white/50 hover:backdrop-blur-lg"
               onClick={() => stop()}
             >
               <IconStop className="mr-2" />
@@ -48,7 +48,7 @@ export function ChatPanel({
             messages?.length > 0 && (
               <Button
                 variant="outline"
-                className="hover:border-primary mb-2 bg-white hover:bg-white/50"
+                className="hover:border-primary mb-2 bg-white hover:bg-white/50 hover:backdrop-blur-lg"
                 onClick={() => reload()}
               >
                 <IconRefresh className="mr-2" />

@@ -1,13 +1,19 @@
 import { UseChatHelpers } from 'ai/react'
 import * as React from 'react'
-import Textarea from 'react-textarea-autosize'
-
 import { Button, buttonVariants } from '@novecirculos/design'
-import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
+import { IconArrowElbow, IconPlus, IconSpinner } from '@/components/ui/icons'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@novecirculos/design'
-import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
-import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import TextAlign from '@tiptap/extension-text-align'
+import ListItem from '@tiptap/extension-list-item'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Link from '@tiptap/extension-link'
+import Placeholder from '@tiptap/extension-placeholder'
+import { cn } from '@/lib/utils'
+import { Extension } from '@tiptap/core'
+import { NodeHtmlMarkdown } from 'node-html-markdown'
 
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
@@ -21,29 +27,65 @@ export function PromptForm({
   setInput,
   isLoading,
 }: PromptProps) {
-  const { formRef, onKeyDown } = useEnterSubmit()
-  const inputRef = React.useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
 
-  React.useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus()
+  const CustomEnter = Extension.create({
+    addKeyboardShortcuts() {
+      return {
+        'Shift-Enter': ({ editor }) => {
+          editor.commands.enter()
+          return true
+        },
+      }
+    },
+  })
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      ListItem,
+      OrderedList,
+      Link.configure({
+        HTMLAttributes: {
+          class: 'cursor-pointer text-secondary',
+        },
+      }),
+      Placeholder.configure({
+        placeholder: 'Escreva algo aqui...',
+      }),
+      CustomEnter,
+    ],
+    editorProps: {
+      attributes: {
+        class: 'outline-none',
+      },
+    },
+    content: input,
+    onUpdate: ({ editor }) => {
+      const markdown = NodeHtmlMarkdown.translate(editor.getHTML())
+      setInput(markdown)
+    },
+  })
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault()
+      onSubmit(input)
+      editor?.commands.clearContent()
+      setInput('')
     }
-  }, [])
+  }
 
   return (
     <form
-      onSubmit={async (e) => {
+      onSubmit={(e) => {
         e.preventDefault()
-        if (!input?.trim()) {
-          return
-        }
-        setInput('')
-        await onSubmit(input)
       }}
-      ref={formRef}
     >
-      <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-white px-8 sm:rounded-md sm:border sm:px-12">
+      <div className="flex max-h-60 w-full grow flex-row overflow-hidden overflow-y-auto bg-white sm:rounded-md sm:border sm:px-4">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -54,7 +96,7 @@ export function PromptForm({
               }}
               className={cn(
                 buttonVariants({ size: 'sm', variant: 'outline' }),
-                'absolute left-0 top-4 h-8 w-8 rounded-full bg-white p-0 sm:left-4',
+                'sticky top-4 h-8 w-8 min-w-[2rem] rounded-full bg-white p-0',
               )}
             >
               <IconPlus />
@@ -63,26 +105,28 @@ export function PromptForm({
           </TooltipTrigger>
           <TooltipContent>Nova conversa</TooltipContent>
         </Tooltip>
-        <Textarea
-          ref={inputRef}
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-          rows={1}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Send a message."
-          spellCheck={false}
-          className="min-h-[60px] w-full resize-none border-none bg-transparent px-4 py-[1.3rem] outline-none focus-within:outline-none focus:ring-0 sm:text-sm"
+        <EditorContent
+          onKeyDown={handleKeyDown}
+          className="prose prose-h1:mt-2 dark:prose-invert min-h-[60px] w-full resize-none border-none bg-transparent px-4 outline-none focus-within:outline-none focus:ring-0 sm:py-1 sm:text-sm"
+          editor={editor}
         />
-        <div className="absolute right-0 top-4 sm:right-4">
+        <div className="sticky top-3 h-min">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 type="submit"
                 size="icon"
-                disabled={isLoading || input === ''}
+                disabled={isLoading || !input}
+                onClick={() => {
+                  if (input?.trim()) {
+                    onSubmit(input).then(() => {
+                      editor?.commands.clearContent()
+                      setInput('')
+                    })
+                  }
+                }}
               >
-                <IconArrowElbow />
+                {isLoading ? <IconSpinner /> : <IconArrowElbow />}
                 <span className="sr-only">Enviar mensagem</span>
               </Button>
             </TooltipTrigger>

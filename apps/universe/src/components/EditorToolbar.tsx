@@ -23,12 +23,7 @@ import {
 } from 'lucide-react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useForm } from 'react-hook-form'
-import {
-  Button,
-  TextInput as Input,
-  Modal,
-  ModalWrapper,
-} from '@novecirculos/design'
+import { Button, Input, Modal, ModalWrapper } from '@novecirculos/design'
 import { FiLoader } from 'react-icons/fi'
 
 interface setLinkForm {
