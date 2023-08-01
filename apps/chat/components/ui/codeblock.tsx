@@ -63,7 +63,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
     const fileExtension = programmingLanguages[language] || '.file'
     const suggestedFileName = `file-${generateRandomString(
       3,
-      true
+      true,
     )}${fileExtension}`
     const fileName = window.prompt('Enter file name' || '', suggestedFileName)
 
@@ -110,7 +110,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
             onClick={onCopy}
           >
             {isCopied ? <IconCheck /> : <IconCopy />}
-            <span className="sr-only">Copy code</span>
+            <span className="sr-only">Copiar</span>
           </Button>
         </div>
       </div>

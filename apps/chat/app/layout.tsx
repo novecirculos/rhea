@@ -57,7 +57,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head />
-      <body className={cn('font-primary antialiased', fontMain, fontSecondary)}>
+      <body
+        className={cn('font-primary dark antialiased', fontMain, fontSecondary)}
+      >
         <Toaster />
         <RootProvider>
           <div className="flex min-h-screen flex-col">

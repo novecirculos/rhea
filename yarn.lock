@@ -3134,6 +3134,13 @@
   dependencies:
     "@types/pg" "8.6.6"
 
+"@neondatabase/serverless@0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@neondatabase/serverless/-/serverless-0.5.6.tgz#e79b58f8ccd8995e4b6f94d86cbe2622172dd563"
+  integrity sha512-Ru0lG6W/nQtHRkDFVQFF+1PJYx8wd3jereln0Ep0YkiHey50hjTLVUycQoE4X977605pXMuFWORweuktzph+Xg==
+  dependencies:
+    "@types/pg" "8.6.6"
+
 "@next/env@13.4.12":
   version "13.4.12"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-13.4.12.tgz#0b88115ab817f178bf9dc0c5e7b367277595b58d"
@@ -6357,6 +6364,16 @@
   integrity sha512-FZ/EWoxdALIh+N0wq3NWSA+YWm50MTBo75xOpVGSsv0zcgkt39kSSzO74H1graq+k/5dWyuadTVCnmlT5IbFYQ==
   dependencies:
     "@neondatabase/serverless" "0.4.15"
+    bufferutil "4.0.7"
+    utf-8-validate "6.0.3"
+    ws "8.13.0"
+
+"@vercel/postgres@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@vercel/postgres/-/postgres-0.4.1.tgz#b3aeaeb4f300f7463ab546b34af6680b412c17fa"
+  integrity sha512-rYlNnaXrr2/NWK/OodhAUyed0bomaizKKC8XXjNYv8I1K3m75oocP4IGTcBpZe76VCrHuaKW5d6jLQnuRRoNKg==
+  dependencies:
+    "@neondatabase/serverless" "0.5.6"
     bufferutil "4.0.7"
     utf-8-validate "6.0.3"
     ws "8.13.0"

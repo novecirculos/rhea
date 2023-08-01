@@ -8,11 +8,13 @@ import { ChatGPTPluginRetriever } from 'langchain/retrievers/remote'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { PromptTemplate } from 'langchain/prompts'
 import { getMemory } from '@/lib/langchain'
+import { sql } from '@vercel/postgres'
+import { createChat, updateChat } from '@/app/actions'
 
 export const runtime = 'edge'
 
 export async function POST(req: Request) {
-  const { messages } = await req.json()
+  const { messages, id } = await req.json()
   const { memory, question } = getMemory(messages) // TODO: handle memory through a database like redis
 
   const userId = (await auth())?.user.id
@@ -25,29 +27,22 @@ export async function POST(req: Request) {
 
   const { stream, handlers } = LangChainStream({
     onCompletion: async (fullResponse) => {
-      const title = messages[0].content.substring(0, 100)
-      const id = messages.id ?? nanoid()
-      const createdAt = Date.now()
-      const path = `/chat/${id}`
-      const payload = {
-        id,
-        title,
-        userId,
-        createdAt,
-        path,
-        messages: [
-          ...messages,
-          {
-            content: fullResponse,
-            role: 'assistant',
-          },
-        ],
+      const messagesWithResponse = [
+        ...messages,
+        {
+          content: fullResponse,
+          role: 'assistant',
+        },
+      ]
+
+      const existingChat = messages.length > 1
+
+      if (existingChat) {
+        await updateChat(id, messagesWithResponse)
+        return
       }
-      await kv.hmset(`chat:${id}`, payload)
-      await kv.zadd(`user:chat:${userId}`, {
-        score: createdAt,
-        member: `chat:${id}`,
-      })
+
+      await createChat(id, messagesWithResponse)
     },
   })
 
