@@ -39,7 +39,11 @@ export async function Header() {
           {session?.user ? (
             <UserMenu user={session.user} />
           ) : (
-            <Button variant="link-primary" asChild className="-ml-2">
+            <Button
+              variant="link-primary"
+              asChild
+              className="text-primary-foreground -ml-2"
+            >
               <Link href="/sign-in?callbackUrl=/">Login</Link>
             </Button>
           )}
