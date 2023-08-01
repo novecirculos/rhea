@@ -17,7 +17,7 @@ export async function Header() {
   const chats = await getChats(session?.user?.id)
 
   return (
-    <header className="from-background/10 via-background/50 dark:from-foreground sticky top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b to-white/80 px-4 backdrop-blur-xl dark:border-gray-600 dark:via-gray-950 dark:to-gray-950/90">
+    <header className="from-background/10 via-background/50 dark:from-foreground sticky top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b to-white/80 px-4 backdrop-blur-xl dark:border-gray-800 dark:to-gray-950">
       <div className="flex items-center">
         {session?.user ? (
           <Sidebar>

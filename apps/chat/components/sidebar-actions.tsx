@@ -64,7 +64,7 @@ export function SidebarActions({
     toast.success('O link foi copiado para a sua área de transferência', {
       style: {
         borderRadius: '10px',
-        background: '#333',
+        background: '#1C2531',
         color: '#fff',
         fontSize: '14px',
       },
@@ -197,7 +197,18 @@ export function SidebarActions({
                   setDeleteDialogOpen(false)
                   router.refresh()
                   router.push('/')
-                  toast.success('Conversa deletada')
+                  toast.success('Conversa deletada', {
+                    style: {
+                      borderRadius: '10px',
+                      background: '#1C2531',
+                      color: '#fff',
+                      fontSize: '14px',
+                    },
+                    iconTheme: {
+                      primary: 'white',
+                      secondary: 'black',
+                    },
+                  })
                 })
               }}
             >
