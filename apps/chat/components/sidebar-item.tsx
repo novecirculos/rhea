@@ -21,28 +21,36 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
   if (!chat?.id) return null
 
   return (
-    <div className="relative">
+    <div className="group relative">
       <div className="absolute left-2 top-2 flex h-6 w-6 items-center justify-center">
         {chat.sharePath ? (
           <Tooltip delayDuration={1000}>
             <TooltipTrigger
               tabIndex={-1}
-              className="focus:bg-muted focus:ring-ring focus:ring-1"
+              className="focus:bg-muted dark:focus:bg-foreground focus:ring-ring focus:ring-1"
             >
-              <IconUsers className="mr-2" />
+              <IconUsers
+                className={`dark:text-background mr-2 transition-all ${
+                  !isActive ? 'dark:group-hover:text-gray-950' : null
+                } `}
+              />
             </TooltipTrigger>
             <TooltipContent>Essa é uma conversa compartilhada</TooltipContent>
           </Tooltip>
         ) : (
-          <IconMessage className="mr-2" />
+          <IconMessage
+            className={`dark:text-background mr-2 transition-all ${
+              !isActive ? 'dark:group-hover:text-gray-950' : null
+            }`}
+          />
         )}
       </div>
       <Link
         href={chat.path}
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          'group w-full pl-8 pr-16',
-          isActive && 'bg-accent',
+          ' w-full pl-8 pr-16',
+          isActive && 'bg-accent dark:hover:text-background dark:bg-gray-800',
         )}
       >
         <div

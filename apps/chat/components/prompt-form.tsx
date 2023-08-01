@@ -85,7 +85,7 @@ export function PromptForm({
         e.preventDefault()
       }}
     >
-      <div className="flex max-h-60 w-full grow flex-row overflow-hidden overflow-y-auto bg-white sm:rounded-md sm:border sm:px-4">
+      <div className="dark:bg-foreground flex max-h-60 w-full grow flex-row overflow-hidden overflow-y-auto bg-white dark:border-gray-800 sm:rounded-md sm:border sm:px-4">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -96,7 +96,7 @@ export function PromptForm({
               }}
               className={cn(
                 buttonVariants({ size: 'sm', variant: 'outline' }),
-                'sticky top-4 h-8 w-8 min-w-[2rem] rounded-full bg-white p-0',
+                'sticky top-4 h-8 w-8 min-w-[2rem] rounded-full bg-white p-0 dark:border-gray-950 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-300',
               )}
             >
               <IconPlus />

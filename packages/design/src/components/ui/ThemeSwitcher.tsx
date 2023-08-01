@@ -17,24 +17,24 @@ export const ThemeSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="group" variant="matching" size="icon">
-          <Sun className="dark:text-accent h-[1.2rem] w-[1.2rem] rotate-0 scale-100 text-gray-950 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="dark:text-accent absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 text-gray-950  transition-all dark:rotate-0 dark:scale-100" />
+        <Button className="group" variant="ghost" size="icon">
+          <Sun className="dark:text-accent h-[1.2rem] w-[1.2rem] rotate-0 scale-100 text-gray-950 transition-all group-hover:text-gray-950 dark:-rotate-90 dark:scale-0" />
+          <Moon className="dark:text-accent absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 text-gray-950 transition-all  group-hover:text-gray-950 dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           className="hover:cursor-pointer"
-          onClick={() => setTheme(() => 'light')}
+          onClick={() => setTheme('light')}
         >
-          Light
+          Claro
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:cursor-pointer"
           onClick={() => setTheme('dark')}
         >
-          Dark
+          Escuro
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

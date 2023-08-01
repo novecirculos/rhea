@@ -114,8 +114,8 @@ export function SidebarActions({
               Qualquer um com o link poderá ver a sua conversa.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-1 rounded-md border p-4 text-sm">
-            <div className="font-medium">{chat.title}</div>
+          <div className="space-y-1 rounded-md border p-4 text-sm dark:border-gray-800">
+            <div className="dark:text-background font-medium">{chat.title}</div>
             <div className="text-muted-foreground">
               {formatDate(chat.createdAt)} · {chat.messages.length} mensagens
             </div>
@@ -197,7 +197,7 @@ export function SidebarActions({
                   setDeleteDialogOpen(false)
                   router.refresh()
                   router.push('/')
-                  toast.success('Chat deleted')
+                  toast.success('Conversa deletada')
                 })
               }}
             >
