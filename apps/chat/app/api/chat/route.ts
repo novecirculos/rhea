@@ -1,15 +1,12 @@
-import { kv } from '@vercel/kv'
-import { StreamingTextResponse, LangChainStream, Message } from 'ai'
+import { StreamingTextResponse, LangChainStream } from 'ai'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
-
 import { auth } from '@/auth'
-import { nanoid } from '@/lib/utils'
 import { ChatGPTPluginRetriever } from 'langchain/retrievers/remote'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { PromptTemplate } from 'langchain/prompts'
 import { getMemory } from '@/lib/langchain'
-import { sql } from '@vercel/postgres'
-import { createChat, updateChat } from '@/app/actions'
+import { createChat, getChats, updateChat } from '@/app/server/actions'
+import { NextResponse } from 'next/server'
 
 export const runtime = 'edge'
 
@@ -110,4 +107,20 @@ export async function POST(req: Request) {
   chain.call({ question })
 
   return new StreamingTextResponse(stream)
+}
+
+export async function GET(req: Request) {
+  const userId = req.headers.get('userId')
+
+  if (!userId) {
+    return NextResponse.json({
+      chats: null,
+    })
+  }
+
+  const chats = await getChats(userId)
+
+  return NextResponse.json({
+    chats,
+  })
 }
