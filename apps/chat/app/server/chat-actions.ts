@@ -7,7 +7,7 @@ import { auth } from '@/auth'
 import { type Chat } from '@/lib/types'
 import { Message } from 'ai'
 import { Client, query as q } from 'faunadb'
-import { FaunaChat } from './chat.types'
+import { FaunaChat } from './chat-actions.types'
 
 const faunaClient = new Client({ secret: process.env.FAUNADB_SECRET as string })
 
