@@ -1,5 +1,17 @@
 import { type Message } from 'ai'
 
+export interface FaunaRef {
+  '@ref': {
+    id: string
+    collection: {
+      '@ref': {
+        id: string
+        collection: { '@ref': { id: string } }
+      }
+    }
+  }
+}
+
 export interface Chat extends Record<string, any> {
   id: string
   title: string

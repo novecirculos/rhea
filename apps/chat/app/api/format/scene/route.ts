@@ -82,11 +82,11 @@ export async function POST(req: Request) {
 
   const userId = (await auth())?.user.id
 
-  if (!userId) {
-    return new Response('Unauthorized', {
-      status: 401,
-    })
-  }
+  // if (!userId) {
+  //   return new Response('Unauthorized', {
+  //     status: 401,
+  //   })
+  // }
 
   const messages: ChatCompletionRequestMessage[] = [
     {

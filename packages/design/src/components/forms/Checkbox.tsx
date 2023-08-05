@@ -5,16 +5,35 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
 
 import { cn } from '../../lib/utils'
+import { VariantProps, cva } from 'class-variance-authority'
+
+const checkboxVariants = cva(
+  'animate-duration-[250ms] peer h-4 w-4 shrink-0 rounded-sm border border-gray-200 bg-gray-300 ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:text-gray-50 dark:border-gray-800 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-800 dark:data-[state=checked]:text-gray-50',
+  {
+    variants: {
+      variant: {
+        primary: 'data-[state=checked]:bg-primary',
+        secondary: 'data-[state=checked]:bg-secondary ',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+    },
+  }
+)
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> &
+    VariantProps<typeof checkboxVariants>
+>(({ className, variant, ...props }, ref) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'data-[state=checked]:bg-primary animate-duration-[250ms] peer h-4 w-4 shrink-0 rounded-sm border border-gray-200 bg-gray-300 ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:text-gray-50 dark:border-gray-800 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-800 dark:data-[state=checked]:text-gray-50',
-      className
+      checkboxVariants({
+        className,
+        variant,
+      })
     )}
     {...props}
   >

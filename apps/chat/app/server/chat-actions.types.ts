@@ -1,18 +1,7 @@
-import { Chat } from '@/lib/types'
-
-interface Ref {
-  '@ref': {
-    collection: {
-      '@ref': {
-        id: string
-      }
-    }
-    id: string
-  }
-}
+import { Chat, FaunaRef } from '@/lib/types'
 
 export interface FaunaChat {
-  ref: Ref
+  ref: FaunaRef
   ts: number
   data: Chat
 }

@@ -16,6 +16,7 @@
   "dependencies": {
     "@novecirculos/design": "*",
     "@novecirculos/tokens": "*",
+    "@tanstack/react-table": "^8.9.3",
     "@tiptap/extension-image": "^2.0.4",
     "@tiptap/extension-link": "^2.0.4",
     "@tiptap/extension-placeholder": "^2.0.4",
