@@ -5,6 +5,7 @@ module.exports = {
     workerThreads: false,
     cpus: 1,
     serverActions: true,
+    serverComponentsExternalPackages: 'faunadb',
   },
   transpilePackages: ['@novecirculos/design', '@novecirculos/tokens'],
   images: {
@@ -14,14 +15,5 @@ module.exports = {
       'github.com',
       'lh3.googleusercontent.com',
     ],
-  },
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      net: false,
-      os: false,
-      tls: false,
-    }
-    return config
   },
 }

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { auth } from '@/auth'
-import { clearChats, getChats } from '@/app/actions'
+import { clearChats, getChats } from '@/app/server/chat-actions'
 import { Button, ThemeSwitcher, buttonVariants } from '@novecirculos/design'
 import { Sidebar } from '@/components/sidebar'
 import { SidebarList } from '@/components/sidebar-list'

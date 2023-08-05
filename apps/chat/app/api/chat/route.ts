@@ -5,7 +5,7 @@ import { ChatGPTPluginRetriever } from 'langchain/retrievers/remote'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { PromptTemplate } from 'langchain/prompts'
 import { getMemory } from '@/lib/langchain'
-import { createChat, getChats, updateChat } from '@/app/server/actions'
+import { createChat, getChats, updateChat } from '@/app/server/chat-actions'
 import { NextResponse } from 'next/server'
 
 export const runtime = 'edge'

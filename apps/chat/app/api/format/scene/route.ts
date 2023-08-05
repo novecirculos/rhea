@@ -5,6 +5,7 @@ import {
 } from 'openai-edge/types/api'
 import { NextResponse } from 'next/server'
 import { auth } from '@/auth'
+import { createScene } from '@/app/server/scene-actions'
 
 // Create an OpenAI API client (that's edge friendly!)
 const config = new Configuration({
@@ -79,13 +80,13 @@ const functions: ChatCompletionFunctions[] = [
 export async function POST(req: Request) {
   const { content } = await req.json()
 
-  // const userId = (await auth())?.user.id
+  const userId = (await auth())?.user.id
 
-  // if (!userId) {
-  //   return new Response('Unauthorized', {
-  //     status: 401,
-  //   })
-  // }
+  if (!userId) {
+    return new Response('Unauthorized', {
+      status: 401,
+    })
+  }
 
   const messages: ChatCompletionRequestMessage[] = [
     {
@@ -112,7 +113,7 @@ export async function POST(req: Request) {
       content,
     }
 
-    // await Scene.create(scene)
+    await createScene(scene)
 
     return NextResponse.json({
       scene,

@@ -2,7 +2,7 @@ import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { formatDate } from '@/lib/utils'
-import { getSharedChat } from '@/app/actions'
+import { getSharedChat } from '@/app/server/chat-actions'
 import { ChatList } from '@/components/chat-list'
 
 export const runtime = 'edge'
