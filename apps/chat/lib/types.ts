@@ -2,7 +2,7 @@ import { type Message } from 'ai'
 
 export interface FaunaRef {
   '@ref': {
-    id: string
+    id: number
     collection: {
       '@ref': {
         id: string

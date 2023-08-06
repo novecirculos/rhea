@@ -6,6 +6,7 @@ export interface FaunaScene {
 }
 
 export interface Scene {
+  id: number
   title: string
   characters: string[]
   location: string

@@ -88,7 +88,6 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
   const session = await auth()
   if (!session) return { error: 'Unauthorized' }
 
-  // Fetch the chat using the application's id from its data
   const chat = await faunaClient.query<FaunaChat>(
     q.Get(q.Match(q.Index('chat_by_data_id'), id)),
   )
@@ -97,7 +96,6 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
     return { error: 'Unauthorized' }
   }
 
-  // Use the ref from the chat to delete the document
   await faunaClient.query(q.Delete(chat.ref))
 
   revalidatePath('/')
@@ -135,14 +133,12 @@ export async function getSharedChat(id: string) {
 export async function shareChat(chat: Chat) {
   const session = await auth()
 
-  // Unauthorized checks
   if (!session?.user?.id || session.user.id !== chat.userId) {
     return {
       error: 'Unauthorized',
     }
   }
 
-  // Fetch the chat document from FaunaDB using the application's id from its data
   const chatDoc = await faunaClient.query<FaunaChat>(
     q.Get(q.Match(q.Index('chat_by_data_id'), chat.id)),
   )
@@ -151,13 +147,11 @@ export async function shareChat(chat: Chat) {
     return { error: 'Unauthorized' }
   }
 
-  // Form the payload
   const payload = {
-    ...chatDoc.data, // We ensure to use the data from FaunaDB
+    ...chatDoc.data,
     sharePath: `/share/${chat.id}`,
   }
 
-  // Update the chat document using the ref from the fetched chatDoc
   const updatedChat = await faunaClient.query<FaunaChat>(
     q.Update(chatDoc.ref, {
       data: payload,

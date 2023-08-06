@@ -11,6 +11,10 @@ export const nanoid = customAlphabet(
   7,
 ) // 7-character random string
 
+export const api = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}/api`
+  : `http://localhost:${process.env.PORT ?? 3000}/api`
+
 export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,

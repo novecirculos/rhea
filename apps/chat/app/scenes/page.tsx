@@ -13,107 +13,55 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react'
+import { Eye, ChevronDown, MoveUpRight } from 'lucide-react'
+import Textarea from 'react-textarea-autosize'
 
 import {
   Badge,
   Button,
   Checkbox,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
   Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from '@novecirculos/design'
 import { Scene } from '../server/scene-actions.types'
 import { IconPlus } from '@/components/ui/icons'
-
-const data: Scene[] = [
-  {
-    title: 'O Reino de Kiverlia',
-    characters: ['Trenn', 'Arqui Arauto Osvaldo', 'Lorderon'],
-    location: 'Kiverlia',
-    objects: [
-      'florestas densas',
-      'montanhas imponentes',
-      'rios e lagos sinuosos',
-    ],
-    categories: ['reino', 'natureza', 'clima'],
-    events: [
-      {
-        description: 'long text',
-        name: 'Chegada a catedral',
-      },
-      {
-        description: 'long text',
-        name: 'Discurso do arqui arauto',
-      },
-    ],
-    content:
-      'Kiverlia. O Reino de Kiverlia, resplandecente em seu poder e influência, está situado entre os reinos de Njord, a noroeste, e Olfsberg, a sudeste. Suas extensas e férteis terras são agraciadas com florestas densas, montanhas imponentes e rios e lagos sinuosos. O clima de Kiverlia é caracterizado por invernos gelados e verões sufocantes.',
-  },
-  {
-    title: 'O Reino de Kiverlia',
-    characters: ['Trenn', 'Arqui Arauto Osvaldo'],
-    location: 'Kiverlia',
-    objects: [
-      'florestas densas',
-      'montanhas imponentes',
-      'rios e lagos sinuosos',
-    ],
-    categories: ['reino', 'natureza', 'clima'],
-    events: [
-      {
-        description: 'long text',
-        name: 'Chegada a catedral',
-      },
-      {
-        description: 'long text',
-        name: 'Discurso do arqui arauto',
-      },
-    ],
-    content:
-      'Kiverlia. O Reino de Kiverlia, resplandecente em seu poder e influência, está situado entre os reinos de Njord, a noroeste, e Olfsberg, a sudeste. Suas extensas e férteis terras são agraciadas com florestas densas, montanhas imponentes e rios e lagos sinuosos. O clima de Kiverlia é caracterizado por invernos gelados e verões sufocantes.',
-  },
-  {
-    title: 'O Reino de Kiverlia',
-    characters: ['Trenn', 'Arqui Arauto Osvaldo'],
-    location: 'Kiverlia',
-    objects: [
-      'florestas densas',
-      'montanhas imponentes',
-      'rios e lagos sinuosos',
-    ],
-    categories: ['reino', 'natureza', 'clima'],
-    events: [
-      {
-        description: 'long text',
-        name: 'Chegada a catedral',
-      },
-      {
-        description: 'long text',
-        name: 'Discurso do arqui arauto',
-      },
-    ],
-    content:
-      'Kiverlia. O Reino de Kiverlia, resplandecente em seu poder e influência, está situado entre os reinos de Njord, a noroeste, e Olfsberg, a sudeste. Suas extensas e férteis terras são agraciadas com florestas densas, montanhas imponentes e rios e lagos sinuosos. O clima de Kiverlia é caracterizado por invernos gelados e verões sufocantes.',
-  },
-]
+import { api, fetcher } from '@/lib/utils'
+import Link from 'next/link'
 
 export const columns: ColumnDef<Scene>[] = [
   {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        variant="secondary"
+        className="mt-1"
+        variant="outline"
         checked={table.getIsAllPageRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -121,7 +69,7 @@ export const columns: ColumnDef<Scene>[] = [
     ),
     cell: ({ row }) => (
       <Checkbox
-        variant="secondary"
+        variant="outline"
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
@@ -139,7 +87,7 @@ export const columns: ColumnDef<Scene>[] = [
     header: 'Personagens',
     cell: ({ row }) => (
       <div>
-        {row.getValue('characters').map((character: string) => (
+        {(row.getValue('characters') as string[]).map((character: string) => (
           <Badge variant="outline" key={character}>
             {character}
           </Badge>
@@ -156,7 +104,7 @@ export const columns: ColumnDef<Scene>[] = [
     header: 'Categorias',
     cell: ({ row }) => (
       <div>
-        {row.getValue('categories').map((category: string) => (
+        {(row.getValue('categories') as string[]).map((category: string) => (
           <Badge variant="outline" key={category}>
             {category}
           </Badge>
@@ -169,7 +117,7 @@ export const columns: ColumnDef<Scene>[] = [
     header: 'Eventos',
     cell: ({ row }) => (
       <div>
-        {row.getValue('events').map((event: any) => (
+        {(row.getValue('events') as Event[]).map((event: any) => (
           <Badge variant="outline" key={event.name}>
             {event.name}
           </Badge>
@@ -179,61 +127,43 @@ export const columns: ColumnDef<Scene>[] = [
   },
   {
     accessorKey: 'content',
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-      >
-        Conteúdo <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: 'Conteúdo',
     cell: ({ row }) => {
-      return `${row.getValue('content').substring(0, 100)}...`
+      return (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <p>{`${(row.getValue('content') as string).substring(
+              0,
+              100,
+            )}...`}</p>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="max-w-md">{`${(
+              row.getValue('content') as string
+            ).substring(0, 400)}...`}</p>
+          </TooltipContent>
+        </Tooltip>
+      )
     },
   },
   {
     id: 'actions',
-    header: 'Ações',
     cell: ({ row }) => {
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                /* action */
-              }}
-            >
-              Editar cena
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                /* action */
-              }}
-            >
-              Visualizar cena
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                /* action */
-              }}
-            >
-              Deletar cena
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link href={`/scenes/${row.original.id}`}>
+          <Tooltip>
+            <TooltipTrigger>
+              <MoveUpRight className="h-4 w-4 text-gray-950 dark:text-gray-50" />
+            </TooltipTrigger>
+            <TooltipContent>Visualizar</TooltipContent>
+          </Tooltip>
+        </Link>
       )
     },
   },
 ]
 
-export default function DashboardPage() {
+export default function ScenesDashboardPage() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -241,6 +171,17 @@ export default function DashboardPage() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [data, setData] = React.useState<Scene[]>([])
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetcher(`${api}/format/scene`)
+
+      setData(response.scenes)
+    }
+
+    fetchData()
+  }, [])
 
   const table = useReactTable({
     data,
@@ -263,25 +204,19 @@ export default function DashboardPage() {
 
   return (
     <div className="w-full px-6">
-      <div className="flex items-center justify-between py-4">
+      <div className="flex flex-wrap items-center justify-between py-4">
         <Input
           placeholder="Filtrar por titulo"
           value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
+          onChange={(event) => {
             table.getColumn('title')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+          }}
+          className="md:max-w-sm"
         />
-        <div className="space-x-4">
-          <Button variant="outline" className="ml-auto dark:border-gray-800">
-            Novo registro <IconPlus className="ml-2 h-4 w-4" />
-          </Button>
+        <div className="flex w-full flex-col md:max-w-md md:flex-row md:justify-end md:space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="ml-auto dark:border-gray-800"
-              >
+              <Button variant="outline" className="dark:border-gray-800">
                 Colunas visíveis <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -305,6 +240,59 @@ export default function DashboardPage() {
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>
+                Novo registro <IconPlus className="ml-1" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Adicionar novo registro ao dataset</DialogTitle>
+                <DialogDescription>
+                  Esse documento será formatado por um modelo de linguagem e
+                  você poderá editar as informações depois.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-left">
+                    Conteúdo
+                  </Label>
+                  <Textarea
+                    tabIndex={0}
+                    rows={1}
+                    placeholder="Cole aqui o conteúdo que deseja enviar."
+                    spellCheck={false}
+                    className="focus-within:ring-accent col-span-3 max-h-96 w-full resize-none rounded-sm border-gray-200 bg-transparent px-4 py-[1.3rem] focus-within:outline-none dark:border-gray-800 dark:text-gray-50 sm:text-sm"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="class" className="text-left">
+                    Categoria
+                  </Label>
+                  <Select defaultValue="transcription">
+                    <SelectTrigger className="col-span-3">
+                      <SelectValue placeholder="Selecione uma categoria de documento" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Categorias de documento</SelectLabel>
+                        <SelectItem value="article">Artigo</SelectItem>
+                        <SelectItem value="transcription">
+                          Transcrição
+                        </SelectItem>
+                        <SelectItem value="other">Outro</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit">Enviar</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
@@ -329,18 +317,23 @@ export default function DashboardPage() {
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && 'selected'}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+            table.getRowModel().rows.map((row) => {
+              return (
+                <TableRow
+                  key={row.original.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              )
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">

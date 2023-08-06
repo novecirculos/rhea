@@ -8,12 +8,14 @@ import { cn } from '../../lib/utils'
 import { VariantProps, cva } from 'class-variance-authority'
 
 const checkboxVariants = cva(
-  'animate-duration-[250ms] peer h-4 w-4 shrink-0 rounded-sm border border-gray-200 bg-gray-300 ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:text-gray-50 dark:border-gray-800 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-800 dark:data-[state=checked]:text-gray-50',
+  'animate-duration-[250ms] peer h-4 w-4 shrink-0 rounded-sm border border-gray-200 bg-gray-300 ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-800 ',
   {
     variants: {
       variant: {
-        primary: 'data-[state=checked]:bg-primary',
-        secondary: 'data-[state=checked]:bg-secondary ',
+        primary: 'data-[state=checked]:bg-primary dark:border-gray-800',
+        secondary: 'data-[state=checked]:bg-secondary dark:border-gray-800',
+        outline:
+          'data-[state=checked]:bg-gray-50 text-gray-900 bg-transparent border border-gray-400',
       },
     },
     defaultVariants: {
