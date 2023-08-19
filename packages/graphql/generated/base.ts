@@ -3744,7 +3744,7 @@ export type ExportArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ExportArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, alias: Array<string>, createdAt: any, content?: { __typename?: 'ArticleContentRichText', html: string } | null }> };
+export type ExportArticlesQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'Article', slug: string, title: string, alias: Array<string>, category: ArticleCategory, universeDate?: string | null, createdAt: any, image?: { __typename?: 'Asset', url: string } | null, content?: { __typename?: 'ArticleContentRichText', html: string } | null }> };
 
 export type GetArticleBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
@@ -3895,6 +3895,11 @@ export const ExportArticlesDocument = gql`
     slug
     title
     alias
+    category
+    universeDate
+    image {
+      url
+    }
     content {
       html
     }

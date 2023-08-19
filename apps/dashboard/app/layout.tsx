@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       ? (`https://${process.env.VERCEL_URL}` as unknown as URL)
       : ('http://localhost:3000' as unknown as URL),
   title: {
-    default: 'Chat - Nove Círculos',
+    default: 'Dashboard - Nove Círculos',
     template: `%s - Nove Círculos`,
   },
   twitter: {
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    url: 'https://chat.novecirculos.com.br',
-    title: 'Chat - Nove Círculos',
+    url: 'https://dashboard.novecirculos.com.br',
+    title: 'Dashboard - Nove Círculos.',
     description:
       'Bem-vindo ao Nove Círculos, um universo onde realidade e fantasia colidem. Embarque em jornadas épicas, enfrente desafios intrigantes e interaja com personagens únicos.',
     siteName: 'Nove Círculos',
@@ -36,8 +36,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  description:
-    'Bem-vindo ao Nove Círculos, um universo onde realidade e fantasia colidem. Embarque em jornadas épicas, enfrente desafios intrigantes e interaja com personagens únicos.',
+  description: 'Dashboard - Nove Círculos.',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },

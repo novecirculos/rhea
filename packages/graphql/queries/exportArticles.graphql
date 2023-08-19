@@ -3,6 +3,8 @@ query ExportArticles($skip: Int) {
     slug
     title
     alias
+    category
+    universeDate
     content {
       html
     }

@@ -8,8 +8,10 @@ import {
   client,
   ExportArticlesQuery,
 } from '@novecirculos/graphql'
-import axios from 'axios'
 import { extractLinks } from '~/utils/extractLinks'
+import { Client, query as q } from 'faunadb'
+
+const faunaClient = new Client({ secret: process.env.FAUNADB_SECRET as string })
 
 export default async function handler(
   req: NextApiRequest,
@@ -41,8 +43,9 @@ export default async function handler(
 
     archive.pipe(res)
 
-    let documents: any = []
+    const idMapping: Record<string, string> = {}
 
+    // First pass: Build the ID mapping
     while (hasMore) {
       const { data }: { data: ExportArticlesQuery } = await new Promise(
         (resolve, reject) => {
@@ -64,6 +67,48 @@ export default async function handler(
 
       if (data?.articles.length) {
         data.articles.forEach((item) => {
+          const docId = item.slug
+          idMapping[docId] = docId
+
+          const aliases = [item.title, ...item.alias]
+          aliases.forEach((alias) => {
+            idMapping[alias] = docId
+          })
+        })
+
+        skip += data.articles.length
+      } else {
+        hasMore = false
+      }
+    }
+
+    // Reset variables for second pass
+    skip = 0
+    hasMore = true
+    let documents: any = []
+
+    // Second pass: Process the documents
+    while (hasMore) {
+      const { data }: { data: ExportArticlesQuery } = await new Promise(
+        (resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              const response = await client.query({
+                query: ExportArticlesDocument,
+                variables: {
+                  skip: skip,
+                },
+              })
+              resolve(response)
+            } catch (error) {
+              reject(error)
+            }
+          }, 200)
+        }
+      )
+
+      if (data?.articles.length) {
+        data.articles.forEach(async (item) => {
           let markdown = htmlToText(item.content?.html as string, {
             wordwrap: false,
           })
@@ -78,13 +123,18 @@ export default async function handler(
             id: item.slug,
             text: markdown,
             metadata: {
-              source: 'email',
-              source_id: 'hygraph',
-              url: process.env.HYGRAPH_URL,
-              author: 'Hygraph',
+              aliases: item.alias,
+              category: item.category,
               created_at: item.createdAt,
+              links: extractLinks(markdown, idMapping),
+              universeDate: item.universeDate,
             },
           }
+
+          // uncomment this to send all data to Fauna
+          // await faunaClient.query(
+          //   q.Create(q.Collection('articles'), { data: doc })
+          // )
 
           documents.push(doc)
         })
@@ -94,26 +144,6 @@ export default async function handler(
         hasMore = false
       }
     }
-
-    // uncomment this if you want to send all the data to pinecone.
-    // await axios
-    //   .post(
-    //     'https://biblioteca-espiral.fly.dev/upsert',
-    //     {
-    //       documents,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${process.env.PLUGIN_BEARER_TOKEN}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     console.log(response)
-    //   })
-    //   .catch((error) => {
-    //     console.error(`Error in axios post: ${error}`)
-    //   })
 
     archive.finalize()
   }
