@@ -55,7 +55,7 @@ import { IconPlus } from '@/components/ui/icons'
 import { api, fetcher } from '@/lib/utils'
 import Link from 'next/link'
 
-export const columns: ColumnDef<Scene>[] = [
+const columns: ColumnDef<Scene>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -303,12 +303,16 @@ export default function ScenesDashboardPage() {
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
+                    {header.isPlaceholder ? null : (
+                      <>
+                        {Array.from(
+                          flexRender(
+                            <>{header.column.columnDef.header}</>,
+                            header.getContext(),
+                          ) as any,
                         )}
+                      </>
+                    )}
                   </TableHead>
                 )
               })}
@@ -325,10 +329,12 @@ export default function ScenesDashboardPage() {
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {
+                        flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        ) as any
+                      }
                     </TableCell>
                   ))}
                 </TableRow>

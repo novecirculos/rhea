@@ -12,7 +12,7 @@ export default defineConfig({
   }),
   vite: {
     ssr: {
-      noExternal: ['react-icons', 'lucide-react'],
+      noExternal: ['react-icons', 'lucide-react', '@novecirculos/design'],
     },
   },
   integrations: [
