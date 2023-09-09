@@ -93,7 +93,7 @@ export default function MultiLayerParallax() {
         </section>
       </main>
       <motion.div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 transition-opacity duration-500"
         style={{
           backgroundImage: `url(/full-image-sun.webp)`,
           backgroundPosition: 'bottom',
@@ -102,7 +102,7 @@ export default function MultiLayerParallax() {
         }}
       />
       <div
-        className="pointer-events-none absolute inset-0 z-20"
+        className="pointer-events-none absolute inset-0 z-20 transition-opacity duration-500"
         style={{
           backgroundImage: `url(/bottom-image-sun.webp)`,
           backgroundPosition: 'bottom',
