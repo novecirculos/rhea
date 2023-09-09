@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { PlatformDialog } from './PlatformDialog'
-import { Button } from '@novecirculos/design'
 import { ChevronDown } from 'lucide-react'
+import { Button } from './ui'
 
 export default function MultiLayerParallax() {
   const scrollRef = useRef(null)

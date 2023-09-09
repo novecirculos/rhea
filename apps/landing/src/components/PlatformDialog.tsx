@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@novecirculos/design'
+} from './ui'
 
 export const PlatformDialog = () => {
   return (
