@@ -1,18 +1,15 @@
 import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
-import nodejs from '@astrojs/node'
-
 import tailwind from '@astrojs/tailwind'
+import vercel from '@astrojs/vercel/serverless'
 
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: nodejs({
-    mode: 'middleware',
-  }),
+  adapter: vercel(),
   vite: {
     ssr: {
-      noExternal: ['react-icons', 'lucide-react', '@novecirculos/design'],
+      noExternal: ['react-icons', 'lucide-react'],
     },
   },
   integrations: [
