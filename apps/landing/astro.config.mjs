@@ -12,7 +12,7 @@ export default defineConfig({
   }),
   vite: {
     ssr: {
-      noExternal: ['react-icons', '@radix-ui/react-dialog', 'lucide-react'],
+      noExternal: ['react-icons', 'lucide-react'],
     },
   },
   integrations: [

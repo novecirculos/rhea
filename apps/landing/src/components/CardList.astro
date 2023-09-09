@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets'
+import CardImage from '../assets/card-image.png'
+import Card from '../components/Card.astro';
+---
+<div class="h-screen flex flex-col md:items-center md:justify-center border-t border-primary">
+ <section class="bg-gradient-to-b from-primary to-secondary w-full lg:w-[85%] md:-translate-y-[63%] bottom-0 z-20 md:mt-4 h-2/4 md:p-[2px]">
+  <div class="flex h-full w-full items-center justify-center bg-gray-950 back">
+   <div class="flex flex-col w-full h-full relative text-left md:text-center">
+   <Image class='absolute w-full h-full object-cover object-top z-0' src="/card-image.png" alt='Fotografia de um homem com runas no seu entorno' width={CardImage.width} height={CardImage.height} />
+    <h2 class="w-4/5 mt-16 relative text-md md:text-2xl mx-auto font-medium text-gray-200">
+     Afinal, o que é <strong class="text-secondary">Nove Círculos?</strong>
+    </h2>
+    <p class="text-gray-300/90 text-sm md:text-lg relative w-4/5 mx-auto mt-4">
+      Nove Círculos é o universo que dá palco para Elfaer, um cenário RPG de Fantasia Medieval, onde tudo é possível.
+      Uma experiência imersiva que traz magia, guerras e mistérios em formato de Podcast.
+    </p>
+   </div>
+  </div>
+  <ul class="flex flex-row no-wrap snap-x snap-mandatory overflow-x-scroll md:overflow-visible gap-4 lg:px-2">
+  <Card 
+  img="immersion"
+   title='Imersão' 
+   highlightedSection='Mergulhe em aventuras imersivas com som de alta qualidade, narrativas emocionantes.' 
+   firstParagraph='Nossa meta é fazer com que tanto jogadores, quanto ouvintes, se sintam parte da trama que se desenrola. Apesar do RPG ser jogado em tempo real, criamos de maneira aprofundada a história dos nossos cenários de fantasia. Bem como, cada personagem, é criado para ter seu próprio espaço nesse universo fantástico.' 
+   secondParagraph='O universo também conta com uma infraestrutura complexa. Com ambiente que involve inteligência artificial, integrações com serviços terceiros, etc. O Nove Círculos RPG não conta com uma equipe técnica, ou de produção, e sem a tecnologia nada disso seria possível. '
+   /> 
+   <Card 
+    img="entertainment"
+    title='Entretenimento' 
+    highlightedSection='Nove Círculos não é apenas um podcast, é um universo expansivo de puro entretenimento em RPG de mesa.' 
+    firstParagraph='É um mundo em que Mestre, Jogadores e Ouvintes se unem para criar histórias memoráveis. Aqui, a diversão não é um mero detalhe—ela é o coração pulsante que alimenta cada narrativa, anima cada personagem e dá vida a cada episódio inesquecível.' 
+    secondParagraph='Mas não se engane! Enquanto prezamos pela diversão acima de tudo, temos um senso de comunidade tão forte que os jogadores aqui não são apenas participantes—são amigos. E, verdade seja dita, estes "amigos" adoram desafiar qualquer enredo cuidadosamente planejado pelo mestre.'
+    /> 
+  <Card 
+  img="inclusion"
+   title='Inclusão' 
+   highlightedSection='A inclusão está no cerne do Nove Círculos RPG.' 
+   firstParagraph='Nos dedicamos a criar um ambiente acessível e diversificado, onde todos podem se sentir bem-vindos, independentemente de suas origens culturais, sociais ou de classe. Desde o início do nosso trabalho, nos empenhamos para que todos possam experienciar o Nove Círculos, da melhor maneira possível.' 
+   secondParagraph='Nosso desejo é trazer um conteúdo que seja o mais acessível. Por esse motivo, escolhemos começar com o formato de conteúdo em áudio, e estamos trabalhando ativamente para manter a experiência inclusiva conforme expandimos.'
+   /> 
+  </ul>
+ </section>
+</div>

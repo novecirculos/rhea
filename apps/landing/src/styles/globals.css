@@ -4,7 +4,7 @@
 
 .cursor {
   display: inline-block;
-  height: 1em; /* Adjust as needed */
+  height: 1.1em; /* Adjust as needed */
   border-right: 0.1em solid hsl(30, 68%, 53%); /* Adjust color as needed */
   animation: blink 0.75s step-end infinite;
   line-height: 1; /* Adjust as needed */
@@ -15,4 +15,12 @@
   50% {
     border-color: transparent;
   }
+}
+
+.black-overlay {
+  background: linear-gradient(
+    0deg,
+    rgba(11, 20, 31, 0.5) 0%,
+    rgba(11, 20, 31, 0.5) 100%
+  );
 }

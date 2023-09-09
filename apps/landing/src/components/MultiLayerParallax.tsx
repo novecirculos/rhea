@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { PlatformDialog } from './PlatformDialog'
 import { Button } from '@novecirculos/design'
 import { ChevronDown } from 'lucide-react'
@@ -10,7 +10,10 @@ export default function MultiLayerParallax() {
   const wordIndexRef = useRef(0)
   const charIndexRef = useRef(0)
 
-  const words = useMemo(() => ['fantasia', 'RPG', 'aventuras', 'mistérios'], [])
+  const words = useMemo(
+    () => ['fantasia', 'magia', 'batalhas', 'aventuras'],
+    []
+  )
 
   useEffect(() => {
     function typeWord() {
@@ -49,12 +52,12 @@ export default function MultiLayerParallax() {
       <main className="font-primary relative flex flex-col items-center justify-center gap-[32px]">
         <motion.h1
           style={{ y: textY }}
-          className="font-primary z-10 -mt-16 max-w-xl text-center text-3xl font-semibold text-gray-50 md:text-6xl"
+          className="font-primary z-10 -mt-64 h-[1.3em] max-w-xl text-center text-3xl font-semibold text-gray-50 md:text-6xl"
         >
           <a
             href="https://open.spotify.com/episode/31ETxfyDh56jiHGypyINK4?si=a7acdba8348147af"
             target="_blank"
-            className="font-primary z-50 mx-auto mb-2 flex w-max cursor-pointer items-center gap-[14px] rounded-full border-2 border-white bg-white py-2 pl-2 pr-4 text-lg font-medium text-[#1DB954] shadow-sm transition-all hover:border-[#1DB954] hover:underline hover:shadow-md"
+            className="font-primary z-50 mx-auto mb-4 flex w-max cursor-pointer items-center gap-[14px] rounded-full border-2 border-white bg-white py-2 pl-2 pr-4 text-lg font-medium text-[#1DB954] shadow-sm transition-all hover:border-[#1DB954] hover:underline hover:shadow-md"
           >
             <svg
               width="25"
@@ -71,22 +74,18 @@ export default function MultiLayerParallax() {
             Ouvir o teaser no spotify
           </a>
           Um novo universo
-          <span className="mx-auto flex w-min flex-row items-center">
-            de
-            <div className="ml-3 w-min bg-white p-1">
+          <p className="mx-auto flex w-min flex-row items-center">
+            <span className="mt-2 md:mt-0">de</span>
+            <span className="ml-3 w-min bg-white p-1">
               <strong
                 ref={typewriterRef}
                 className="from-primary to-secondary bg-gradient-to-b bg-clip-text text-transparent"
               ></strong>
-            </div>
-          </span>
+            </span>
+          </p>
         </motion.h1>
 
-        <h2 className="relative z-0 max-w-xs text-center text-sm font-medium text-gray-200 md:max-w-lg md:text-2xl">
-          Nove Círculos é um universo de fantasia baseado em RPG de mesa
-        </h2>
-
-        <section className="z-50 flex flex-row gap-[18px] px-2">
+        <section className="z-50 flex translate-y-32 flex-row gap-[18px] px-2">
           <PlatformDialog />
           <Button variant="outline" className="px-8 text-white">
             Apoiar o projeto
@@ -110,9 +109,9 @@ export default function MultiLayerParallax() {
           backgroundSize: 'cover',
         }}
       />
-      <strong className="absolute bottom-2 z-20 flex animate-bounce flex-row items-center text-lg font-medium text-white">
+      <strong className="absolute bottom-2 z-20 flex animate-bounce flex-row items-center text-lg font-medium text-white md:hidden">
         <ChevronDown />
-        Role para continuar{' '}
+        Role para continuar
       </strong>
     </div>
   )

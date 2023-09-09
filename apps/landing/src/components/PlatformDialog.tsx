@@ -18,8 +18,8 @@ export const PlatformDialog = () => {
         <DialogHeader>
           <DialogTitle>🎧 Escolha a plataforma</DialogTitle>
           <DialogDescription>
-            <span className="max-w-xs text-left text-sm text-gray-500 md:max-w-full">
-              Selecione uma plataforma que você deseja escutar
+            <span className="mt-11 block max-w-xs text-left text-sm text-gray-500 md:max-w-full">
+              Selecione uma plataforma para você escutar
             </span>
           </DialogDescription>
         </DialogHeader>

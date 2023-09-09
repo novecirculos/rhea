@@ -1,11 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MultiLayerParallax from '../components/MultiLayerParallax';
+import CardList from '../components/CardList.astro';
+
 ---
 
 <Layout title="Nove Círculos - Universo de RPG">
 	<MultiLayerParallax client:visible />
-	<div class="flex justify-center h-screen">
-		<section class="border border-secondary h-1/2 w-2/3 mt-4"></section>
-	</div>
+	<CardList />
+	<section class="h-screen bg-black">
+
+	</section>
 </Layout>
