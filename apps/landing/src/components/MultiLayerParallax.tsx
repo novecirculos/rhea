@@ -42,7 +42,7 @@ export default function MultiLayerParallax() {
     offset: ['start start', 'end start'],
   })
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '200%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '80vh'])
 
   return (
     <div
@@ -52,7 +52,7 @@ export default function MultiLayerParallax() {
       <main className="font-primary relative flex flex-col items-center justify-center gap-[32px]">
         <motion.h1
           style={{ y: textY }}
-          className="font-primary z-10 -mt-64 h-[1.3em] text-center text-3xl font-semibold text-gray-50 md:text-6xl 2xl:-mt-[30vh]"
+          className="font-primary z-10 -mt-[5vh] h-[1.3em] text-center text-3xl font-semibold text-gray-50 md:text-6xl 2xl:text-7xl"
         >
           <a
             href="https://open.spotify.com/episode/31ETxfyDh56jiHGypyINK4?si=a7acdba8348147af"
@@ -84,16 +84,15 @@ export default function MultiLayerParallax() {
             </span>
           </p>
         </motion.h1>
-
-        <section className="z-50 flex translate-y-32 flex-row gap-[18px] px-2">
-          <PlatformDialog />
-          <Button asChild variant="outline" className="px-8 text-white">
-            <a href="https://apoia.se/novecirculos" target="_blank">
-              Apoiar o projeto
-            </a>
-          </Button>
-        </section>
       </main>
+      <section className="z-50 flex flex-row gap-[18px] px-2">
+        <PlatformDialog />
+        <Button asChild variant="outline" className="px-8 text-white">
+          <a href="https://apoia.se/novecirculos" target="_blank">
+            Apoiar o projeto
+          </a>
+        </Button>
+      </section>
       <motion.div
         className="absolute inset-0 z-0 transition-opacity duration-500"
         style={{
