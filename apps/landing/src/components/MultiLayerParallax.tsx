@@ -52,7 +52,7 @@ export default function MultiLayerParallax() {
       <main className="font-primary relative flex flex-col items-center justify-center gap-[32px]">
         <motion.h1
           style={{ y: textY }}
-          className="font-primary z-10 -mt-64 h-[1.3em] max-w-xl text-center text-3xl font-semibold text-gray-50 md:text-6xl"
+          className="font-primary z-10 -mt-64 h-[1.3em] text-center text-3xl font-semibold text-gray-50 md:text-6xl 2xl:-mt-[30vh]"
         >
           <a
             href="https://open.spotify.com/episode/31ETxfyDh56jiHGypyINK4?si=a7acdba8348147af"
@@ -75,7 +75,7 @@ export default function MultiLayerParallax() {
           </a>
           Um novo universo
           <p className="mx-auto flex w-min flex-row items-center">
-            <span className="mt-2 md:mt-0">de</span>
+            <span className="md:mb-[6px]">de</span>
             <span className="ml-3 w-min bg-white p-1">
               <strong
                 ref={typewriterRef}
@@ -87,8 +87,10 @@ export default function MultiLayerParallax() {
 
         <section className="z-50 flex translate-y-32 flex-row gap-[18px] px-2">
           <PlatformDialog />
-          <Button variant="outline" className="px-8 text-white">
-            Apoiar o projeto
+          <Button asChild variant="outline" className="px-8 text-white">
+            <a href="https://apoia.se/novecirculos" target="_blank">
+              Apoiar o projeto
+            </a>
           </Button>
         </section>
       </main>

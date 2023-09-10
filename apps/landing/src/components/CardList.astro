@@ -2,21 +2,21 @@
 import { Image } from 'astro:assets'
 import Card from '../components/Card.astro';
 ---
-<div class="h-screen flex flex-col md:items-center md:justify-center border-t border-primary">
- <section class="bg-gradient-to-b from-primary to-secondary w-full lg:w-[85%] md:-translate-y-[63%] bottom-0 z-20 md:mt-4 h-2/4 md:p-[2px]">
+<div class="h-[80vh] flex flex-col md:items-center md:justify-center border-t border-primary">
+ <section class="bg-gradient-to-b max-w-screen-2xl from-primary to-secondary w-full lg:w-[85%] md:-translate-y-[63%] bottom-0 z-20 md:mt-4 h-2/4 md:p-[2px]">
   <div class="flex h-full w-full items-center justify-center bg-gray-950 back">
    <div class="flex flex-col w-full h-full relative text-left md:text-center">
    <Image class='absolute w-full h-full object-cover object-top z-0' src="/card-image.webp" alt='Fotografia de um homem com runas no seu entorno' width={1920} height={1080} />
-    <h2 class="w-4/5 mt-16 relative text-md md:text-2xl mx-auto font-medium text-gray-200">
+    <h2 class="w-4/5 3xl:w-2/4 mt-16 relative text-md md:text-2xl mx-auto font-medium text-gray-200">
      Afinal, o que é <strong class="text-secondary">Nove Círculos?</strong>
     </h2>
-    <p class="text-gray-300/90 text-sm md:text-lg relative w-4/5 mx-auto mt-4">
+    <p class="text-gray-300/90 text-sm md:text-lg relative w-4/5 3xl:w-2/4 mx-auto mt-4">
       Nove Círculos é o universo que dá palco para Elfaer, um cenário RPG de Fantasia Medieval, onde tudo é possível.
       Uma experiência imersiva que traz magia, guerras e mistérios em formato de Podcast.
     </p>
    </div>
   </div>
-  <ul class="flex flex-row no-wrap snap-x snap-mandatory overflow-x-scroll md:overflow-visible gap-4 px-2">
+  <ul class="flex flex-row no-wrap snap-x snap-mandatory overflow-x-scroll md:overflow-visible gap-4 ml-2">
   <Card 
   img="immersion"
    title='Imersão' 

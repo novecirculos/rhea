@@ -7,14 +7,23 @@ module.exports = {
       padding: '2rem',
       screens: {
         '2xl': '1400px',
+        '3xl': '1920px',
       },
     },
     extend: {
+      boxShadow: {
+        lg: '0px 4px 6px 0px rgba(0, 0, 0, 0.05), 0px 10px 15px 0px rgba(0, 0, 0, 0.10);',
+      },
+      screens: {
+        xxs: '330px',
+        '3xl': '1920px',
+      },
       container: {
         center: true,
         padding: '2rem',
         screens: {
           '2xl': '1400px',
+          '3xl': '1920px',
         },
       },
       fontFamily: {
