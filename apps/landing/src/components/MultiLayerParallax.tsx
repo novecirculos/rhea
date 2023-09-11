@@ -52,7 +52,7 @@ export default function MultiLayerParallax() {
       <main className="font-primary relative flex flex-col items-center justify-center gap-[32px]">
         <motion.h1
           style={{ y: textY }}
-          className="font-primary z-10 -mt-[5vh] text-center text-[30px] font-semibold text-gray-50 md:text-[60px] 2xl:text-[72px]"
+          className="font-primary z-10 text-center text-[30px] font-semibold text-gray-50 md:text-[60px] 2xl:-mt-[128px] 2xl:text-[72px]"
         >
           <a
             href="https://open.spotify.com/episode/31ETxfyDh56jiHGypyINK4?si=a7acdba8348147af"
