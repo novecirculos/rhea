@@ -42,7 +42,7 @@ export default function MultiLayerParallax() {
     offset: ['start start', 'end start'],
   })
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '80vh'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '50vh'])
 
   return (
     <div
@@ -52,7 +52,7 @@ export default function MultiLayerParallax() {
       <main className="font-primary relative flex flex-col items-center justify-center gap-[32px]">
         <motion.h1
           style={{ y: textY }}
-          className="font-primary z-10 -mt-[5vh] h-[1.3em] text-center text-3xl font-semibold text-gray-50 md:text-6xl 2xl:text-7xl"
+          className="font-primary z-10 -mt-[5vh] text-center text-[30px] font-semibold text-gray-50 md:text-[60px] 2xl:text-[72px]"
         >
           <a
             href="https://open.spotify.com/episode/31ETxfyDh56jiHGypyINK4?si=a7acdba8348147af"
@@ -75,8 +75,8 @@ export default function MultiLayerParallax() {
           </a>
           Um novo universo
           <p className="mx-auto flex w-min flex-row items-center">
-            <span className="md:mb-[6px]">de</span>
-            <span className="ml-3 w-min bg-white p-1">
+            <span>de</span>
+            <span className="ml-3 h-min w-min bg-white p-1">
               <strong
                 ref={typewriterRef}
                 className="from-primary to-secondary bg-gradient-to-b bg-clip-text text-transparent"
@@ -87,7 +87,11 @@ export default function MultiLayerParallax() {
       </main>
       <section className="z-50 flex flex-row gap-[18px] px-2">
         <PlatformDialog />
-        <Button asChild variant="outline" className="px-8 text-white">
+        <Button
+          asChild
+          variant="outline"
+          className="px-8 text-center text-white"
+        >
           <a href="https://apoia.se/novecirculos" target="_blank">
             Apoiar o projeto
           </a>

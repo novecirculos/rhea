@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 .cursor {
+  height: 1.2em;
   display: inline-block;
-  height: 1.1em; /* Adjust as needed */
   border-right: 0.1em solid hsl(30, 68%, 53%); /* Adjust color as needed */
   animation: blink 0.75s step-end infinite;
   line-height: 1; /* Adjust as needed */
-  vertical-align: bottom; /* Adjust as needed */
+  vertical-align: middle; /* Adjust as needed */
 }
 
 @keyframes blink {
