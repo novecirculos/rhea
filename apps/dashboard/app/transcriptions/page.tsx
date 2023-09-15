@@ -55,7 +55,7 @@ import { IconPlus } from '@/components/ui/icons'
 import { api, fetcher } from '@/lib/utils'
 import Link from 'next/link'
 
-export const columns: ColumnDef<Scene>[] = [
+const columns: ColumnDef<Scene>[] = [
   {
     id: 'select',
     header: ({ table }) => (

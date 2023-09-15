@@ -7,7 +7,8 @@ import {
   ToastTitle,
   ToastViewport,
 } from '@novecirculos/design'
-import { useToast } from './'
+import { useToast } from '.'
+import React from 'react'
 
 export function Toaster() {
   const { toasts } = useToast()

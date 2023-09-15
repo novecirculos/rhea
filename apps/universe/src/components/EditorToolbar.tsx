@@ -253,22 +253,14 @@ export const DocumentToolbar = ({ editor, handleSave, loading }: any) => {
             <Modal title="Link">
               <form onSubmit={handleSubmit(setNewLink)}>
                 <div className="p-6">
-                  <Input
-                    label="Link"
-                    placeholder="Inserir link"
-                    type="url"
-                    required
-                    register={register}
-                    registerName="link"
-                    error={errors.link && 'É necessário informar a url do link'}
-                  />
+                  <Input placeholder="Inserir link" type="url" required />
                 </div>
                 <div className="mobile:flex-col-reverse flex w-full items-center justify-end gap-2 border-t-2 border-slate-100 px-6 py-4">
                   <Dialog.Close asChild>
                     <Button className="mobile:w-[100%]">Cancelar</Button>
                   </Dialog.Close>
                   <Button
-                    variant="primary"
+                    variant="default"
                     className="mobile:w-[100%]"
                     type="submit"
                   >

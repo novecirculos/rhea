@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css'
 import React from 'react'
 import type { Preview } from '@storybook/react'
 import { ThemeSwitcher } from '@novecirculos/design'
-import { RootProvider } from '@novecirculos/root-context'
+import { RootProvider } from '@novecirculos/context'
 
 const ThemeBlock = ({ children }) => {
   return (

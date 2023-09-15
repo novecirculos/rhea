@@ -12,9 +12,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@novecirculos/design": "*",
-    "@novecirculos/root-context": "*",
-    "@novecirculos/toast-context": "*",
+    "@novecirculos/context": "link:@novecirculos/context",
+    "@novecirculos/design": "link:@novecirculos/design",
+    "@storybook/builder-vite": "^7.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.263.0",

@@ -1,5 +1,5 @@
 import { ToastAction, Button } from '@novecirculos/design'
-import { useToast } from '@novecirculos/toast-context'
+import { useToast } from '@novecirculos/context'
 
 export default {
   title: 'Components/UI/Toast',

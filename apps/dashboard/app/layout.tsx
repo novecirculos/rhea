@@ -6,7 +6,7 @@ import '@/app/globals.css'
 import { fontMain, fontSecondary } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { Header } from '@/components/header'
-import { RootProvider } from '@novecirculos/root-context'
+import { RootProvider } from '@novecirculos/context'
 
 export const metadata: Metadata = {
   metadataBase:

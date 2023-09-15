@@ -14,8 +14,8 @@
     "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
-    "@novecirculos/design": "*",
-    "@novecirculos/tokens": "*",
+    "@novecirculos/design": "link:@novecirculos/design",
+    "@novecirculos/tokens": "link:@novecirculos/tokens",
     "@tanstack/react-table": "^8.9.3",
     "@tiptap/extension-image": "^2.0.4",
     "@tiptap/extension-link": "^2.0.4",

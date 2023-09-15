@@ -1,7 +1,7 @@
 'use client'
 import { Provider } from 'jotai'
 import React, { ReactNode } from 'react'
-import { Toaster } from '@novecirculos/toast-context'
+import { Toaster } from './toast'
 import { TooltipProvider } from '@novecirculos/design'
 
 export const RootProvider = ({ children }: { children: ReactNode }) => {

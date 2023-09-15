@@ -2,9 +2,8 @@
   "name": "@novecirculos/rhea",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "packages/*/*",
-    "apps/*"
+    "apps/*",
+    "packages/*/*/*"
   ],
   "devDependencies": {
     "@graphql-codegen/cli": "^3.3.0",
@@ -12,7 +11,7 @@
     "@graphql-codegen/typescript": "^3.0.3",
     "@graphql-codegen/typescript-operations": "^3.0.3",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
-    "@novecirculos/cli": "*",
+    "@novecirculos/cli": "link:@novecirculos/cli",
     "@types/react": "^18.0.17",
     "dotenv": "^16.0.3",
     "eslint": "^8.21.0",
@@ -25,16 +24,17 @@
   "scripts": {
     "prestart": "dotenv -e .env lerna run --scope=@novecirculos/* dev",
     "dev": "rhea dev",
-    "build": "turbo build",
-    "nuke": "yarn nuke:packages && yarn nuke:apps && yarn nuke:lockfile && nuke:dist",
-    "nuke:packages": "rm -r node_modules; for d in packages/*/*/node_modules; do echo $d; rm -r $d; done",
-    "nuke:apps": "rm -r node_modules; for d in apps/*/node_modules; do echo $d; rm -r $d; done",
-    "nuke:lockfile": "for d in ./*.lock; do echo $d; rm -rf $d; done",
-    "nuke:dist": "rm -r dist; for d in packages/*/dist; do echo $d; rm -r $d; done",
-    "reset": "yarn nuke && yarn install",
+    "postinstall": "bun link:dependencies",
+    "link:dependencies": "find apps packages -name 'node_modules' -prune -o -name '.next' -prune -o -name '@novecirculos/rhea' -prune -o -name 'package.json' -execdir bun link \\;",
+    "nuke": "bun nuke:packages && bun nuke:apps && bun nuke:lockfile",
+    "nuke:packages": "for d in packages/*/node_modules packages/*/*/node_modules packages/*/*/*/node_modules packages/*/dist packages/*/*/dist packages/*/*/*/dist packages/*/.turbo packages/*/*/.turbo packages/*/*/*/.turbo; do if [ -d $d ]; then echo $d; rm -rf $d; fi; done",
+    "nuke:apps": "rm -rf node_modules .next .turbo storybook-static .vercel; for d in apps/*/node_modules apps/*/.next apps/*/.turbo apps/*/storybook-static apps/*/.vercel; do if [ -d $d ]; then echo $d; rm -rf $d; fi; done",
+    "nuke:lockfile": "rm -rf package-lock.json yarn.lock bun.lockb",
+    "reset": "bun nuke && bun install",
     "codegen": "graphql-codegen"
   },
   "dependencies": {
+    "jotai": "^2.4.2",
     "vercel": "^29.3.0"
   }
 }

@@ -1,3 +1,4 @@
+'use client'
 import { useAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { useLayoutEffect } from 'react'

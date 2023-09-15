@@ -1,7 +1,7 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
-import { useTheme } from '@novecirculos/theme-context'
+import { useTheme } from '@novecirculos/context'
 
 import { Button } from './Button'
 import {

@@ -16,11 +16,11 @@ const listCmd = require('@lerna/list/command')
 const publishCmd = require('@lerna/publish/command')
 const runCmd = require('@lerna/run/command')
 const versionCmd = require('@lerna/version/command')
+const { execSync } = require('child_process')
 
 const pkg = require('../package.json')
 
 export const main = async (argv: string[]) => {
-  console.log('init')
   const context = {
     lernaVersion: pkg.dependencies['lerna'],
   }
@@ -28,6 +28,8 @@ export const main = async (argv: string[]) => {
     {
       '--dev-client': String,
       '--parallel': Boolean,
+      '--app': String,
+      '--package': String,
     },
     {
       argv,
@@ -35,6 +37,30 @@ export const main = async (argv: string[]) => {
     }
   )
   const devClient = args['--dev-client']
+
+  if (argv[0] === 'build:app') {
+    const appName = args['--app']
+    if (!appName) {
+      console.error('The --app argument is required for the build:app command')
+      process.exit(1)
+    }
+    const command = `bunx turbo run build --filter={apps/${appName}}`
+    execSync(command, { stdio: 'inherit' })
+    return
+  }
+
+  if (argv[0] === 'build:package') {
+    const packageName = args['--package']
+    if (!packageName) {
+      console.error(
+        'The --package argument is required for the build:package command'
+      )
+      process.exit(1)
+    }
+    const command = `bunx turbo run build --filter={packages/${packageName}}`
+    execSync(command, { stdio: 'inherit' })
+    return
+  }
 
   const actionArg = devClient ? `dev-client-${devClient}` : argv[0]
 

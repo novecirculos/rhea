@@ -12,7 +12,7 @@ import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { Analytics } from '@vercel/analytics/react'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '@novecirculos/graphql'
-import { RootProvider } from '@novecirculos/root-context'
+import { RootProvider } from '@novecirculos/context'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false)

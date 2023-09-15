@@ -5,13 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: vercel-deployment-task@1
-    displayName: 'Deploy Storybook (Spiral Library)'
-    inputs:
-      vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
-      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-      vercelToken: $(VERCEL_TOKEN)
-      production: true
+  # - task: vercel-deployment-task@1
+  #   displayName: 'Deploy Storybook (Spiral Library)'
+  #   inputs:
+  #     vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
+  #     vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+  #     vercelToken: $(VERCEL_TOKEN)
+  #     production: true
   - task: vercel-deployment-task@1
     inputs:
       displayName: 'Deploy Landing (Zaulia)'

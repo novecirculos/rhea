@@ -1,7 +1,7 @@
 {
-  "name": "@novecirculos/theme-context",
+  "name": "@novecirculos/context",
   "version": "1.0.0",
-  "main": "index.tsx",
+  "main": "index.ts",
   "license": "MIT",
   "dependencies": {
     "jotai": "^2.2.2",
