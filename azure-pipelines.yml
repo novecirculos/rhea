@@ -1,42 +1,59 @@
 trigger:
   - main
 
-pool:
-  vmImage: ubuntu-latest
+stages:
+  - stage: DeployLanding
+    jobs:
+      - job: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: vercel-deployment-task@1
+            displayName: 'Deploy Landing (Zaulia)'
+            inputs:
+              vercelProjectId: 'prj_JPaCMNVtw7w6rrnYEWNoJV6289xg'
+              vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+              vercelToken: $(VERCEL_TOKEN)
+              production: true
 
-steps:
-  # - task: vercel-deployment-task@1
-  #   displayName: 'Deploy Storybook (Spiral Library)'
-  #   inputs:
-  #     vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
-  #     vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-  #     vercelToken: $(VERCEL_TOKEN)
-  #     production: true
-  - task: vercel-deployment-task@1
-    displayName: 'Deploy Landing (Zaulia)'
-    inputs:
-      vercelProjectId: 'prj_JPaCMNVtw7w6rrnYEWNoJV6289xg'
-      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-      vercelToken: $(VERCEL_TOKEN)
-      production: true
-  - task: vercel-deployment-task@1
-    displayName: 'Deploy Universe (Elfaer)'
-    inputs:
-      vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
-      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-      vercelToken: $(VERCEL_TOKEN)
-      production: true
-  - task: vercel-deployment-task@1
-    displayName: 'Deploy Dashboard (Niv)'
-    inputs:
-      vercelProjectId: 'prj_m0VgXAxvSvNjClatI498AuTFA2UM'
-      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-      vercelToken: $(VERCEL_TOKEN)
-      production: true
-  - task: vercel-deployment-task@1
-    displayName: 'Deploy Chat (Teobaldo)'
-    inputs:
-      vercelProjectId: 'prj_cj0YAb1UPPbzuGxMZbyHe5kUjPk4'
-      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-      vercelToken: $(VERCEL_TOKEN)
-      production: true
+  - stage: DeployUniverse
+    jobs:
+      - job: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: vercel-deployment-task@1
+            displayName: 'Deploy Universe (Elfaer)'
+            inputs:
+              vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
+              vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+              vercelToken: $(VERCEL_TOKEN)
+              production: true
+
+  - stage: DeployDashboard
+    jobs:
+      - job: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: vercel-deployment-task@1
+            displayName: 'Deploy Dashboard (Niv)'
+            inputs:
+              vercelProjectId: 'prj_m0VgXAxvSvNjClatI498AuTFA2UM'
+              vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+              vercelToken: $(VERCEL_TOKEN)
+              production: true
+
+  - stage: DeployChat
+    jobs:
+      - job: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: vercel-deployment-task@1
+            displayName: 'Deploy Chat (Teobaldo)'
+            inputs:
+              vercelProjectId: 'prj_cj0YAb1UPPbzuGxMZbyHe5kUjPk4'
+              vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+              vercelToken: $(VERCEL_TOKEN)
+              production: true
