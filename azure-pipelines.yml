@@ -6,23 +6,37 @@ pool:
 
 steps:
   - task: vercel-deployment-task@1
-    displayName: 'Deploy Storybook to Vercel'
+    displayName: 'Deploy Storybook (Spiral Library)'
     inputs:
       vercelProjectId: 'prj_ORC0YEo1XoOejHTKzqf0UjAqLBmn'
       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
       vercelToken: $(VERCEL_TOKEN)
       production: true
   - task: vercel-deployment-task@1
-    displayName: 'Deploy Universe to Vercel'
+    inputs:
+      displayName: 'Deploy Landing (Zaulia)'
+      vercelProjectId: 'prj_JPaCMNVtw7w6rrnYEWNoJV6289xg'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
+  - task: vercel-deployment-task@1
+    displayName: 'Deploy Universe (Elfaer)'
     inputs:
       vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
       vercelToken: $(VERCEL_TOKEN)
       production: true
-  # - task: vercel-deployment-task@1
-  #   inputs:
-  #     displayName: 'Deploy Table to Vercel'
-  #     vercelProjectId: 'prj_j3JwYpFLqQbo7HRqf8v13pZc49Tb'
-  #     vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
-  #     vercelToken: $(VERCEL_TOKEN)
-  #     production: true
+  - task: vercel-deployment-task@1
+    displayName: 'Deploy Dashboard (Niv)'
+    inputs:
+      vercelProjectId: 'prj_m0VgXAxvSvNjClatI498AuTFA2UM'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
+  - task: vercel-deployment-task@1
+    displayName: 'Deploy Chat (Teobaldo)'
+    inputs:
+      vercelProjectId: 'prj_cj0YAb1UPPbzuGxMZbyHe5kUjPk4'
+      vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
+      vercelToken: $(VERCEL_TOKEN)
+      production: true
