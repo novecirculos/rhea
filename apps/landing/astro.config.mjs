@@ -7,6 +7,7 @@ import vercel from '@astrojs/vercel/static'
 export default defineConfig({
   output: 'static',
   adapter: vercel(),
+  outDir: '.vercel',
   vite: {
     ssr: {
       noExternal: ['react-icons', 'lucide-react'],
