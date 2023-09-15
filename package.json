@@ -23,7 +23,6 @@
   },
   "scripts": {
     "dev": "rhea dev",
-    "postinstall": "bun link:dependencies",
     "link:dependencies": "find packages -name 'node_modules' -prune -o -name '.next' -prune -o -name '@novecirculos/rhea' -prune -o -name 'package.json' -execdir bun link \\;",
     "nuke": "bun nuke:packages && bun nuke:apps && bun nuke:lockfile",
     "nuke:packages": "for d in packages/*/node_modules packages/*/*/node_modules packages/*/*/*/node_modules packages/*/dist packages/*/*/dist packages/*/*/*/dist packages/*/.turbo packages/*/*/.turbo packages/*/*/*/.turbo; do if [ -d $d ]; then echo $d; rm -rf $d; fi; done",
@@ -33,7 +32,6 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "jotai": "^2.4.2",
     "vercel": "^29.3.0"
   }
 }

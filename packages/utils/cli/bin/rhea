@@ -3,7 +3,7 @@
 /* tslint:disable */
 
 // normal source directory
-var baseSourceDir = __dirname + '/../'
+var baseSourceDir = __dirname
 var sourceDir = `${baseSourceDir}/build`
 var devSourceDir = `${baseSourceDir}/src`
 
@@ -12,8 +12,6 @@ var devMode = require('fs').existsSync(devSourceDir)
 var wantsCompiled = process.argv.indexOf('--compiled-build') >= 0
 
 if (devMode && !wantsCompiled) {
-  // hook into ts-node so we can run typescript on the fly
-  require('ts-node').register()
   sourceDir = devSourceDir
 }
 
