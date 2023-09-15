@@ -13,8 +13,8 @@ steps:
   #     vercelToken: $(VERCEL_TOKEN)
   #     production: true
   - task: vercel-deployment-task@1
+    displayName: 'Deploy Landing (Zaulia)'
     inputs:
-      displayName: 'Deploy Landing (Zaulia)'
       vercelProjectId: 'prj_JPaCMNVtw7w6rrnYEWNoJV6289xg'
       vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
       vercelToken: $(VERCEL_TOKEN)
