@@ -7,9 +7,7 @@ const rolesHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { '@auth0/user-sub': userId } = nookies.get({ req })
 
     if (!userId) {
-      return res
-        .status(400)
-        .json({ message: 'User ID is required and must be a string.' })
+      return res.status(400).json({ message: 'userId is required' })
     }
 
     const roles = await getUserRoles(req, userId)

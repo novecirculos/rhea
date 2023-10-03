@@ -1,18 +1,12 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /* tslint:disable */
 
-// normal source directory
+// Require the module and store it in a variable
 var baseSourceDir = __dirname
-var sourceDir = `${baseSourceDir}/build`
-var devSourceDir = `${baseSourceDir}/src`
+var sourceDir = `${baseSourceDir}/cli.ts`
 
-// check if we're running in dev mode
-var devMode = require('fs').existsSync(devSourceDir)
-var wantsCompiled = process.argv.indexOf('--compiled-build') >= 0
+// Require the module and store it in a variable
+var cliModule = require(sourceDir)
 
-if (devMode && !wantsCompiled) {
-  sourceDir = devSourceDir
-}
-
-require(sourceDir + '/cli').main(process.argv.slice(2))
+cliModule.main(process.argv.slice(2))

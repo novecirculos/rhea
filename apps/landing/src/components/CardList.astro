@@ -16,28 +16,32 @@ import Card from '../components/Card.astro';
     </p>
    </div>
   </div>
-  <ul class="flex flex-row no-wrap snap-x snap-mandatory overflow-x-scroll md:overflow-visible gap-4 ml-2">
+  <ul class="flex flex-row no-wrap snap-x snap-mandatory overflow-x-scroll md:overflow-visible gap-4">
   <Card 
-  img="immersion"
+   className="md:order-1 order-2"
+   img="immersion"
    title='Imersão' 
    highlightedSection='Mergulhe em aventuras imersivas com som de alta qualidade, narrativas emocionantes.' 
    firstParagraph='Nossa meta é fazer com que tanto jogadores, quanto ouvintes, se sintam parte da trama que se desenrola. Apesar do RPG ser jogado em tempo real, criamos de maneira aprofundada a história dos nossos cenários de fantasia. Bem como, cada personagem, é criado para ter seu próprio espaço nesse universo fantástico.' 
    secondParagraph='O universo também conta com uma infraestrutura complexa. Com ambiente que involve inteligência artificial, integrações com serviços terceiros, etc. O Nove Círculos RPG não conta com uma equipe técnica, ou de produção, e sem a tecnologia nada disso seria possível. '
    /> 
    <Card 
+   className="order-1 md:order-2"
+   img="inclusion"
+   title='Interatividade' 
+   highlightedSection='O que torna o universo Nove Círculos verdadeiramente especial é a maneira como ele envolve e empodera sua comunidade.' 
+   firstParagraph='Esta não é uma jornada solitária. Aqui, sua voz molda o universo. Seus sonhos alimentam a narrativa. Suas ideias desafiam os planos do mestre. Junte-se a nós e embarque numa aventura onde você é mais do que um espectador.' 
+   secondParagraph='Através de nossos programas de financiamento coletivo e outras iniciativas, damos as ferramentas para que qualquer pessoa com uma ideia brilhante possa impactar diretamente a narrativa. Não importa se você é um ouvinte ou um apoiador generoso, seu papel é fundamental para o desenvolvimento do nosso mundo de fantasia.'
+   />
+   <Card 
+    className="order-3 md:order-3"
     img="entertainment"
     title='Entretenimento' 
     highlightedSection='Nove Círculos não é apenas um podcast, é um universo expansivo de puro entretenimento em RPG de mesa.' 
     firstParagraph='É um mundo em que Mestre, Jogadores e Ouvintes se unem para criar histórias memoráveis. Aqui, a diversão não é um mero detalhe—ela é o coração pulsante que alimenta cada narrativa, anima cada personagem e dá vida a cada episódio inesquecível.' 
     secondParagraph='Mas não se engane! Enquanto prezamos pela diversão acima de tudo, temos um senso de comunidade tão forte que os jogadores aqui não são apenas participantes—são amigos. E, verdade seja dita, estes "amigos" adoram desafiar qualquer enredo cuidadosamente planejado pelo mestre.'
     /> 
-  <Card 
-  img="inclusion"
-   title='Inclusão' 
-   highlightedSection='A inclusão está no cerne do Nove Círculos RPG.' 
-   firstParagraph='Nos dedicamos a criar um ambiente acessível e diversificado, onde todos podem se sentir bem-vindos, independentemente de suas origens culturais, sociais ou de classe. Desde o início do nosso trabalho, nos empenhamos para que todos possam experienciar o Nove Círculos, da melhor maneira possível.' 
-   secondParagraph='Nosso desejo é trazer um conteúdo que seja o mais acessível. Por esse motivo, escolhemos começar com o formato de conteúdo em áudio, e estamos trabalhando ativamente para manter a experiência inclusiva conforme expandimos.'
-   /> 
+   
   </ul>
  </section>
 </div>
