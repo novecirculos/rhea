@@ -15,6 +15,7 @@ stages:
               vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
               vercelToken: $(VERCEL_TOKEN)
               production: true
+            continueOnError: true
 
   - stage: DeployUniverse
     jobs:
@@ -29,6 +30,7 @@ stages:
               vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
               vercelToken: $(VERCEL_TOKEN)
               production: true
+            continueOnError: true
 
   - stage: DeployDashboard
     jobs:
@@ -43,6 +45,7 @@ stages:
               vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
               vercelToken: $(VERCEL_TOKEN)
               production: true
+            continueOnError: true
 
   - stage: DeployChat
     jobs:
@@ -57,3 +60,4 @@ stages:
               vercelOrgId: 'gmQun6Ktht2cLLGnIpUcqT4f'
               vercelToken: $(VERCEL_TOKEN)
               production: true
+            continueOnError: true
