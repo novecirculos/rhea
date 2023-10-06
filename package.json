@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "rhea dev",
     "build:app": "rhea build",
+    "link:install": "bun link:dependencies && bun install",
     "link:dependencies": "find packages -name 'node_modules' -prune -o -name '.next' -prune -o -name '@novecirculos/rhea' -prune -o -name 'package.json' -execdir bun link \\;",
     "nuke": "bun nuke:packages && bun nuke:apps && bun nuke:lockfile",
     "nuke:packages": "for d in packages/*/node_modules packages/*/*/node_modules packages/*/*/*/node_modules packages/*/dist packages/*/*/dist packages/*/*/*/dist packages/*/.turbo packages/*/*/.turbo packages/*/*/*/.turbo; do if [ -d $d ]; then echo $d; rm -rf $d; fi; done",
