@@ -250,8 +250,9 @@ export default function ScenesDashboardPage() {
               <DialogHeader>
                 <DialogTitle>Adicionar novo registro ao dataset</DialogTitle>
                 <DialogDescription>
-                  Esse documento será formatado por um modelo de linguagem e
-                  você poderá editar as informações depois.
+                  Esse documento será formatado por um modelo de linguagem,
+                  transformando esse input em uma cena. Você poderá editar as
+                  informações depois.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
