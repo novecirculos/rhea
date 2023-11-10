@@ -75,12 +75,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn('font-primary dark antialiased', fontMain, fontSecondary)}
       >
-        <Toaster />
         <RootProvider>
-          <div className="flex min-h-screen flex-col">
+        <Toaster />
+          <div className="flex min-h-screen flex-col bg-background dark:bg-foreground">
             {/* @ts-ignore */}
             <Header />
-            <main className="bg-background dark:bg-foreground flex flex-1 flex-col">
+            <main className="flex flex-1 flex-col">
               {children}
             </main>
           </div>

@@ -6,6 +6,7 @@ module.exports = {
     'app/**/*.{ts,tsx}',
     'components/**/*.{ts,tsx}',
     '../../packages/design/src/**/**/*.{ts,tsx}',
+    '../../packages/editor/src/**/**/*.{ts,tsx}',
   ],
   ...tailwindConfig,
 }

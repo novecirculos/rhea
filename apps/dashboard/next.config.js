@@ -7,7 +7,7 @@ module.exports = {
     serverActions: true,
     serverComponentsExternalPackages: ['faunadb'],
   },
-  transpilePackages: ['@novecirculos/design', '@novecirculos/tokens', "@novecirculos/editor"],
+  transpilePackages: ['@novecirculos/design', '@novecirculos/tokens'],
   images: {
     domains: [
       'media.graphassets.com',

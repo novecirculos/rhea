@@ -1,16 +1,16 @@
 :root {
   --novel-black: rgb(0 0 0);
   --novel-white: rgb(255 255 255);
-  --novel-stone-50: rgb(250 250 249);
-  --novel-stone-100: rgb(245 245 244);
-  --novel-stone-200: rgb(231 229 228);
-  --novel-stone-300: rgb(214 211 209);
-  --novel-stone-400: rgb(168 162 158);
-  --novel-stone-500: rgb(120 113 108);
-  --novel-stone-600: rgb(87 83 78);
-  --novel-stone-700: rgb(68 64 60);
-  --novel-stone-800: rgb(41 37 36);
-  --novel-stone-900: rgb(28 25 23);
+  --novel-stone-50: hsl(210, 14%, 97%);
+  --novel-stone-100: hsl(180, 11%, 98%);
+  --novel-stone-200: hsl(220, 13%, 96%);
+  --novel-stone-300: hsl(223, 9%, 84%);
+  --novel-stone-400: hsl(215, 17%, 63%);
+  --novel-stone-500: hsl(217, 12%, 50%);
+  --novel-stone-600: hsl(214, 24%, 24%);
+  --novel-stone-700: hsl(210, 28%, 17%);
+  --novel-stone-800: hsl(214, 28%, 15%);
+  --novel-stone-900: hsl(211, 36%, 12%);
 
   --novel-highlight-default: #ffffff;
   --novel-highlight-purple: #f6f3f8;
@@ -25,19 +25,19 @@
   --font-title: "Cal Sans", sans-serif;
 }
 
-.dark-theme {
+.dark {
   --novel-black: rgb(255 255 255);
-  --novel-white: rgb(25 25 25);
-  --novel-stone-50: rgb(35 35 34);
-  --novel-stone-100: rgb(41 37 36);
-  --novel-stone-200: rgb(66 69 71);
-  --novel-stone-300: rgb(112 118 123);
-  --novel-stone-400: rgb(160 167 173);
-  --novel-stone-500: rgb(193 199 204);
-  --novel-stone-600: rgb(212 217 221);
-  --novel-stone-700: rgb(229 232 235);
-  --novel-stone-800: rgb(232 234 235);
-  --novel-stone-900: rgb(240, 240, 241);
+  --novel-white: hsl(211, 36%, 12%);
+  --novel-stone-50: hsl(210, 14%, 97%);
+  --novel-stone-100: hsl(180, 11%, 98%);
+  --novel-stone-200: hsl(220, 13%, 96%);
+  --novel-stone-300: hsl(223, 9%, 84%);
+  --novel-stone-400: hsl(215, 17%, 63%);
+  --novel-stone-500: hsl(217, 12%, 50%);
+  --novel-stone-600: hsl(214, 24%, 24%);
+  --novel-stone-700: hsl(210, 28%, 17%);
+  --novel-stone-800: hsl(214, 28%, 15%);
+  --novel-stone-900: hsl(211, 36%, 12%);
 
   --novel-highlight-default: #000000;
   --novel-highlight-purple: #3f2c4b;
