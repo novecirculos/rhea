@@ -35,6 +35,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "vercel": "^29.3.0"
   }
 }

@@ -54,6 +54,7 @@ import { Scene } from '../server/scene-actions.types'
 import { IconPlus } from '@/components/ui/icons'
 import { api, fetcher } from '@/lib/utils'
 import Link from 'next/link'
+import { Dropzone } from '@/components/dropzone'
 
 const columns: ColumnDef<Scene>[] = [
   {
@@ -243,49 +244,22 @@ export default function TranscriptionsDashboardPage() {
           <Dialog>
             <DialogTrigger asChild>
               <Button>
-                Novo registro <IconPlus className="ml-1" />
+                Nova transcrição <IconPlus className="ml-1" />
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Adicionar novo registro ao dataset</DialogTitle>
+                <DialogTitle>Adicionar nova transcrição</DialogTitle>
                 <DialogDescription>
-                  Esse documento será formatado por um modelo de linguagem e
-                  você poderá editar as informações depois.
+                  Insira um novo arquivo para transcrição.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-left">
-                    Conteúdo
-                  </Label>
-                  <Textarea
-                    tabIndex={0}
-                    rows={1}
-                    placeholder="Cole aqui o conteúdo que deseja enviar."
-                    spellCheck={false}
-                    className="focus-within:ring-accent col-span-3 max-h-96 w-full resize-none rounded-sm border-gray-200 bg-transparent px-4 py-[1.3rem] focus-within:outline-none dark:border-gray-800 dark:text-gray-50 sm:text-sm"
+                <div className="grid grid-cols-1 items-center gap-4">
+                  <Dropzone
+                    fileExtension="mp3"
+                    onChange={(e) => console.log(e)}
                   />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="class" className="text-left">
-                    Categoria
-                  </Label>
-                  <Select defaultValue="transcription">
-                    <SelectTrigger className="col-span-3">
-                      <SelectValue placeholder="Selecione uma categoria de documento" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Categorias de documento</SelectLabel>
-                        <SelectItem value="article">Artigo</SelectItem>
-                        <SelectItem value="transcription">
-                          Transcrição
-                        </SelectItem>
-                        <SelectItem value="other">Outro</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
                 </div>
               </div>
               <DialogFooter>

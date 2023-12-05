@@ -1,7 +1,7 @@
-import ScenesDashboardPage from './scenes/page'
+import Transcriptions from './transcriptions/page'
 
 export const runtime = 'edge'
 
 export default function IndexPage() {
-  return <ScenesDashboardPage />
+  return <Transcriptions />
 }

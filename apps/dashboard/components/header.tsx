@@ -23,19 +23,13 @@ export async function Header() {
               href="/"
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
-              Cenas
-            </Link>
-            <Link
-              href="/transcriptions"
-              className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
-            >
               Transcrições
             </Link>
             <Link
-              href="/editor"
+              href="/scenes"
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
-              Editor
+              Cenas
             </Link>
           </div>
         ) : (
