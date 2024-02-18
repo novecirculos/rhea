@@ -4,7 +4,9 @@ import { FaunaRef } from '@/lib/types'
 
 const faunaClient = new Client({ secret: process.env.FAUNADB_SECRET as string })
 
-export async function createScene(scene: Scene) {
+export async function createScene(
+  scene: Scene,
+): Promise<FaunaScene & { id: string }> {
   return await faunaClient.query(
     q.Create(q.Collection('scenes'), { data: scene }),
   )

@@ -80,67 +80,28 @@ const columns: ColumnDef<Scene>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'title',
+    accessorKey: 'filename',
     header: 'Título',
   },
   {
-    accessorKey: 'characters',
-    header: 'Personagens',
-    cell: ({ row }) => (
-      <div>
-        {(row.getValue('characters') as string[]).map((character: string) => (
-          <Badge variant="outline" key={character}>
-            {character}
-          </Badge>
-        ))}
-      </div>
-    ),
+    accessorKey: 'player',
+    header: 'Player',
   },
   {
-    accessorKey: 'location',
-    header: 'Localização',
-  },
-  {
-    accessorKey: 'categories',
-    header: 'Categorias',
-    cell: ({ row }) => (
-      <div>
-        {(row.getValue('categories') as string[]).map((category: string) => (
-          <Badge variant="outline" key={category}>
-            {category}
-          </Badge>
-        ))}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'events',
-    header: 'Eventos',
-    cell: ({ row }) => (
-      <div>
-        {(row.getValue('events') as Event[]).map((event: any) => (
-          <Badge variant="outline" key={event.name}>
-            {event.name}
-          </Badge>
-        ))}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'content',
-    header: 'Conteúdo',
+    accessorKey: 'text',
+    header: 'Transcription',
     cell: ({ row }) => {
       return (
         <Tooltip>
           <TooltipTrigger asChild>
-            <p>{`${(row.getValue('content') as string).substring(
+            <p>{`${(row.getValue('text') as string).substring(
               0,
               100,
             )}...`}</p>
           </TooltipTrigger>
           <TooltipContent>
             <p className="max-w-md">{`${(
-              row.getValue('content') as string
+              row.getValue('text') as string
             ).substring(0, 400)}...`}</p>
           </TooltipContent>
         </Tooltip>

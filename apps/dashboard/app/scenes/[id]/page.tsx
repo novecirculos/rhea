@@ -42,14 +42,24 @@ const EventsSection = ({ events }: { events: Event[] }) => {
   return (
     <>
       <h2 className="text-xl font-bold dark:text-gray-50">Eventos da cena</h2>
-      <div className="prose dark:prose-invert">
-        {events.map((event) => (
-          <div key={event.name}>
-            <strong>{event.name}</strong> <br />
-            <span>{event.description}</span>
-          </div>
-        ))}
-      </div>
+      <ul className="prose dark:prose-invert">
+        {events.map((event) => {
+          if (event.name) {
+            return (
+              <li key={event.name}>
+                <strong>{event.name}</strong> <br />
+                <span>{event.description}</span>
+              </li>
+            )
+          }
+
+          return (
+            <ul key={event as unknown as string}>
+              <li>{event as unknown as string}</li> <br />
+            </ul>
+          )
+        })}
+      </ul>
     </>
   )
 }

@@ -37,7 +37,6 @@ segment_start = 0
 segment_end = segment_length * 1000
 enumerate = 1
 prompt = ""
-audio_dir = 'audios/s1e1/'
 
 full_transcript = ""
 
@@ -49,7 +48,7 @@ for i in range(number_of_segments):
     print('Exported segment %d of %d' % (enumerate, number_of_segments))
 
     f = open(exported_file, "rb")
-    data = client.audio.transcriptions.create(file=f, model="whisper-1", prompt=prompt)
+    data = client.audio.transcriptions.create(file=f, model="whisper-1", prompt=prompt, language='pt')
     f.close()
 
     # Save the transcription text to a file
@@ -63,10 +62,13 @@ for i in range(number_of_segments):
     segment_end += segment_length * 1000
     enumerate += 1
 
+name_parts = segment_filename.split('-')
+name = '-'.join(name_parts[1:]) if len(name_parts) > 1 else 'unknown'
+
 result = fauna_client.query(
     q.create(
         q.collection('transcriptions'),
-        {"data": {"filename": segment_filename, "text": full_transcript}}
+        {"data": {"filename": segment_filename, "text": full_transcript, "player": name}}
     )
 )
 print('Saved full transcription to FaunaDB with ref:', result['ref'])

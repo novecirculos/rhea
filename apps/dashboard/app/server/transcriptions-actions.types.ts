@@ -7,6 +7,6 @@ export interface FaunaTranscription {
 
 export interface Transcription {
   id: number
-  title: string
-  content: string
+  filename: string
+  text: string
 }

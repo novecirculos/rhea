@@ -18,7 +18,8 @@ export const runtime = 'edge'
 const functions: ChatCompletionFunctions[] = [
   {
     name: 'describe_scene',
-    description: 'Generate a vivid description based on the scene input',
+    description:
+      'Generate a vivid description based on the scene input. Always use PT-BR.',
     parameters: {
       type: 'object',
       properties: {
@@ -60,7 +61,8 @@ const functions: ChatCompletionFunctions[] = [
               description: 'Description of the event',
             },
           },
-          description: 'Multiple events associated with the scene',
+          description:
+            'Multiple events associated with the scene. Always follow the pattern: { event: { name: "Event name", description: "Event description" } }',
         },
       },
       required: [
@@ -94,7 +96,7 @@ export async function POST(req: Request) {
   ]
   try {
     const response = await openai.createChatCompletion({
-      model: 'gpt-4-0613',
+      model: 'gpt-4',
       messages: messages,
       functions,
       temperature: 0.1,
@@ -111,9 +113,12 @@ export async function POST(req: Request) {
       content,
     }
 
-    await createScene(scene)
+    console.log(result)
+
+    const faunaScene = await createScene(scene)
 
     return NextResponse.json({
+      ...faunaScene,
       scene,
     })
   } catch (err) {
