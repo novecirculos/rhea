@@ -1,6 +1,6 @@
 import { getScene } from '@/app/server/scene-actions'
 import { Event } from '@/app/server/scene-actions.types'
-import { Badge, Separator } from '@novecirculos/design'
+import { Badge } from '@novecirculos/design'
 
 const TitleSection = ({ title }: { title: string }) => {
   return (
@@ -44,19 +44,11 @@ const EventsSection = ({ events }: { events: Event[] }) => {
       <h2 className="text-xl font-bold dark:text-gray-50">Eventos da cena</h2>
       <ul className="prose dark:prose-invert">
         {events.map((event) => {
-          if (event.name) {
-            return (
-              <li key={event.name}>
-                <strong>{event.name}</strong> <br />
-                <span>{event.description}</span>
-              </li>
-            )
-          }
-
           return (
-            <ul key={event as unknown as string}>
-              <li>{event as unknown as string}</li> <br />
-            </ul>
+            <li key={event.name || event.title}>
+              <strong>{event.name || event.title}</strong> <br />
+              <span>{event.description}</span>
+            </li>
           )
         })}
       </ul>

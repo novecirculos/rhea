@@ -118,8 +118,8 @@ const columns: ColumnDef<Scene>[] = [
     cell: ({ row }) => (
       <div>
         {(row.getValue('events') as Event[]).map((event: any) => (
-          <Badge variant="outline" key={event.name}>
-            {event.name}
+          <Badge variant="outline" key={event.name || event.title}>
+            {event.name || event.title}
           </Badge>
         ))}
       </div>

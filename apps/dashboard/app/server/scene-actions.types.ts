@@ -18,5 +18,6 @@ export interface Scene {
 
 export interface Event {
   name: string
+  title: string
   description: string
 }

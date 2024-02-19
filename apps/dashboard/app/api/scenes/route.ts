@@ -61,8 +61,7 @@ const functions: ChatCompletionFunctions[] = [
               description: 'Description of the event',
             },
           },
-          description:
-            'Multiple events associated with the scene. Always follow the pattern: { event: { name: "Event name", description: "Event description" } }',
+          description: 'Multiple events associated with the scene',
         },
       },
       required: [
@@ -96,7 +95,7 @@ export async function POST(req: Request) {
   ]
   try {
     const response = await openai.createChatCompletion({
-      model: 'gpt-4',
+      model: 'gpt-4-turbo-preview',
       messages: messages,
       functions,
       temperature: 0.1,
@@ -113,12 +112,10 @@ export async function POST(req: Request) {
       content,
     }
 
-    console.log(result)
-
     const faunaScene = await createScene(scene)
 
     return NextResponse.json({
-      ...faunaScene,
+      id: faunaScene.id,
       scene,
     })
   } catch (err) {
