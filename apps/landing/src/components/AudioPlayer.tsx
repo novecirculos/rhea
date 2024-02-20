@@ -47,14 +47,15 @@ export const AudioPlayer = () => {
       <audio preload="auto" ref={audioRef} src={TeaserAudio} />
       <button
         onClick={() => setPlaying(!playing)}
-        className="bg-primary absolute -top-[32px] right-[16px] w-min rounded-full p-4 md:left-[16px]"
+        className="bg-primary absolute -top-[32px] right-[16px] w-min rounded-full p-4 md:left-[24px]"
       >
         {playing ? <Pause fill="#fff" /> : <Play fill="#fff" />}
         <span className="sr-only">Escutar trailer</span>
       </button>
+    
       <Slider
         value={[currentTime]}
-        max={duration}
+        max={duration || 431.28}
         onValueChange={handleSliderChange}
       />
       <span className="ml-1 text-gray-400">

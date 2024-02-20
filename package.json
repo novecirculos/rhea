@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
+    "simplex-noise": "^4.0.1",
     "vercel": "^29.3.0"
   }
 }
