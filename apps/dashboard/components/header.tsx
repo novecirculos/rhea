@@ -31,6 +31,12 @@ export async function Header() {
             >
               Cenas
             </Link>
+            <Link
+              href="/chat"
+              className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
+            >
+              Chat
+            </Link>
           </div>
         ) : (
           <Button
