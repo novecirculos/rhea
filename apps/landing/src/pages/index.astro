@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import MultiLayerParallax from '../components/MultiLayerParallax';
 import CardList from '../components/CardList';
 import Player from '../components/Player';
-import Quote from '../components/Quote.astro'
+import Quote from '../components/Quote'
 import Footer from '../components/Footer.astro';
 
 ---
@@ -12,6 +12,6 @@ import Footer from '../components/Footer.astro';
 	<MultiLayerParallax client:load />
 	<CardList client:load />
 	<Player client:load />
-	<Quote />
+	<Quote client:visible />
 	<Footer />
 </Layout>

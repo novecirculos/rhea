@@ -4,6 +4,9 @@
 // ---
 
 import { StickyScroll, TracingBeam } from '@novecirculos/design'
+import Entertainment from '../assets/entertainment.webp'
+import Inclusion from '../assets/inclusion.webp'
+import Immersion from '../assets/immersion.webp'
 
 const CardList = () => {
   const content = [
