@@ -20,10 +20,10 @@ export async function Header() {
           <div className="mt-1 flex items-center gap-4">
             <UserMenu user={session.user} />
             <Link
-              href="/"
+              href="/articles"
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
-              Transcrições
+              Artigos
             </Link>
             <Link
               href="/scenes"
@@ -36,6 +36,12 @@ export async function Header() {
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
               Chat
+            </Link>
+            <Link
+              href="/"
+              className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
+            >
+              Transcrições
             </Link>
           </div>
         ) : (

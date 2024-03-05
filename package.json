@@ -35,6 +35,9 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
+    "@datastax/astra-db-ts": "^0.1.4",
+    "@langchain/anthropic": "^0.1.1",
+    "@supabase/supabase-js": "^2.39.7",
     "fluent-ffmpeg": "^2.1.2",
     "simplex-noise": "^4.0.1",
     "vercel": "^29.3.0"

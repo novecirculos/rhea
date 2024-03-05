@@ -1,112 +1,87 @@
-import { StreamingTextResponse, LangChainStream } from 'ai'
-import { ChatOpenAI } from 'langchain/chat_models/openai'
-import { auth } from '@/auth'
-import { ChatGPTPluginRetriever } from 'langchain/retrievers/remote'
-import { ConversationalRetrievalQAChain } from 'langchain/chains'
-import { PromptTemplate } from 'langchain/prompts'
-import { getMemory } from '@/lib/langchain'
-import { createChat, getChats, updateChat } from '@/app/server/chat-actions'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from "next/server";
+import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
 
-export const runtime = 'edge'
+import { ChatAnthropic } from "@langchain/anthropic";
+import { PromptTemplate } from "@langchain/core/prompts";
+import { HttpResponseOutputParser } from "langchain/output_parsers";
+import { getChats } from "@/app/server/chat-actions";
+import { createClient } from "@supabase/supabase-js";
+import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
+import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { template } from "@/lib/langchain";
 
-export async function POST(req: Request) {
-  const { messages, id } = await req.json()
-  const { memory, question } = getMemory(messages) // TODO: handle memory through a database like redis
+export const runtime = "edge";
 
-  const userId = (await auth())?.user.id
+const formatMessage = (message: VercelChatMessage) => {
+  return `${message.role}: ${message.content}`;
+};
 
-  if (!userId) {
-    return new Response('Unauthorized', {
-      status: 401,
+
+/**
+ * This handler initializes and calls a simple chain with a prompt,
+ * chat model, and output parser. See the docs for more information:
+ *
+ * https://js.langchain.com/docs/guides/expression_language/cookbook#prompttemplate--llm--outputparser
+ */
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+
+    const messages = body.messages ?? [];
+    const modelName = body.modelName ?? "claude-3-opus-20240229";
+    const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
+    const currentMessageContent = messages[messages.length - 1].content;
+    
+    const client = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+
+    const vectorStore = new SupabaseVectorStore(new OpenAIEmbeddings(), {
+      client,
+      tableName: "documents",
+      queryName: "match_documents",
+    });
+
+    const baseContext = await vectorStore.similaritySearch('', 10, {
+      category: "base-context",
     })
+
+    const TEMPLATE = template({
+      chat_history: formattedPreviousMessages.join("\n"),
+      input: currentMessageContent,
+      context: baseContext.map(doc => doc.pageContent).join("\n"),
+      system_prompt: body.systemPrompt,
+    });
+    
+    const prompt = PromptTemplate.fromTemplate(TEMPLATE);
+
+    const model = modelName.includes('claude') ? new ChatAnthropic({
+      anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+      temperature: 0.4,
+      modelName,
+    }) : new ChatOpenAI({
+      openAIApiKey: process.env.OPENAI_API_KEY,
+      temperature: 0.4,
+      modelName,
+    });
+    /**
+     * Chat models stream message chunks rather than bytes, so this
+     * output parser handles serialization and byte-encoding.
+     */
+    const outputParser = new HttpResponseOutputParser();
+    const chain = prompt.pipe(model).pipe(outputParser)
+
+    const stream = await chain.stream({
+      chat_history: formattedPreviousMessages.join("\n"),
+      input: currentMessageContent,
+      context: baseContext.map(doc => doc.pageContent).join("\n"),
+    });
+
+    return new StreamingTextResponse(stream);
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: e.status ?? 500 });
   }
-
-  const { stream, handlers } = LangChainStream({
-    onCompletion: async (fullResponse) => {
-      const messagesWithResponse = [
-        ...messages,
-        {
-          content: fullResponse,
-          role: 'assistant',
-        },
-      ]
-
-      const existingChat = messages.length > 1
-
-      if (existingChat) {
-        await updateChat(id, messagesWithResponse)
-        return
-      }
-
-      await createChat(id, messagesWithResponse)
-    },
-  })
-
-  // Customize the prompt to your needs
-  const template = `
-  You are a chatbot helping humans with their questions. Related to a fantasy universe called "Nove Círculos".
-  You should always answers using the language: pt-BR
-  
-  {context}
-  
-  Human: {question}
-  Assistant:
-  `
-
-  const prompt = new PromptTemplate({
-    template,
-    inputVariables: ['question', 'context'],
-  })
-
-  const streamingModel = new ChatOpenAI({
-    streaming: true,
-    modelName: 'gpt-3.5-turbo-16k',
-    callbacks: [handlers],
-  })
-
-  const nonStreamingModel = new ChatOpenAI({
-    modelName: 'gpt-4',
-  })
-
-  const retriever = new ChatGPTPluginRetriever({
-    url: 'https://biblioteca-espiral.fly.dev/query',
-    auth: {
-      bearer: process.env.PLUGIN_BEARER_TOKEN as string,
-    },
-    topK: 10,
-  })
-
-  const CONDENSE_QUESTION_TEMPLATE = `
-  Given the following conversation and a follow up input, if it is a question rephrase it to be a standalone question.
-  If it is not a question, just summarize the message.
-  
-  Chat history:
-  {chat_history}
-  Follow up input: {question}
-  Standalone input:
-  `
-
-  const chain = ConversationalRetrievalQAChain.fromLLM(
-    streamingModel,
-    retriever,
-    {
-      memory,
-      returnSourceDocuments: true,
-      qaChainOptions: {
-        type: 'stuff',
-        prompt: prompt,
-      },
-      questionGeneratorChainOptions: {
-        llm: nonStreamingModel,
-        template: CONDENSE_QUESTION_TEMPLATE,
-      },
-    },
-  )
-
-  chain.call({ question })
-
-  return new StreamingTextResponse(stream)
 }
 
 export async function GET(req: Request) {

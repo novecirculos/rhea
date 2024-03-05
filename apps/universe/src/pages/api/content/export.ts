@@ -123,11 +123,10 @@ export default async function handler(
             id: item.slug,
             text: markdown,
             metadata: {
+              slug: item.slug,
               aliases: item.alias,
               category: item.category,
-              created_at: item.createdAt,
               links: extractLinks(markdown, idMapping),
-              universeDate: item.universeDate,
             },
           }
 
@@ -135,6 +134,8 @@ export default async function handler(
           // await faunaClient.query(
           //   q.Create(q.Collection('articles'), { data: doc })
           // )
+
+          await fetch('http://localhost:3001/api/retrieval/ingest', { method: 'POST', body: JSON.stringify(doc) })
 
           documents.push(doc)
         })
