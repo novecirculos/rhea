@@ -8,14 +8,13 @@ import { getChats } from "@/app/server/chat-actions";
 import { createClient } from "@supabase/supabase-js";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { template } from "@/lib/langchain";
+import { getMemory, template } from "@/lib/langchain";
 
 export const runtime = "edge";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
 };
-
 
 /**
  * This handler initializes and calls a simple chain with a prompt,
@@ -29,9 +28,8 @@ export async function POST(req: NextRequest) {
 
     const messages = body.messages ?? [];
     const modelName = body.modelName ?? "claude-3-opus-20240229";
-    const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
-    const currentMessageContent = messages[messages.length - 1].content;
-    
+    const { memory, question } = getMemory(messages);
+
     const client = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -43,39 +41,41 @@ export async function POST(req: NextRequest) {
       queryName: "match_documents",
     });
 
-    const baseContext = await vectorStore.similaritySearch('', 10, {
-      category: "base-context",
-    })
+    const context = await vectorStore.similaritySearch(question);
+
+    const chatHistory = await memory.chatHistory.getMessages();
 
     const TEMPLATE = template({
-      chat_history: formattedPreviousMessages.join("\n"),
-      input: currentMessageContent,
-      context: baseContext.map(doc => doc.pageContent).join("\n"),
+      chat_history: chatHistory.map((message) => message.content).join("\n"),
+      input: question,
+      context: context.map((doc) => doc.pageContent).join("\n"),
       system_prompt: body.systemPrompt,
     });
-    
+
     const prompt = PromptTemplate.fromTemplate(TEMPLATE);
 
-    const model = modelName.includes('claude') ? new ChatAnthropic({
-      anthropicApiKey: process.env.ANTHROPIC_API_KEY,
-      temperature: 0.4,
-      modelName,
-    }) : new ChatOpenAI({
-      openAIApiKey: process.env.OPENAI_API_KEY,
-      temperature: 0.4,
-      modelName,
-    });
+    const model = modelName.includes("claude")
+      ? new ChatAnthropic({
+          anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+          temperature: 0.4,
+          modelName,
+        })
+      : new ChatOpenAI({
+          openAIApiKey: process.env.OPENAI_API_KEY,
+          temperature: 0.4,
+          modelName,
+        });
     /**
      * Chat models stream message chunks rather than bytes, so this
      * output parser handles serialization and byte-encoding.
      */
     const outputParser = new HttpResponseOutputParser();
-    const chain = prompt.pipe(model).pipe(outputParser)
+    const chain = prompt.pipe(model).pipe(outputParser);
 
     const stream = await chain.stream({
-      chat_history: formattedPreviousMessages.join("\n"),
-      input: currentMessageContent,
-      context: baseContext.map(doc => doc.pageContent).join("\n"),
+      chat_history: chatHistory.map((message) => message.content).join("\n"),
+      input: question,
+      context: context.map((doc) => doc.pageContent).join("\n"),
     });
 
     return new StreamingTextResponse(stream);
@@ -85,17 +85,17 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: Request) {
-  const userId = req.headers.get('userId')
+  const userId = req.headers.get("userId");
 
   if (!userId) {
     return NextResponse.json({
       chats: null,
-    })
+    });
   }
 
-  const chats = await getChats(userId)
+  const chats = await getChats(userId);
 
   return NextResponse.json({
     chats,
-  })
+  });
 }

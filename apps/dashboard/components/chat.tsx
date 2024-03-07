@@ -26,7 +26,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       id,
       body: {
         id,
-        modelName
+        modelName,
+        systemPrompt
       },
       onResponse(response) {
         if (response.status === 401 || response.status === 500) {

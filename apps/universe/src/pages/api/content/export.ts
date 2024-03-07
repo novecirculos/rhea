@@ -123,6 +123,7 @@ export default async function handler(
             id: item.slug,
             text: markdown,
             metadata: {
+              title: item.title,
               slug: item.slug,
               aliases: item.alias,
               category: item.category,

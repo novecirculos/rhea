@@ -11,5 +11,14 @@
 }
 
 body {
-  @apply bg-gray-950
+  @apply bg-gray-950;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
