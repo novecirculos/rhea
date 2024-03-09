@@ -1,30 +1,30 @@
-import { getScene } from '@/app/server/scene-actions'
-import { Event } from '@/app/server/scene-actions.types'
-import { Badge } from '@novecirculos/design'
+import { getScene } from "@/app/server/";
+import { Event } from "@/app/server/scene-actions.types";
+import { Badge } from "@novecirculos/design";
 
 const TitleSection = ({ title }: { title: string }) => {
   return (
     <>
       <h1 className="my-4 text-2xl font-bold dark:text-gray-50">{title}</h1>
     </>
-  )
-}
+  );
+};
 const LocationSection = ({ location }: { location: string }) => {
   return (
     <span className="dark:text-gray-50">
       Localização: <Badge>{location}</Badge>
     </span>
-  )
-}
+  );
+};
 
 const GenericSection = ({
   list,
   title,
 }: {
-  list: string[]
-  title: 'Personagens' | 'Objetos' | 'Categorias'
+  list: string[];
+  title: "Personagens" | "Objetos" | "Categorias";
 }) => {
-  'use client'
+  "use client";
 
   return (
     <section className="flex flex-wrap items-center space-x-2">
@@ -35,8 +35,8 @@ const GenericSection = ({
         </Badge>
       ))}
     </section>
-  )
-}
+  );
+};
 
 const EventsSection = ({ events }: { events: Event[] }) => {
   return (
@@ -49,12 +49,12 @@ const EventsSection = ({ events }: { events: Event[] }) => {
               <strong>{event.name || event.title}</strong> <br />
               <span>{event.description}</span>
             </li>
-          )
+          );
         })}
       </ul>
     </>
-  )
-}
+  );
+};
 
 const ContentSection = ({ content }: { content: string }) => {
   return (
@@ -62,25 +62,25 @@ const ContentSection = ({ content }: { content: string }) => {
       <h2 className="text-xl font-bold dark:text-gray-50">Conteúdo</h2>
       <div className="prose dark:prose-invert">{content}</div>
     </>
-  )
-}
+  );
+};
 
 export default async function Scene({ params }: { params: { id: number } }) {
-  const { id } = params
+  const { id } = params;
 
-  const scene = await getScene(id)
+  const scene = await getScene(id);
 
   return (
     <div className="flex flex-col justify-center">
       <section className="mx-auto space-y-4">
-        <TitleSection title={scene?.title || ''} />
-        <LocationSection location={scene?.location || ''} />
+        <TitleSection title={scene?.title || ""} />
+        <LocationSection location={scene?.location || ""} />
         <GenericSection list={scene?.characters || []} title="Personagens" />
         <GenericSection list={scene?.objects || []} title="Objetos" />
         <GenericSection list={scene?.categories || []} title="Categorias" />
         <EventsSection events={scene?.events || []} />
-        <ContentSection content={scene?.content || ''} />
+        <ContentSection content={scene?.content || ""} />
       </section>
     </div>
-  )
+  );
 }

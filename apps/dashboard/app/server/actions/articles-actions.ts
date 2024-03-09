@@ -19,7 +19,7 @@ export async function getArticles(): Promise<Article[]> {
   }
 }
 
-export async function getScene(id: number) {
+export async function getArticle(id: number) {
   try {
     //tbd
   } catch (error) {

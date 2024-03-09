@@ -46,11 +46,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
 } from "@novecirculos/design";
-import { Article } from "../server/articles-actions.types";
+import { Article } from "../server";
 import { IconEdit, IconPlus, IconTrash } from "@/components/ui/icons";
 import { api, fetcher } from "@/lib/utils";
 import Link from "next/link";
@@ -135,7 +132,7 @@ const columns: ColumnDef<Article>[] = [
   },
 ];
 
-export default function ArticlesDashboardPage() {
+export default function DatasetDashboardPage() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],

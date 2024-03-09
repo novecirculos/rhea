@@ -1,17 +1,17 @@
-import * as React from 'react'
-import Link from 'next/link'
+import * as React from "react";
+import Link from "next/link";
 
-import { cn } from '@/lib/utils'
-import { auth } from '@/auth'
-import { Button, ThemeSwitcher } from '@novecirculos/design'
-import { Sidebar } from '@/components/sidebar'
-import { SidebarList } from '@/components/sidebar-list'
-import { IconBrandRed, IconSeparator } from '@/components/ui/icons'
+import { cn } from "@/lib/utils";
+import { auth } from "@/auth";
+import { Button, ThemeSwitcher } from "@novecirculos/design";
+import { Sidebar } from "@/components/sidebar";
+import { SidebarList } from "@/components/sidebar-list";
+import { IconBrandRed, IconSeparator } from "@/components/ui/icons";
 
-import { UserMenu } from '@/components/user-menu'
+import { UserMenu } from "@/components/user-menu";
 
 export async function Header() {
-  const session = await auth()
+  const session = await auth();
 
   return (
     <header className="from-background/10 via-background/50 dark:from-foreground sticky top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b to-white/80 px-4 backdrop-blur-xl dark:border-gray-800 dark:to-gray-950">
@@ -20,10 +20,10 @@ export async function Header() {
           <div className="mt-1 flex items-center gap-4">
             <UserMenu user={session.user} />
             <Link
-              href="/articles"
+              href="/dataset"
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
-              Artigos
+              Dataset
             </Link>
             <Link
               href="/scenes"
@@ -56,5 +56,5 @@ export async function Header() {
       </div>
       <ThemeSwitcher />
     </header>
-  )
+  );
 }

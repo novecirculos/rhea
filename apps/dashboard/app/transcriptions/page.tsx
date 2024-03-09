@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import * as React from 'react'
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,12 +12,11 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table'
-import { Eye, ChevronDown, MoveUpRight } from 'lucide-react'
-import Textarea from 'react-textarea-autosize'
+} from "@tanstack/react-table";
+import { Eye, ChevronDown, MoveUpRight } from "lucide-react";
+import Textarea from "react-textarea-autosize";
 
 import {
-  Badge,
   Button,
   Checkbox,
   Dialog,
@@ -32,14 +31,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   Input,
-  Label,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
   Table,
   TableBody,
   TableCell,
@@ -49,16 +40,16 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@novecirculos/design'
-import { Scene } from '../server/scene-actions.types'
-import { IconPlus } from '@/components/ui/icons'
-import { api, fetcher } from '@/lib/utils'
-import Link from 'next/link'
-import { Dropzone } from '@/components/dropzone'
+} from "@novecirculos/design";
+import { Scene } from "../server/";
+import { IconPlus } from "@/components/ui/icons";
+import { api, fetcher } from "@/lib/utils";
+import Link from "next/link";
+import { Dropzone } from "@/components/dropzone";
 
 const columns: ColumnDef<Scene>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <Checkbox
         className="mt-1"
@@ -80,36 +71,33 @@ const columns: ColumnDef<Scene>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'filename',
-    header: 'Título',
+    accessorKey: "filename",
+    header: "Título",
   },
   {
-    accessorKey: 'player',
-    header: 'Player',
+    accessorKey: "player",
+    header: "Player",
   },
   {
-    accessorKey: 'text',
-    header: 'Transcription',
+    accessorKey: "text",
+    header: "Transcription",
     cell: ({ row }) => {
       return (
         <Tooltip>
           <TooltipTrigger asChild>
-            <p>{`${(row.getValue('text') as string).substring(
-              0,
-              100,
-            )}...`}</p>
+            <p>{`${(row.getValue("text") as string).substring(0, 100)}...`}</p>
           </TooltipTrigger>
           <TooltipContent>
             <p className="max-w-md">{`${(
-              row.getValue('text') as string
+              row.getValue("text") as string
             ).substring(0, 400)}...`}</p>
           </TooltipContent>
         </Tooltip>
-      )
+      );
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }) => {
       return (
         <Link href={`/transcriptions/${row.original.id}`}>
@@ -120,30 +108,30 @@ const columns: ColumnDef<Scene>[] = [
             <TooltipContent>Visualizar</TooltipContent>
           </Tooltip>
         </Link>
-      )
+      );
     },
   },
-]
+];
 
 export default function TranscriptionsDashboardPage() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
-  )
+  );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [data, setData] = React.useState<Scene[]>([])
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [data, setData] = React.useState<Scene[]>([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const response = await fetcher(`${api}/transcriptions`)
+      const response = await fetcher(`${api}/transcriptions`);
 
-      setData(response.transcriptions)
-    }
+      setData(response.transcriptions);
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -162,16 +150,16 @@ export default function TranscriptionsDashboardPage() {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   return (
     <div className="w-full px-6">
       <div className="flex flex-wrap items-center justify-between py-4">
         <Input
           placeholder="Filtrar por titulo"
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) => {
-            table.getColumn('title')?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value);
           }}
           className="md:max-w-sm"
         />
@@ -198,7 +186,7 @@ export default function TranscriptionsDashboardPage() {
                     >
                       {column.id}
                     </DropdownMenuCheckboxItem>
-                  )
+                  );
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
@@ -245,7 +233,7 @@ export default function TranscriptionsDashboardPage() {
                           header.getContext(),
                         )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
@@ -256,7 +244,7 @@ export default function TranscriptionsDashboardPage() {
               return (
                 <TableRow
                   key={row.original.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -267,7 +255,7 @@ export default function TranscriptionsDashboardPage() {
                     </TableCell>
                   ))}
                 </TableRow>
-              )
+              );
             })
           ) : (
             <TableRow>
@@ -281,7 +269,7 @@ export default function TranscriptionsDashboardPage() {
 
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} de{' '}
+          {table.getFilteredSelectedRowModel().rows.length} de{" "}
           {table.getFilteredRowModel().rows.length} valores(s) selecionados.
         </div>
         <div className="space-x-2">
@@ -304,5 +292,5 @@ export default function TranscriptionsDashboardPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

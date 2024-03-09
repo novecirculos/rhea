@@ -1,25 +1,44 @@
-import { UseChatHelpers } from 'ai/react'
+"use client";
+import { UseChatHelpers } from "ai/react";
 
-import { Button } from '@novecirculos/design'
-import { IconArrowRight } from '@/components/ui/icons'
+import { Button } from "@novecirculos/design";
+import { IconArrowRight } from "@/components/ui/icons";
+import { useQuery } from "@tanstack/react-query";
+import { fetcher } from "@/lib/utils";
+import Link from "next/link";
+import { Chat } from "@/lib/types";
 
 const exampleMessages = [
   {
-    heading: 'Jogar um jogo',
+    heading: "Jogar um jogo",
     message: `Vamos jogar um jogo! Você será o mestre da minha aventura`,
   },
   {
-    heading: 'Criar descrições para arte generativa',
+    heading: "Criar descrições para arte generativa",
     message:
-      'Você deve criar um prompt para midjourney baseado em: a mage with a beautiful mustache, illusionist, magic\n',
+      "Você deve criar um prompt para midjourney baseado em: a mage with a beautiful mustache, illusionist, magic\n",
   },
   {
-    heading: 'Produzir conteúdo',
+    heading: "Produzir conteúdo",
     message: `Você será meu assistente para escrever a história de um personagem que nasceu no reino de Kiverlia \n`,
   },
-]
+];
 
-export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
+export function EmptyScreen({ setInput }: Pick<UseChatHelpers, "setInput">) {
+  const { data, isLoading } = useQuery({
+    queryKey: ["chats"],
+    queryFn: async () => {
+      const data = await fetcher("api/chat", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        } as Record<string, string>,
+      });
+
+      return data as { chats: Chat[] };
+    },
+  });
+
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-white p-8 shadow dark:border-gray-950 dark:bg-gray-800">
@@ -30,22 +49,21 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
           Esse é um espaço para criar e se imergir nesse universo de fantasia.
         </p>
         <p className="text-muted-foreground leading-normal  dark:text-gray-400">
-          Você pode começar uma conversa com os seguintes tópicos:
+          Ultimos chats:
         </p>
-        <div className="mt-4 flex flex-col items-start space-y-2">
-          {exampleMessages.map((message, index) => (
-            <Button
+        <section className="mt-4 flex flex-col items-start space-y-2">
+          {data?.chats.map((chat, index) => (
+            <Link
+              href={`/chat/${chat.id}`}
               key={index}
-              variant="link"
-              className="text-primary dark:text-secondary h-auto p-0 text-base"
-              onClick={() => setInput(message.message)}
+              className="flex items-center text-primary dark:text-secondary h-auto p-0 text-base"
             >
               <IconArrowRight className="text-muted-foreground mr-2" />
-              {message.heading}
-            </Button>
+              {chat.title}
+            </Link>
           ))}
-        </div>
+        </section>
       </div>
     </div>
-  )
+  );
 }
