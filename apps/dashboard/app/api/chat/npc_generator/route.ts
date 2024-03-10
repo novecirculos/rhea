@@ -16,12 +16,12 @@ import { kv } from "@vercel/kv";
 import { auth } from "@/auth";
 import {
   BuilderModelTemplate,
-  NameRollTable,
   StreamingModelTemplate,
   namesTable,
-  getName,
+  getNameByRaceAndGender,
   personalityTraitsTable,
-} from "@/app/server/templates/NpcGenerator";
+  physicalTraitsTable,
+} from "@/app/server/chains/npc_generator";
 import {
   generateRandomNumber,
   generateUniqueRandomNumbers,
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
     const builderModel = new ChatOpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
       temperature: 0.2,
-      modelName,
+      modelName: "gpt-3.5-turbo-1106",
     });
     /**
      * Chat models stream message chunks rather than bytes, so this
@@ -113,12 +113,29 @@ export async function POST(req: NextRequest) {
     const personalityColumns = generateUniqueRandomNumbers(1, 4, 3) as string[];
     const physicalColumns = generateUniqueRandomNumbers(1, 4, 3) as string[];
 
-    const personality =
-      personalityTraitsTable[generateRandomNumber(1, 20)][
-        generateRandomNumber(1, 4)
-      ];
+    const personalityAndPhysicalProperties = Array.from({ length: 4 }).map(
+      (_, i) => {
+        const [traitRoll, physicalRoll] = generateUniqueRandomNumbers(
+          1,
+          20,
+          2,
+        ) as number[];
+        const [personalityColumnRoll, physicalColumnRoll] =
+          generateUniqueRandomNumbers(1, 2, 3) as number[];
 
-    console.log(personality);
+        return {
+          column: personalityColumnRoll,
+          personalityTrait:
+            personalityTraitsTable[traitRoll - 1][personalityColumnRoll],
+          traitRoll: traitRoll,
+          physicalTrait:
+            physicalTraitsTable[physicalColumnRoll - 1][physicalRoll],
+          physicalColumnRoll,
+        };
+      },
+    );
+
+    console.log(personalityAndPhysicalProperties);
 
     const rolls = {
       personalityColumn1: personalityColumns[0], // 1d4, unique
@@ -152,14 +169,20 @@ export async function POST(req: NextRequest) {
       input: question,
     });
 
-    const name = `${getName(race, gender, firstNameRoll, secondNameRoll)} `;
-    const surName = `${getName(race, gender, firstSurNameRoll, secondSurNameRoll)}`;
+    const name = `${getNameByRaceAndGender(race, gender, firstNameRoll, secondNameRoll)} `;
+    const surName = `${getNameByRaceAndGender(race, gender, firstSurNameRoll, secondSurNameRoll)}`;
 
     const stream = await chain.stream({
       ...rolls,
       npc_name: `${name} ${surName}`,
       input: question,
       context: context.map((doc) => doc.pageContent).join("\n"),
+      name_rolls: JSON.stringify([
+        firstNameRoll,
+        secondNameRoll,
+        firstSurNameRoll,
+        secondSurNameRoll,
+      ]),
     });
 
     const contextData = JSON.stringify(

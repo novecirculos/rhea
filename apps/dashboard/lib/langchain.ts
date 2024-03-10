@@ -1,20 +1,20 @@
-import { AIMessage, HumanMessage } from 'langchain/schema'
-import { BufferMemory, ChatMessageHistory } from 'langchain/memory'
+import { AIMessage, HumanMessage } from "langchain/schema";
+import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 import { Message as VercelChatMessage } from "ai";
 import { Document } from "@langchain/core/documents";
 
 type ChatMessage = {
-  role: 'user' | 'assistant'
-  content: string
-}
+  role: "user" | "assistant";
+  content: string;
+};
 
 export const getChatMessages = (history: ChatMessage[]) => {
   return history.map((message) =>
-    message.role === 'user'
+    message.role === "user"
       ? new HumanMessage(message.content)
       : new AIMessage(message.content),
-  )
-}
+  );
+};
 
 export const combineDocumentsFn = (docs: Document[]) => {
   const serializedDocs = docs.map((doc) => doc.pageContent);
@@ -36,41 +36,23 @@ export const formatVercelMessages = (chatHistory: VercelChatMessage[]) => {
 
 export const extractLastQuestion = (messages: ChatMessage[]) => {
   const question =
-    messages.length > 0 ? messages[messages.length - 1].content : ''
-  const previousMessages = messages.slice(0, messages.length - 1)
+    messages.length > 0 ? messages[messages.length - 1].content : "";
+  const previousMessages = messages.slice(0, messages.length - 1);
 
-  return { question, previousMessages }
-}
+  return { question, previousMessages };
+};
 
 export const getMemory = (messages: ChatMessage[]) => {
-  const { question, previousMessages } = extractLastQuestion(messages)
+  const { question, previousMessages } = extractLastQuestion(messages);
 
-  const messageHistory = getChatMessages(previousMessages)
+  const messageHistory = getChatMessages(previousMessages);
 
   const memory = new BufferMemory({
-    memoryKey: 'chat_history',
-    inputKey: 'input',
-    outputKey: 'output',
+    memoryKey: "chat_history",
+    inputKey: "input",
+    outputKey: "output",
     chatHistory: new ChatMessageHistory(messageHistory),
-  })
+  });
 
-  return { memory, question }
-}
-
-
-export const template = ({ 
-  chat_history,
-  system_prompt,
-  context,
-  input }: { system_prompt: string, chat_history: string, context: string, input: string }) => `${system_prompt} 
-
-  <chat_history>
-  ${chat_history}
-  </chat_history>
-
-<context>
-  ${context}
-</context>
-
-User: ${input}
-AI:`
+  return { memory, question };
+};
