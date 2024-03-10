@@ -28,7 +28,7 @@ export function ContextDialog({
 }) {
   const { data, isLoading } = useQuery({
     queryKey: ["context", chatId],
-    enabled: !!chatId && open,
+    enabled: !!chatId,
     queryFn: async () => {
       const data = await fetcher(`api/context?chatId=${chatId}`, {
         method: "GET",

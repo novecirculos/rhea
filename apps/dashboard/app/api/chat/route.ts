@@ -8,15 +8,12 @@ import { createChat, getChat, getChats, updateChat } from "@/app/server/";
 import { createClient } from "@supabase/supabase-js";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { getMemory, template } from "@/lib/langchain";
+import { getMemory } from "@/lib/langchain";
 import { kv } from "@vercel/kv";
 import { auth } from "@/auth";
+import { TEMPLATE } from "@/app/server/templates/Teobaldo";
 
 export const runtime = "edge";
-
-const formatMessage = (message: VercelChatMessage) => {
-  return `${message.role}: ${message.content}`;
-};
 
 /**
  * This handler initializes and calls a simple chain with a prompt,
@@ -47,13 +44,6 @@ export async function POST(req: NextRequest) {
     const context = await vectorStore.similaritySearch(question);
 
     const chatHistory = await memory.chatHistory.getMessages();
-
-    const TEMPLATE = template({
-      chat_history: chatHistory.map((message) => message.content).join("\n"),
-      input: question,
-      context: context.map((doc) => doc.pageContent).join("\n"),
-      system_prompt: body.systemPrompt,
-    });
 
     const prompt = PromptTemplate.fromTemplate(TEMPLATE);
 
