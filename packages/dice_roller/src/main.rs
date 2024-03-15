@@ -1,4 +1,5 @@
-use rand::Rng; 
+use rand::Rng;
+use std::collections::HashMap;
 
 #[derive(Debug)]
 struct Dice {
@@ -6,15 +7,20 @@ struct Dice {
     times: u32,
 }
 
-fn roll_dice(dice_list: Vec<Dice>) -> Vec<u32> {
-    let mut results = Vec::new();
-    for dice in dice_list {
-        let mut dice_result = 0;
+fn roll_dice(dice_list: Vec<Dice>) -> HashMap<u32, Vec<u32>> {
+    let mut results: HashMap<u32, Vec<u32>> = HashMap::new();
+    
+    for (index, dice) in dice_list.iter().enumerate() {
+        let mut roll_results: Vec<u32> = Vec::new();
+        
         for _ in 0..dice.times {
-            dice_result += rand::thread_rng().gen_range(1..=dice.side);
+            let roll = rand::thread_rng().gen_range(1..=dice.side);
+            roll_results.push(roll);
         }
-        results.push(dice_result);
+        
+        results.insert((index + 1) as u32, roll_results);
     }
+    
     results
 }
 
@@ -24,6 +30,10 @@ fn main() {
         Dice { side: 6, times: 2 },
         Dice { side: 10, times: 3 },
     ];
+
     let results = roll_dice(dice_rolls);
-    println!("Results of dice rolls: {:?}", results);
+    
+    for (index, rolls) in results.iter() {
+        println!("Dice {}: Rolls: {:?}", index, rolls);
+    }
 }
