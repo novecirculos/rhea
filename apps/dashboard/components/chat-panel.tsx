@@ -39,6 +39,7 @@ import { useState } from "react";
 import { List } from "lucide-react";
 import { ContextDialog } from "./context-dialog";
 import { StreamingModelTemplate, TeobaldoTemplate } from "@/app/server/chains";
+import { CODE_GENERATOR_TEMPLATE } from "@/app/api/chat/code_generator/route";
 
 export interface ChatPanelProps
   extends Pick<
@@ -112,6 +113,11 @@ export function ChatPanel({
       label: "Gerador de NPCS",
       content: StreamingModelTemplate,
       endpoint: "chat/npc_generator",
+    },
+    {
+      label: "Gerador de Código",
+      content: CODE_GENERATOR_TEMPLATE,
+      endpoint: "chat/code_generator",
     },
   ];
 
