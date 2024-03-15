@@ -11,10 +11,7 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { getMemory } from "@/lib/langchain";
 import { kv } from "@vercel/kv";
 import { auth } from "@/auth";
-import { TEMPLATE } from "@/app/server/templates/Teobaldo";
-import { HumanMessage, AIMessage } from "@langchain/core/messages";
-
-import { ChatMessageHistory } from "langchain/memory";
+import { TEMPLATE } from "@/app/server/chains/teobaldo";
 
 export const runtime = "edge";
 
