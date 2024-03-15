@@ -30,6 +30,8 @@ build/
 local.properties
 *.iml
 
+packages/dice_roller/target/*
+
 # node.js
 #
 node_modules/
