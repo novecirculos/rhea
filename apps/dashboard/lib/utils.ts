@@ -3,6 +3,7 @@ import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 import { Message as VercelChatMessage } from "ai";
 import { HumanMessage, AIMessage, ChatMessage } from "@langchain/core/messages";
+import { createClient } from "@supabase/supabase-js";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,6 +13,11 @@ export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   7,
 ); // 7-character random string
+
+export const supabaseClient = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+);
 
 export const api = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}/api`

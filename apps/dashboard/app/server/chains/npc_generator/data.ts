@@ -1,4 +1,10 @@
+import { z } from "zod";
 import { NamesTable, PersonalityAndPhysicalTraitsTable } from "./types";
+
+export const namesTableSchema = z.object({
+  gender: z.enum(["Male", "Female"]),
+  race: z.enum(["Human", "Elf", "Dwarf", "Halfling", "HalfElf", "Gnome"]),
+});
 
 export const personalityTraitsTable: PersonalityAndPhysicalTraitsTable = {
   1: { 1: "Ajuizado", 2: "Delicado", 3: "Gentil", 4: "Obediente" },
