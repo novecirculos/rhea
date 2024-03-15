@@ -9,7 +9,7 @@ import { NpcGeneratorChainRepository } from "@/app/server/chains/npc_generator";
 import { getChats } from "@/app/server";
 import { kv } from "@vercel/kv";
 import { extractLastQuestion } from "@/lib/langchain";
-import { StreamingTextResponse } from "ai";
+import { Message, StreamingTextResponse } from "ai";
 
 export const runtime = "edge";
 
@@ -47,6 +47,8 @@ export async function POST(req: NextRequest) {
 
     const { race, gender } = await formatNameChain.invoke({ input: question });
 
+    // niv.rollDiceInTable(physicalTraitsTable, '1d20', '1d4')
+
     const { name, rolls: name_rolls } =
       await npcGeneratorChainRepo.generateName(race, gender);
 
@@ -56,6 +58,7 @@ export async function POST(req: NextRequest) {
     const stream = await streamingChain.stream({
       npc_name: name,
       input: question,
+      chat_history: body.messages.map((msg: Message) => msg.content).join("\n"),
       context: context.map((doc) => doc.pageContent).join("\n"),
       personality_and_physical_properties: JSON.stringify(
         personalityAndPhysicalProperties,

@@ -2,6 +2,7 @@ export const StreamingModelTemplate = `
 Seu objetivo é criar personagens, baseado no universo de fantasia nove círculos.
 
 Nove Círculos context: {context}
+Conversation: {chat_history}
 
 Abaixo você encontrará informações sobre a criação de personagens, tabelas para selecionar nomes, personalidades e características físicas.
 Você irá receber a rolagem dos dados, para cada característica.

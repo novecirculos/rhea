@@ -12,6 +12,7 @@ import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { updateChat } from "@/app/server";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { TeobaldoTemplate } from "@/app/server/chains";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
@@ -27,10 +28,13 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     "@novecirculos/context-categories",
     [],
   );
-  const [systemPrompt, setSystemPrompt] = useLocalStorage<string>(
-    "@novecirculos/system-prompt",
-    "Você é Teobaldo, um ajudante de escrita. Sua principal tarefa é expandir e criar conteúdo sobre um universo de fantasia chamado Nove Círculos. Você deve ser prestativo e colaborativo, sempre sugerindo 3 novas ideias de prompt no fim de cada resposta, para que o usuário possa prosseguir no assunto. Antes de responder ao prompt, respire fundo e defina um foco preciso para a resposta. Se você não sabe sobre uma informação, não invente, apenas diga que não sabe.Utilize sintaxe markdown em suas respostas",
-  );
+  const [systemPrompt, setSystemPrompt] = useLocalStorage<{
+    content: string;
+    endpoint: string;
+  }>("@novecirculos/system-prompt", {
+    content: TeobaldoTemplate,
+    endpoint: "chat",
+  });
 
   const [streamingFinished, setStreamingFinished] = useState(false);
 
@@ -38,11 +42,10 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     useChat({
       initialMessages,
       id,
-      api: "/api/chat/npc_generator",
+      api: `/api/${systemPrompt.endpoint}`,
       body: {
         id,
         modelName,
-        systemPrompt,
       },
       async onResponse(response) {
         setStreamingFinished(false);

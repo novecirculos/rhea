@@ -1,0 +1,14 @@
+[package]
+name = "dice_roller"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"] # `rlib` is needed for PyO3
+
+[dependencies]
+wasm-bindgen = "0.2"
+pyo3 = { version = "0.15", features = ["extension-module"] } # Ensure you use the correct PyO3 version
+
+[build-dependencies]
+wasm-bindgen = "0.2"
