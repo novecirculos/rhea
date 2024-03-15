@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 import { Message as VercelChatMessage } from "ai";
+import { HumanMessage, AIMessage, ChatMessage } from "@langchain/core/messages";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -71,4 +72,16 @@ export const generateUniqueRandomNumbers = (
 
 export const generateRandomNumber = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const convertVercelMessageToLangChainMessage = (
+  message: VercelChatMessage,
+) => {
+  if (message.role === "user") {
+    return new HumanMessage(message.content);
+  } else if (message.role === "assistant") {
+    return new AIMessage(message.content);
+  } else {
+    return new ChatMessage(message.content, message.role);
+  }
 };

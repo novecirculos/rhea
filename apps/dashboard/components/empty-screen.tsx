@@ -39,8 +39,6 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, "setInput">) {
     },
   });
 
-  console.log(data?.chats);
-
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-white p-8 shadow dark:border-gray-950 dark:bg-gray-800">

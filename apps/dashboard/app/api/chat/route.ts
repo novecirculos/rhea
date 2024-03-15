@@ -12,6 +12,9 @@ import { getMemory } from "@/lib/langchain";
 import { kv } from "@vercel/kv";
 import { auth } from "@/auth";
 import { TEMPLATE } from "@/app/server/templates/Teobaldo";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
+
+import { ChatMessageHistory } from "langchain/memory";
 
 export const runtime = "edge";
 
@@ -24,7 +27,6 @@ export const runtime = "edge";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const userId = (await auth())?.user.id;
 
     const { id, messages = [], modelName = "claude-3-opus-20240229" } = body;
 
@@ -79,22 +81,6 @@ export async function POST(req: NextRequest) {
     );
 
     await kv.set(`context-${id}`, JSON.stringify(contextData));
-
-    const messagesWithResponse = [
-      ...messages,
-      {
-        content: question, // Assuming this should be the response or handled accordingly
-        role: "assistant",
-      },
-    ];
-
-    const existingChat = await getChat(id, userId);
-
-    if (existingChat) {
-      await updateChat(id, messagesWithResponse);
-    } else {
-      await createChat(id, messagesWithResponse);
-    }
 
     return new StreamingTextResponse(stream, {
       headers: {

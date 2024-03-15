@@ -1,4 +1,7 @@
-import { getContext } from "@/app/server/actions/context-actions";
+import {
+  CachedArticle,
+  getContext,
+} from "@/app/server/actions/context-actions";
 import { fetcher } from "@/lib/utils";
 import {
   Dialog,
@@ -16,6 +19,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 import { Book } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function ContextDialog({
   chatId,
@@ -26,17 +30,19 @@ export function ContextDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["context", chatId],
-    enabled: !!chatId,
-    queryFn: async () => {
-      const data = await fetcher(`api/context?chatId=${chatId}`, {
-        method: "GET",
-      });
+  const [data, setData] = useState<CachedArticle[]>([]);
 
-      return data;
-    },
-  });
+  const getData = async () => {
+    const ctx = await getContext(chatId as string);
+
+    setData(ctx);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(data);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -58,17 +64,18 @@ export function ContextDialog({
           </DialogDescription>
         </DialogHeader>
         <ul className="grid grid-cols-1 overflow-x-auto w-full px-4">
-          {data?.context.map((doc: any) => (
-            <Card className="max-h-32 flex-1" key={doc.id}>
-              <CardTitle>{doc.id}</CardTitle>
+          {data &&
+            data?.map((doc) => (
+              <Card className="max-h-32 flex-1" key={doc.id}>
+                <CardTitle>{doc.id}</CardTitle>
 
-              <CardContent>
-                {doc.content.length > 100
-                  ? `${doc.content.substring(0, 100)}...`
-                  : doc.content}
-              </CardContent>
-            </Card>
-          ))}
+                <CardContent>
+                  {doc.content.length > 100
+                    ? `${doc.content.substring(0, 100)}...`
+                    : doc.content}
+                </CardContent>
+              </Card>
+            ))}
         </ul>
         <DialogFooter>
           <Button>OK</Button>

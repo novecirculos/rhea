@@ -1,18 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import { StreamingTextResponse } from "ai";
+import { StreamingTextResponse, Message as VercelChatMessage } from "ai";
 
 import { ChatAnthropic } from "@langchain/anthropic";
-import { PromptTemplate } from "@langchain/core/prompts";
+import {
+  ChatPromptTemplate,
+  PromptTemplate,
+  MessagesPlaceholder,
+} from "@langchain/core/prompts";
 import {
   HttpResponseOutputParser,
   JsonOutputFunctionsParser,
 } from "langchain/output_parsers";
-import { createChat, getChat, getChats, updateChat } from "@/app/server/";
+
 import { createClient } from "@supabase/supabase-js";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { getMemory } from "@/lib/langchain";
-import { kv } from "@vercel/kv";
+import { extractLastQuestion } from "@/lib/langchain";
+import { RunnableSequence } from "@langchain/core/runnables";
+
 import { auth } from "@/auth";
 import {
   BuilderModelTemplate,
@@ -23,12 +28,15 @@ import {
   physicalTraitsTable,
 } from "@/app/server/chains/npc_generator";
 import {
-  generateRandomNumber,
-  generateUniqueRandomNumbers,
+  convertVercelMessageToLangChainMessage,
   roll1d6TwiceAndJoin,
 } from "@/lib/utils";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import MersenneTwister from "mersenne-twister";
+import { createChat, getChat, getChats, updateChat } from "@/app/server";
+import { kv } from "@vercel/kv";
+import { BufferMemory } from "langchain/memory";
 
 export const runtime = "edge";
 
@@ -42,10 +50,22 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const userId = (await auth())?.user.id;
+    const generator = new MersenneTwister();
 
-    const { id, messages = [], modelName = "claude-3-opus-20240229" } = body;
+    if (!userId) {
+      return NextResponse.json(
+        {
+          message: "Unauthorized",
+        },
+        {
+          status: 401,
+        },
+      );
+    }
 
-    const { memory, question } = getMemory(messages);
+    const { id, modelName = "gpt-4-turbo-preview" } = body;
+
+    const { question } = extractLastQuestion(body.messages);
 
     const namesTableSchema = z.object({
       gender: z.enum(["Male", "Female"]),
@@ -65,7 +85,7 @@ export async function POST(req: NextRequest) {
 
     const context = await vectorStore.similaritySearch(question);
 
-    const streamingModelPrompt = PromptTemplate.fromTemplate(
+    const streamingModelPrompt = ChatPromptTemplate.fromTemplate(
       StreamingModelTemplate,
     );
 
@@ -89,68 +109,23 @@ export async function POST(req: NextRequest) {
       temperature: 0.2,
       modelName: "gpt-3.5-turbo-1106",
     });
-    /**
-     * Chat models stream message chunks rather than bytes, so this
-     * output parser handles serialization and byte-encoding.
-     */
 
     const functionCallingModel = builderModel.bind({
       functions: [
         {
           name: "get_npc_basic_info",
-          description:
-            "It must identify the gender and name on the input, will receive four numbers that must be matched inside the table.",
+          description: "It must identify the gender and name on the input",
           parameters: zodToJsonSchema(namesTableSchema),
         },
       ],
       function_call: { name: "get_npc_basic_info" },
     });
 
-    const outputParser = new HttpResponseOutputParser();
-
-    const chain = streamingModelPrompt.pipe(streamingModel).pipe(outputParser);
-
-    const personalityColumns = generateUniqueRandomNumbers(1, 4, 3) as string[];
-    const physicalColumns = generateUniqueRandomNumbers(1, 4, 3) as string[];
-
-    const personalityAndPhysicalProperties = Array.from({ length: 4 }).map(
-      (_, i) => {
-        const [traitRoll, physicalRoll] = generateUniqueRandomNumbers(
-          1,
-          20,
-          2,
-        ) as number[];
-        const [personalityColumnRoll, physicalColumnRoll] =
-          generateUniqueRandomNumbers(1, 2, 3) as number[];
-
-        return {
-          column: personalityColumnRoll,
-          personalityTrait:
-            personalityTraitsTable[traitRoll - 1][personalityColumnRoll],
-          traitRoll: traitRoll,
-          physicalTrait:
-            physicalTraitsTable[physicalColumnRoll - 1][physicalRoll],
-          physicalColumnRoll,
-        };
-      },
-    );
-
-    console.log(personalityAndPhysicalProperties);
-
-    const rolls = {
-      personalityColumn1: personalityColumns[0], // 1d4, unique
-      personalityRoll1: String(generateRandomNumber(1, 20)), // 1d20
-      personalityColumn2: personalityColumns[1], // 1d4, unique
-      personalityRoll2: String(generateRandomNumber(1, 20)), // 1d20
-      personalityColumn3: personalityColumns[2], // 1d4, unique
-      personalityRoll3: String(generateRandomNumber(1, 20)), // 1d20
-      physicalColumn1: physicalColumns[0], // 1d4, unique
-      physicalRoll1: String(generateRandomNumber(1, 20)), // 1d20
-      physicalColumn2: physicalColumns[1], // 1d4, unique
-      physicalRoll2: String(generateRandomNumber(1, 20)), // 1d20
-      physicalColumn3: physicalColumns[2], // 1d4, unique
-      physicalRoll3: String(generateRandomNumber(1, 20)),
-    };
+    const streamingChain = RunnableSequence.from([
+      streamingModelPrompt,
+      streamingModel,
+      new HttpResponseOutputParser(),
+    ]);
 
     const formatNameChain = builderModelPrompt
       .pipe(functionCallingModel)
@@ -172,11 +147,45 @@ export async function POST(req: NextRequest) {
     const name = `${getNameByRaceAndGender(race, gender, firstNameRoll, secondNameRoll)} `;
     const surName = `${getNameByRaceAndGender(race, gender, firstSurNameRoll, secondSurNameRoll)}`;
 
-    const stream = await chain.stream({
-      ...rolls,
+    const personalityAndPhysicalProperties = (() => {
+      const combinations = new Set<string>();
+      while (combinations.size < 4) {
+        const traitRoll = Math.floor(generator.random() * 20) + 1;
+        const physicalRoll = Math.floor(generator.random() * 20) + 1;
+        const personalityColumnRoll = Math.floor(generator.random() * 4) + 1;
+        const physicalColumnRoll = Math.floor(generator.random() * 4) + 1;
+        const key = `${traitRoll}-${physicalRoll}-${personalityColumnRoll}-${physicalColumnRoll}`;
+        combinations.add(key);
+      }
+
+      const uniqueCombinations = Array.from(combinations).map((comb) =>
+        comb.split("-").map(Number),
+      );
+
+      return uniqueCombinations.map(
+        ([
+          traitRoll,
+          physicalRoll,
+          personalityColumnRoll,
+          physicalColumnRoll,
+        ]) => ({
+          personalityColumnRoll,
+          personalityTrait:
+            personalityTraitsTable[traitRoll][personalityColumnRoll],
+          traitRoll,
+          physicalTrait: physicalTraitsTable[physicalRoll][physicalColumnRoll],
+          physicalColumnRoll,
+        }),
+      );
+    })();
+
+    const stream = await streamingChain.stream({
       npc_name: `${name} ${surName}`,
       input: question,
       context: context.map((doc) => doc.pageContent).join("\n"),
+      personality_and_physical_properties: JSON.stringify(
+        personalityAndPhysicalProperties,
+      ),
       name_rolls: JSON.stringify([
         firstNameRoll,
         secondNameRoll,
@@ -192,27 +201,10 @@ export async function POST(req: NextRequest) {
       })),
     );
 
-    await kv.set(`context-${id}`, JSON.stringify(contextData));
-
-    const messagesWithResponse = [
-      ...messages,
-      {
-        content: question, // Assuming this should be the response or handled accordingly
-        role: "assistant",
-      },
-    ];
-
-    const existingChat = await getChat(id, userId);
-
-    if (existingChat) {
-      await updateChat(id, messagesWithResponse);
-    } else {
-      await createChat(id, messagesWithResponse);
-    }
-
+    await kv.set(`context-${id}`, contextData);
     return new StreamingTextResponse(stream, {
       headers: {
-        "X-Context-Id": `context-${body.id}`,
+        "X-Context-Id": `context-${id}`,
       },
     });
   } catch (e: any) {

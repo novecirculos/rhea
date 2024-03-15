@@ -2,13 +2,16 @@
 
 import { useChat, type Message } from "ai/react";
 
-import { cn } from "@/lib/utils";
+import { cn, fetcher } from "@/lib/utils";
 import { ChatList } from "@/components/chat-list";
 import { ChatPanel } from "@/components/chat-panel";
 import { EmptyScreen } from "@/components/empty-screen";
 import { ChatScrollAnchor } from "@/components/chat-scroll-anchor";
 import { toast } from "react-hot-toast";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
+import { updateChat } from "@/app/server";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
@@ -29,6 +32,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     "Você é Teobaldo, um ajudante de escrita. Sua principal tarefa é expandir e criar conteúdo sobre um universo de fantasia chamado Nove Círculos. Você deve ser prestativo e colaborativo, sempre sugerindo 3 novas ideias de prompt no fim de cada resposta, para que o usuário possa prosseguir no assunto. Antes de responder ao prompt, respire fundo e defina um foco preciso para a resposta. Se você não sabe sobre uma informação, não invente, apenas diga que não sabe.Utilize sintaxe markdown em suas respostas",
   );
 
+  const [streamingFinished, setStreamingFinished] = useState(false);
+
   const { messages, append, reload, stop, isLoading, input, setInput } =
     useChat({
       initialMessages,
@@ -39,12 +44,31 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         modelName,
         systemPrompt,
       },
-      onResponse(response) {
+      async onResponse(response) {
+        setStreamingFinished(false);
         if (response.status === 401 || response.status === 500) {
           toast.error(response.statusText);
         }
       },
+      async onFinish(message) {
+        setStreamingFinished(true);
+      },
     });
+
+  const { data, isLoading: persistanceLoading } = useQuery({
+    queryKey: ["persist", id],
+    enabled: messages.length >= 2 && streamingFinished,
+    queryFn: async () => {
+      await fetcher("/api/chat/persist", {
+        method: messages.length === 2 ? "POST" : "PATCH",
+        body: JSON.stringify({
+          id,
+          messages: [...messages],
+        }),
+      });
+    },
+  });
+
   return (
     <>
       <div className={cn("pb-[200px] pt-4 md:pt-10", className)}>

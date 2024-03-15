@@ -1,19 +1,31 @@
 export const StreamingModelTemplate = `
 Seu objetivo é criar personagens, baseado no universo de fantasia nove círculos.
 
+Nove Círculos context: {context}
+
 Abaixo você encontrará informações sobre a criação de personagens, tabelas para selecionar nomes, personalidades e características físicas.
-Você irá receber a rolagem dos dados, para cada característica, e as tabelas para selecionar nomes, personalidades e características físicas. 
-Você deve criar rumores e devolver a mensagem no formato informado abaixo, com valor baseado nos dados que o usuário rolou.
+Você irá receber a rolagem dos dados, para cada característica.
+
+Você deve criar rumores e devolver a mensagem no formato informado abaixo, com valor baseado nos dados que estão dentro do array.
+
 Em sua resposta, devolva o personagem com as informações soliticadas e SEMPRE mostre as rolagens criadas a partir das tabelas. 
 Gere o histórico por rumores por conta própria baseado nas caracteristicas.
 
-<npc_name>
+Você vai receber um array de quatro objetos no seguinte formato para personalidade e características físicas:
+
+type CharacterTraits 
+ personalityColumnRoll: number,
+ personalityTrait: string,
+ traitRoll: number,
+ physicalTrait: string,
+ physicalColumnRoll: number
+
 {npc_name} {name_rolls}
-</npc_name>
 
-<personality_rolls>
+{personality_and_physical_properties}
 
-</personality_rolls>
+Always return in this format the character traits:
+[personalityTrait]: [personalityColumnRoll, traitRoll]
 
 # Criação de personagem
 
@@ -32,59 +44,8 @@ Como ele fala, anda, se veste? É mão aberta ou guarda cada peça de cobre como
 
 Todas estas perguntas darão cor ao seu personagem. Elencamos alguns traços de personalidade na tabela 4.2 para facilitar sua escolha. Recomendamos sortear ou escolher entre 2 ou 3 características, sempre de colunas diferentes, para construir uma personalidade rica para o seu personagem.
 
-## Personalidade de Personagem
-### TABELA 4.2
-
-| 1d20 | COLUNA 1 | COLUNA 2 | COLUNA 3 | COLUNA 4 |
-|--|--|--|--|--|
-| 1 | Ajuizado | Delicado | Gentil | Obediente |
-| 2 | Alerta | Desastrado | Gracioso | Objetivo |
-| 3 | Amigável | Desconfiado | Grosso | Orgulhoso |
-| 4 | Amoroso | Descuidado | Humilde | Otimista |
-| 5 | Ansioso | Desinibido | Idealista | Ousado |
-| 6 | Apressado | Disciplinado | Imprevisível | Paciente |
-| 7 | Arrogante | Distraído | Indeciso | Pessimista |
-| 8 | Asseado | Dramático | Indiferente | Preguiçoso |
-| 9 | Assertivo | Egoísta | Intenso | Racional |
-| 10 | Astuto | Elegante | Irritante | Relaxado |
-| 11 | Atento | Empático | Livre | Romântico |
-| 12 | Bagunceiro | Enganoso | Lunático | Rude |
-| 13 | Calculista | Espirituoso | Mentiroso | Saudável |
-| 14 | Calmo | Excêntrico | Medroso | Sério |
-| 15 | Cáustico | Falso | Metódico | Sujo |
-| 16 | Charmoso | Franco | Modesto | Teimoso |
-| 17 | Complacente | Frio | Mórbido | Tenso |
-| 18 | Compulsivo | Galanteador | Nervoso | Tímido |
-| 19 | Crítico | Ganancioso | Niilista | Vaidoso |
-| 20 | Jogue mais duas vezes | Jogue mais duas vezes | Jogue mais duas vezes | Jogue mais duas vezes |
-
 ## Características Físicas
 São ótimas para personalizar seu personagem, dar-lhe cor e traços únicos. Sorteie quantas características físicas desejar da tabela 4.3 para compor a aparência física do seu personagem. Recomendamos algo entre 2 ou 3 características, sempre de colunas diferentes, para um personagem suficientemente detalhado.
-
-## Característica Física de Personagem
-### TABELA 4.3
-| 1d20 | COLUNA 1 | COLUNA 2 | COLUNA 3 | COLUNA 4 |
-|--|--|--|--|--|
-| 1 | Alto | Careca | Maneta | Pele morena |
-| 2 | Baixo | Careca com trança | Marca de nascença | Pele preta |
-| 3 | Banguela | Cicatriz | Mecha no cabelo | Peludo |
-| 4 | Barba | Corcunda | Monocelha | Perfumado |
-| 5 | Beiços grandes | Cova no queixo | Musculoso | Pés grandes |
-| 6 | Bigodes | Dentes podres | Nariz aquilino | Pescoço longo |
-| 7 | Brincos | Dentuço | Nariz torto | Piercings |
-| 8 | Cabelo branco | Escarificação | Obeso | Pintas |
-| 9 | Cabelo castanho | Fanho | Olho vazado | Prognata |
-| 10 | Cabelo curto | Franzino | Olhos amendoados | Rouco |
-| 11 | Cabelo loiro | Gago | Olhos puxados | Sardas |
-| 12 | Cabelo preto | Gordo | Olhos saltados | Seis dedos |
-| 13 | Cabelos cacheados | Heterocromia | Ombros largos | Sem pescoço |
-| 14 | Cabelos crespos | Jovem | Orelhas de abano | Tatuagem |
-| 15 | Cabelos grisalhos | Lábio leporino | Pálido | Unhas compridas |
-| 16 | Cabelos lisos | Lábios finos | Parrudo | Velho |
-| 17 | Cabelos longos | Magro | Pé torto | Verrugas |
-| 18 | Cabelos ruivos | Manco | Pele amarela | Vesgo |
-| 19 | Calvo | Mandíbula quadrada | Pele branca | Vitiligo |
-| 20 | Jogue mais duas vezes | Jogue mais duas vezes | Jogue mais duas vezes | Jogue mais duas vezes |
 
 
 ## Históricos
