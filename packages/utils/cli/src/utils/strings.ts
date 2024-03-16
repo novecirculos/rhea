@@ -7,3 +7,5 @@ export const kebabCase = (...args: string[]): string =>
 export const pascalCase: (value: string) => string = (value) => {
   return upperFirst(camelCase(value));
 };
+export const snakeCase = (...args: string[]): string =>
+  require('lodash.snakecase')(...args).toUpperCase();

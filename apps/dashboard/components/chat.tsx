@@ -33,7 +33,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     endpoint: string;
   }>("@novecirculos/system-prompt", {
     content: THEOBALD_ASSISTANT_TEMPLATE,
-    endpoint: "chat",
+    endpoint: "chat/assistants/theobald",
   });
 
   const [streamingFinished, setStreamingFinished] = useState(false);

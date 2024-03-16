@@ -1,10 +1,11 @@
 import * as ejs from 'ejs';
 import { Options } from '../types';
 import { Template } from '../lib/Template';
-import { pascalCase, camelCase, kebabCase } from '../utils/strings';
+import { pascalCase, camelCase, kebabCase, snakeCase } from '../utils/strings';
 import { join } from 'path';
 import { dir, exists, find, read, write } from 'fs-jetpack';
 import { runInstall } from './runInstall';
+import { appendExportToIndex } from './appendExportToIndex';
 
 export const generateFromTemplate = async (
   template: Template,
@@ -14,9 +15,12 @@ export const generateFromTemplate = async (
   // permutations of the name
   const pascalCaseName = pascalCase(options.name.toString());
   const kebabCaseName = kebabCase(options.name.toString());
+  const snakeCaseName = snakeCase(options.name.toString());
+
   const camelCaseName = camelCase(options.name.toString());
   const pascalCaseParent = pascalCase(options.parent?.toString() as string);
   const kebabCaseParent = kebabCase(options.parent?.toString() as string);
+  const snakeCaseParent = snakeCase(options.parent?.toString() as string);
 
   // passed into the template
   const props = {
@@ -25,6 +29,8 @@ export const generateFromTemplate = async (
     pascalCaseName,
     pascalCaseParent,
     kebabCaseParent,
+    snakeCaseName,
+    snakeCaseParent,
     ...options,
   };
 
@@ -46,7 +52,7 @@ export const generateFromTemplate = async (
 
   const destinationDir = schema.spread
     ? packageDir
-    : join(packageDir, kebabCaseName + '-' + template.name);
+    : join(packageDir, kebabCaseName);
 
   if (exists(destinationDir) && !schema.spread) {
     return;
@@ -93,6 +99,11 @@ export const generateFromTemplate = async (
     }
     write(destinationPath, templateContents ?? '');
     await runInstall(schema, kebabCaseName, kebabCaseParent);
+   
+    if(template.name) {
+      await appendExportToIndex(kebabCaseName, kebabCaseParent);
+    }
+
     return destinationPath;
   });
 

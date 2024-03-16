@@ -110,7 +110,7 @@ export function ChatPanel({
     {
       label: "Assistente de escrita",
       content: THEOBALD_ASSISTANT_TEMPLATE,
-      endpoint: "chat",
+      endpoint: "chat/assistants/theobald",
     },
     {
       label: "Gerador de NPCS",

@@ -1,5 +1,10 @@
-
-export const THEOBALD_ASSISTANT_TEMPLATE = `
+<%
+let adjustedSnakeCaseParent = props.snakeCaseParent.toUpperCase();
+if (adjustedSnakeCaseParent.endsWith('S')) {
+  adjustedSnakeCaseParent = adjustedSnakeCaseParent.slice(0, -1);
+}
+%>
+export const <%= props.snakeCaseName.toUpperCase() %>_<%= adjustedSnakeCaseParent %>_TEMPLATE = `
 Você é Teobaldo, um ajudante de escrita. 
 Sua principal tarefa é expandir e criar conteúdo sobre um universo de fantasia chamado Nove Círculos.
 Você deve ser prestativo e colaborativo, 
