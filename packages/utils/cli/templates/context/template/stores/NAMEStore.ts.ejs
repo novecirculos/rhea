@@ -1,0 +1,23 @@
+import { makeAutoObservable } from 'mobx';
+import { ColorScheme } from '../types/ColorScheme';
+
+export class <%= props.pascalCaseName %>Store {
+  private _colorScheme: ColorScheme;
+
+  constructor(initialColorScheme: ColorScheme = 'light') {
+    this._colorScheme = initialColorScheme;
+    makeAutoObservable(this);
+  }
+
+  public toggleColorScheme(colorScheme?: ColorScheme) {
+    if (colorScheme) {
+      this._colorScheme = colorScheme;
+      return;
+    }
+    this._colorScheme = this._colorScheme === 'light' ? 'dark' : 'light';
+  }
+
+  public get colorScheme(): ColorScheme {
+    return this._colorScheme;
+  }
+}

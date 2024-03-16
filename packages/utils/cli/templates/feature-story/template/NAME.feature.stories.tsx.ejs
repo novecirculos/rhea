@@ -1,0 +1,16 @@
+import * as React from 'react'
+import { <%= props.pascalCaseName %>, <%= props.pascalCaseName %>Interface, <%= props.pascalCaseName %>Mock } from "@novecirculos/<%= props.kebabCaseName %>-feature"
+import { Story } from '@storybook/react';
+
+const config = {
+    title: "Feature/<%= props.pascalCaseParent %>/<%= props.pascalCaseName %>",
+    component: <%= props.pascalCaseName %>
+};
+
+export default config;
+
+export const Default: Story<<%= props.pascalCaseName %>Interface> = (args) => {
+    return <<%= props.pascalCaseName %> {...args}/>
+};
+
+Default.args = <%= props.pascalCaseName %>Mock;

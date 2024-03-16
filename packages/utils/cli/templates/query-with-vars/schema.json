@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "network-generator",
+    "type": "object",
+    "path": "./packages/libs/novecirculos-generator/templates/query-with-vars/template",
+    "outputPath": "./packages/network/PARENT-KEBAB-network",
+    "install": [
+      {
+        "dependencies": {
+          "@novecirculos/create-account-network": "*"
+        },
+        "targets": ["./packages/network/PARENT-KEBAB-network/package.json"]
+      }
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Query name"
+      },
+      "parent": {
+        "type": "string",
+        "description": "Parent Network Lib name",
+        "default": "midasTouch"
+      },
+      "variables": {
+        "type": "string",
+        "description": "Comma-sepaprated variables to be used in query (e.g. 'username,password')",
+        "default": "region"
+      }
+    },
+    "required": ["name", "parent", "variables"],
+    "dependsOn": ["query-with-vars-story"],
+    "spread": true
+  }

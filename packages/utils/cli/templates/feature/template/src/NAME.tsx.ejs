@@ -1,0 +1,14 @@
+import { <%= props.pascalCaseName %>Model } from '@novecirculos/<%= props.kebabCaseName %>-model';
+import <%= props.pascalCaseName %>View from '@novecirculos/<%= props.kebabCaseName %>-view';
+import { <%= props.pascalCaseName %>ViewModel } from '@novecirculos/<%= props.kebabCaseName %>-view-model';
+
+import { <%= props.pascalCaseName %>Interface } from './<%= props.pascalCaseName %>Interface';
+
+export const <%= props.pascalCaseName %> = (props: <%= props.pascalCaseName %>Interface) => {
+  const { initialCount = 0 } = props;
+
+  const viewModel = new <%= props.pascalCaseName %>ViewModel(new <%= props.pascalCaseName %>Model({ count: initialCount }));
+
+  return <<%= props.pascalCaseName %>View viewModel={viewModel} />;
+};
+

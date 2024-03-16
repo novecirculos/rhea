@@ -1,0 +1,65 @@
+import React from 'react';
+import { use<%= props.pascalCaseName %>Query } from '@novecirculos/<%= props.kebabCaseParent %>-network';
+import { Scaffold } from '../../../components/Scaffold';
+import { AuthEnsurer } from '../../../components/AuthEnsurer';
+import ReactJson from 'react-json-view';
+
+interface Args {
+  <% props.variables.split(',').forEach((variable) => { %>
+    <%= variable %>: string;
+  <% }) %>
+}
+
+interface ComponentProps {
+  args: Args;
+}
+
+const config = {
+  title: 'Network/<%= props.pascalCaseParent %>/Queries/use<%= props.pascalCaseName %>Query',
+  argTypes: {
+   <% props.variables.split(',').forEach((variable) => { %>
+    <%= variable %>: {
+      control: 'text',
+    },
+    <% }) %> 
+  },
+};
+
+export default config;
+
+export const Default = (args: Args) => {
+  return (
+    <Scaffold>
+      <AuthEnsurer>
+        <ComponentUsing<%= props.pascalCaseName %> args={args} />
+      </AuthEnsurer>
+    </Scaffold>
+  );
+};
+
+Default.args = {
+  <% props.variables.split(',').forEach((variable) => { %>
+  <%= variable%>: 'US',
+  <% }) %>
+};
+
+const ComponentUsing<%= props.pascalCaseName %> = ({ args }: ComponentProps) => {
+  const { data, status } = use<%= props.pascalCaseName %>Query({ variables: args });
+
+  if (!data && status === 'error') {
+    return (
+      <section>
+        <h1 className="text-white text-center">
+          An error happened, try providing different args.
+        </h1>
+      </section>
+    );
+  }
+
+  return (
+    <section>
+      <ReactJson theme="google" src={data ?? {}} />
+    </section>
+  );
+
+};

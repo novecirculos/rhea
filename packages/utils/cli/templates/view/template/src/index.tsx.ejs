@@ -1,0 +1,24 @@
+import { <%= props.pascalCaseName %>ViewModel } from '@novecirculos/<%= props.kebabCaseName %>-view-model';
+import { Observer } from 'mobx-react-lite';
+import { P, Button, View } from '@novecirculos/design';
+
+const <%= props.pascalCaseName %>View = (props: { viewModel: <%= props.pascalCaseName %>ViewModel }) => {
+  const viewModel = props.viewModel;
+
+  return (
+    <View className="inline-flex flex-col flex-1 items-center justify-center bg-white dark:bg-black">
+      <Observer>
+        {() => (
+          <P className="dark:text-white">Count is: {viewModel.count}</P>
+        )}
+      </Observer>
+      <Button
+        className="bg-blue-600 rounded p-2 "
+        onPress={viewModel.onPressButton}>
+        <P className="dark:text-blue-400">Increase</P>
+      </Button>
+    </View>
+  );
+};
+
+export default <%= props.pascalCaseName %>View;

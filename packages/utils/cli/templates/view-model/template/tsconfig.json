@@ -1,0 +1,3 @@
+{
+  "extends": "@novecirculos/ts-utils/base.json",
+}

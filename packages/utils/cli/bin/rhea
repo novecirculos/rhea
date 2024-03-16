@@ -1,12 +1,34 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 /* tslint:disable */
 
-// Require the module and store it in a variable
-var baseSourceDir = __dirname
-var sourceDir = `${baseSourceDir}/cli.ts`
+const fs = require("fs");
+const path = require("path");
 
-// Require the module and store it in a variable
-var cliModule = require(sourceDir)
+// Base source directory
+var baseSourceDir = path.join(__dirname, "..");
+var buildSourceDir = path.join(baseSourceDir, "build");
+var devSourceDir = path.join(baseSourceDir, "src");
 
-cliModule.main(process.argv.slice(2))
+// Determine if we're running in development mode
+var devMode = fs.existsSync(devSourceDir);
+var wantsCompiled = process.argv.includes("--compiled-build");
+
+// Determine the source directory based on the mode
+var sourceDir;
+if (devMode && !wantsCompiled) {
+  // Use ts-node to run TypeScript on the fly in development mode
+  require('ts-node').register();
+  sourceDir = devSourceDir;
+} else {
+  sourceDir = buildSourceDir;
+}
+
+// Determine the action based on the command line arguments
+if (["g", "generate", "-g", "--g", "-generate", "--generate"].includes(process.argv[2])) {
+  // Run the CLI for generate commands
+  require(path.join(sourceDir, "cli")).cli(process.argv.slice(3));
+} else {
+  // Default to running the main function for other commands
+  require(path.join(sourceDir, "lerna")).main(process.argv.slice(2));
+}

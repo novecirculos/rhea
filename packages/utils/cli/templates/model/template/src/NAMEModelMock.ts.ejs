@@ -1,0 +1,8 @@
+/* eslint-disable no-restricted-syntax */
+import { <%= props.pascalCaseName %>Model } from './<%= props.pascalCaseName %>Model';
+import { action } from '@storybook/addon-actions';
+
+export const <%= props.pascalCaseName %>ModelMock: Pick<<%= props.pascalCaseName %>Model, keyof <%= props.pascalCaseName %>Model>  = {
+  count: 1,
+  increaseCount: action('model-increase-count'),
+};

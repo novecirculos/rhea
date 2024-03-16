@@ -1,0 +1,7 @@
+import { action } from '@storybook/addon-actions'
+import { <%= props.pascalCaseName %>Interface } from './<%= props.pascalCaseName %>Interface'
+
+export const <%= props.pascalCaseName %>Mock: <%= props.pascalCaseName %>Interface = {
+    text: 'Hello World',
+    onPress: action('onPress'),
+}

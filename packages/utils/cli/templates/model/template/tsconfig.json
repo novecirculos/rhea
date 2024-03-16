@@ -1,0 +1,10 @@
+{
+  "extends": "@novecirculos/ts-utils/base.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

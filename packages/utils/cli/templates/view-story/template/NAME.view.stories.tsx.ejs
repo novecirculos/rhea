@@ -1,0 +1,22 @@
+import * as React from 'react'
+import {
+    <%= props.pascalCaseName %>ViewModel,
+    <%= props.pascalCaseName %>ViewModelMock,
+  } from '@novecirculos/<%= props.kebabCaseName %>-view-model';
+import <%= props.pascalCaseName %>View from "@novecirculos/<%= props.kebabCaseName %>-view"
+import { Story } from '@storybook/react';
+
+const config = {
+    title: "View/<%= props.pascalCaseParent %>/<%= props.pascalCaseName %>",
+    component: <%= props.pascalCaseName %>View
+};
+
+export default config;
+
+export const Default: Story<<%= props.pascalCaseName %>ViewModel> = (args) => {
+    return <<%= props.pascalCaseName %>View viewModel={args}/>
+};
+
+Default.args = <%= props.pascalCaseName %>ViewModelMock
+
+

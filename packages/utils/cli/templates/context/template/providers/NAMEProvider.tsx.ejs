@@ -1,0 +1,16 @@
+import React, { ReactNode } from 'react';
+import { Platform } from 'react-native';
+import { <%= props.pascalCaseName %>Store } from '../stores/<%= props.pascalCaseName %>Store';
+import { <%= props.pascalCaseName %>Context } from '../contexts/<%= props.pascalCaseName %>Context';
+import { View } from '@novecirculos/design';
+import { Observer } from 'mobx-react-lite';
+
+export const <%= props.pascalCaseName %>Provider = ({ children }: { children: ReactNode }) => {
+  const store = new <%= props.pascalCaseName %>Store();
+
+  return (
+    <<%= props.pascalCaseName %>Context.Provider value={store}>
+      {children}
+    </<%= props.pascalCaseName %>Context.Provider>
+  );
+};

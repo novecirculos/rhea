@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "network-story-generator",
+    "type": "object",
+    "path": "./packages/libs/novecirculos-generator/templates/query-story/template",
+    "outputPath": "./apps/storybook/stories/Network/PARENT-KEBAB-network-story",
+    "install": [
+      {
+        "dependencies": {
+          "@novecirculos/PARENT-KEBAB-network": "*"
+        },
+        "targets": ["./apps/storybook/package.json"]
+      }
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Query name"
+      },
+      "parent": {
+        "type": "string",
+        "description": "Parent Network Lib name",
+        "default": "midasTouch"
+      }
+    },
+    "required": ["name", "parent"],
+    "spread": true
+}

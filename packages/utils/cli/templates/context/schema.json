@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "context-generator",
+    "type": "object",
+    "path": "./packages/libs/novecirculos-generator/templates/context/template",
+    "outputPath": "./packages/context",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Context Lib name"
+      }
+    },
+    "required": ["name"]
+  }

@@ -1,0 +1,28 @@
+import { AuthCredentials } from '../interfaces';
+import { useIsMutating } from '@tanstack/react-query';
+import { QUERY_KEY } from '../utils';
+import { useAuthResponseQuery, useSafeCredentialsQuery } from '../queries';
+import { useLoginMutation, useLogoutMutation } from '../mutations';
+
+export const use<%= props.pascalCaseName %>Network = () => {
+  const { data: token } = useAuthResponseQuery();
+
+  const { data: credentials } = useSafeCredentialsQuery();
+
+  const login = useLoginMutation();
+
+  const logout = useLogoutMutation();
+
+  const isMutating = useIsMutating({
+    mutationKey: QUERY_KEY,
+    exact: true,
+  });
+
+  return {
+    token,
+    credentials,
+    login: (props: AuthCredentials) => login.mutateAsync(props),
+    loading: Boolean(isMutating),
+    logout: () => logout.mutateAsync(),
+  };
+};

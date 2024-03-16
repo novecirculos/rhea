@@ -1,0 +1,14 @@
+{
+  "extends": "@novecirculos/ts-config/react.json",
+  "compilerOptions": {
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

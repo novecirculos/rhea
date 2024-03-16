@@ -1,0 +1,28 @@
+import { marketDataApi } from '@novecirculos/api';
+import { QueryFunction } from '@tanstack/react-query';
+import { <%= props.pascalCaseName %>Response, <%= props.pascalCaseName %>Data } from '../interfaces';
+import { useQuery } from '@tanstack/react-query';
+import { UseQueryWithVariablesWrapper } from '@novecirculos/query-utils';
+
+export const use<%= props.pascalCaseName %>Query: UseQueryWithVariablesWrapper<
+  <%= props.pascalCaseName %>Response,
+  <%= props.pascalCaseName %>Data
+> = (options) => {
+  const { variables, ...rest } = options;
+
+  return useQuery(['<%= props.kebabCaseName %>', variables], <%= props.pascalCaseName %>Query, {
+    staleTime: Infinity,
+    ...rest
+  });
+};
+
+export const <%= props.pascalCaseName %>Query: QueryFunction<
+  <%= props.pascalCaseName %>Response,
+  [string, <%= props.pascalCaseName %>Data]
+> = async (ctx) => {
+  const variables = ctx.queryKey[1];
+
+  const res =  await marketDataApi.get(`/list/${variables.<%= props.variables.split(',')[0] %>}_SL_1/symbols`);
+
+  return res.data;
+};
