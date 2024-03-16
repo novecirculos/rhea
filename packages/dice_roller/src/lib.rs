@@ -31,7 +31,7 @@ impl Dice {
 
 /// Rolls a list of dice and returns the results.
 #[wasm_bindgen]
-pub fn roll_dice_js(dice_list: &JsValue) -> Result<JsValue, JsValue> {
+pub fn roll_dice(dice_list: &JsValue) -> Result<JsValue, JsValue> {
     let dice_list_result: Result<Vec<Dice>, serde_wasm_bindgen::Error> =
         from_value(dice_list.clone());
 
@@ -56,15 +56,6 @@ fn roll_dice_logic(dice_list: &[Dice]) -> RollResults {
     }
 
     results
-}
-pub fn generate_dice_rolls(dices: usize, times_max: u32, side_max: u32) -> Vec<Dice> {
-    let mut rng = rand::thread_rng();
-    (0..dices)
-        .map(|_| Dice {
-            side: rng.gen_range(1..=side_max),
-            times: rng.gen_range(1..=times_max),
-        })
-        .collect()
 }
 
 #[cfg(test)]
@@ -106,4 +97,14 @@ mod tests {
             assert!(rolls[0] >= 1 && rolls[0] <= 6); // Check if the roll is within the expected range
         }
     }
+}
+
+pub fn generate_dice_rolls(dices: usize, times_max: u32, side_max: u32) -> Vec<Dice> {
+    let mut rng = rand::thread_rng();
+    (0..dices)
+        .map(|_| Dice {
+            side: rng.gen_range(1..=side_max),
+            times: rng.gen_range(1..=times_max),
+        })
+        .collect()
 }
