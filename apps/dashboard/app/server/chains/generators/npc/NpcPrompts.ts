@@ -1,4 +1,4 @@
-export const StreamingModelTemplate = `
+export const NPC_GENERATOR_TEMPLATE = `
 Seu objetivo é criar personagens, baseado no universo de fantasia nove círculos.
 
 Nove Círculos context: {context}
@@ -67,7 +67,7 @@ Usuário informa raça e genêro: {input}
 AI:
 `;
 
-export const BuilderModelTemplate = `
+export const BUILDER_MODEL_TEMPLATE = `
 You are a model meant to identify race and gender inside a message in natural language.
 
 input: {input}

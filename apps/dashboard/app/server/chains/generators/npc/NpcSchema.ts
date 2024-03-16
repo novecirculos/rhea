@@ -1,9 +1,108 @@
 import { z } from "zod";
-import { NamesTable, PersonalityAndPhysicalTraitsTable } from "./types";
+import { NamesTable, PersonalityAndPhysicalTraitsTable } from "./NpcTypes";
 
 export const namesTableSchema = z.object({
   gender: z.enum(["Male", "Female"]),
   race: z.enum(["Human", "Elf", "Dwarf", "Halfling", "HalfElf", "Gnome"]),
+});
+
+export const tablesNameSchema = z.object({
+  Human: z.object({
+    Male: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+    Female: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+  }),
+  Elf: z.object({
+    Male: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+    Female: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+  }),
+  Dwarf: z.object({
+    Male: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+    Female: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+  }),
+  Halfling: z.object({
+    Male: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+    Female: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+  }),
+  HalfElf: z.object({
+    Male: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+    Female: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+  }),
+  Gnome: z.object({
+    Male: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+    Female: z.record(
+      z.number().int(),
+      z.object({
+        prefix: z.string(),
+        suffix: z.string(),
+      }),
+    ),
+  }),
 });
 
 export const personalityTraitsTable: PersonalityAndPhysicalTraitsTable = {

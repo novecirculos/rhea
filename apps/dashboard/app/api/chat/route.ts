@@ -11,7 +11,7 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { getMemory } from "@/lib/langchain";
 import { kv } from "@vercel/kv";
 import { auth } from "@/auth";
-import { TeobaldoTemplate } from "@/app/server/chains";
+import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
 
 export const runtime = "edge";
 
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     const chatHistory = await memory.chatHistory.getMessages();
 
-    const prompt = PromptTemplate.fromTemplate(TeobaldoTemplate);
+    const prompt = PromptTemplate.fromTemplate(THEOBALD_ASSISTANT_TEMPLATE);
 
     const model = modelName.includes("claude")
       ? new ChatAnthropic({

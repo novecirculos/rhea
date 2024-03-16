@@ -38,8 +38,11 @@ import { Popover, PopoverTrigger } from "@novecirculos/design";
 import { useState } from "react";
 import { List } from "lucide-react";
 import { ContextDialog } from "./context-dialog";
-import { StreamingModelTemplate, TeobaldoTemplate } from "@/app/server/chains";
-import { CODE_GENERATOR_TEMPLATE } from "@/app/api/chat/code_generator/route";
+import {
+  NPC_GENERATOR_TEMPLATE,
+  THEOBALD_ASSISTANT_TEMPLATE,
+  TABLE_GENERATOR_TEMPLATE,
+} from "@/app/server/chains";
 
 export interface ChatPanelProps
   extends Pick<
@@ -106,18 +109,18 @@ export function ChatPanel({
   const presetOptions = [
     {
       label: "Assistente de escrita",
-      content: TeobaldoTemplate,
+      content: THEOBALD_ASSISTANT_TEMPLATE,
       endpoint: "chat",
     },
     {
       label: "Gerador de NPCS",
-      content: StreamingModelTemplate,
-      endpoint: "chat/npc_generator",
+      content: NPC_GENERATOR_TEMPLATE,
+      endpoint: "chat/generators/npc",
     },
     {
       label: "Gerador de Código",
-      content: CODE_GENERATOR_TEMPLATE,
-      endpoint: "chat/code_generator",
+      content: TABLE_GENERATOR_TEMPLATE,
+      endpoint: "chat/generators/table",
     },
   ];
 

@@ -121,7 +121,7 @@ export function ContextDialog({
         </span>
 
         <DialogFooter>
-          <Button>OK</Button>
+          <Button onClick={() => onOpenChange(false)}>OK</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

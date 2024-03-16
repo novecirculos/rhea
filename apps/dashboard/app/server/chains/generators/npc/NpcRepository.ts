@@ -7,14 +7,13 @@ import {
   namesTableSchema,
   personalityTraitsTable,
   physicalTraitsTable,
-} from "@/app/server/chains/npc_generator/data";
-import {
-  NamesTable,
-  RaceGenderNames,
-} from "@/app/server/chains/npc_generator/types";
+} from "./NpcSchema";
+
+import { NamesTable, RaceGenderNames } from "./NpcTypes";
+
 import { roll1d6TwiceAndJoin, supabaseClient } from "@/lib/utils";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { BuilderModelTemplate, StreamingModelTemplate } from "./prompts";
+import { BUILDER_MODEL_TEMPLATE, NPC_GENERATOR_TEMPLATE } from "./NpcPrompts";
 import MersenneTwister from "mersenne-twister";
 import init, {
   roll_dice,
@@ -32,7 +31,7 @@ export class NpcGeneratorChainRepository {
 
   public async getStreamingModel() {
     const streamingModelPrompt = ChatPromptTemplate.fromTemplate(
-      StreamingModelTemplate,
+      NPC_GENERATOR_TEMPLATE,
     );
     const streamingModel = this.modelName.includes("claude")
       ? new ChatAnthropic({
@@ -50,8 +49,9 @@ export class NpcGeneratorChainRepository {
   }
 
   public async getBuilderModel() {
-    const builderModelPrompt =
-      PromptTemplate.fromTemplate(BuilderModelTemplate);
+    const builderModelPrompt = PromptTemplate.fromTemplate(
+      BUILDER_MODEL_TEMPLATE,
+    );
     const builderModel = new ChatOpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
       temperature: 0.2,
@@ -148,11 +148,7 @@ export class NpcGeneratorChainRepository {
     gender: keyof RaceGenderNames,
   ): Promise<{
     name: string;
-    rolls: {
-      preffix: string;
-      suffix: string;
-      value: number;
-    }[];
+    rolls: number[];
   }> {
     const [firstNameRoll, secondNameRoll] = roll1d6TwiceAndJoin().map(Number);
     const [firstSurNameRoll, secondSurNameRoll] =
@@ -178,16 +174,10 @@ export class NpcGeneratorChainRepository {
     return {
       name: `${name} ${surName}`,
       rolls: [
-        {
-          preffix: prefix,
-          suffix,
-          value: firstNameRoll,
-        },
-        {
-          preffix: surNamePreffix,
-          suffix: surnameSuffix,
-          value: firstSurNameRoll,
-        },
+        firstNameRoll,
+        secondNameRoll,
+        firstSurNameRoll,
+        secondSurNameRoll,
       ],
     };
   }

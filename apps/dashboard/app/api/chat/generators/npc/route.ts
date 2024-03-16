@@ -5,7 +5,7 @@ import {
   JsonOutputFunctionsParser,
 } from "langchain/output_parsers";
 import { auth } from "@/auth";
-import { NpcGeneratorChainRepository } from "@/app/server/chains/npc_generator";
+import { NpcGeneratorChainRepository } from "@/app/server/chains/generators/npc";
 import { getChats } from "@/app/server";
 import { kv } from "@vercel/kv";
 import { extractLastQuestion } from "@/lib/langchain";
