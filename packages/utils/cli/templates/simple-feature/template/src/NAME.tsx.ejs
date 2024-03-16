@@ -1,14 +1,14 @@
 import { <%= props.pascalCaseName %>Interface } from './<%= props.pascalCaseName %>Interface';
-import { P, Button } from '@novecirculos/design';
+import { Button } from '@novecirculos/design';
 
 export const <%= props.pascalCaseName %> = (props: <%= props.pascalCaseName %>Interface) => {
-  const { text, onPress } = props;
+  const { text, onClick } = props;
 
   return (
     <Button
-      className="bg-blue-600 rounded p-2 "
-      onPress={onPress}>
-      <P className="dark:text-blue-400">{text}</P>
+      variant="outline"
+      onClick={onClick}>
+      Hello! {text}
     </Button>
   );
 };

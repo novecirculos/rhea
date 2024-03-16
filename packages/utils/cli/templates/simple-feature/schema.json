@@ -11,7 +11,7 @@
       },
       "parent": {
         "type": "string",
-        "description": "Parent folder eg: StockAnalysis",
+        "description": "Parent folder",
         "default": "Common"
       }
     },
