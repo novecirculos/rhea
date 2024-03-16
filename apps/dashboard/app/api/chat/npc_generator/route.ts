@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
       await npcGeneratorChainRepo.generateName(race, gender);
 
     const personalityAndPhysicalProperties =
-      npcGeneratorChainRepo.generatePersonalityAndPhysicalProperties();
+      await npcGeneratorChainRepo.generatePersonalityAndPhysicalProperties();
 
     const stream = await streamingChain.stream({
       npc_name: name,

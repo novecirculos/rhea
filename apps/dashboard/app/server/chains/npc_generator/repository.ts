@@ -16,6 +16,10 @@ import { roll1d6TwiceAndJoin, supabaseClient } from "@/lib/utils";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { BuilderModelTemplate, StreamingModelTemplate } from "./prompts";
 import MersenneTwister from "mersenne-twister";
+import init, {
+  roll_dice,
+  roll_multiple_dices,
+} from "@packages/dice_roller/pkg/";
 
 export class NpcGeneratorChainRepository {
   private modelName: string;
@@ -76,31 +80,38 @@ export class NpcGeneratorChainRepository {
     });
   }
 
-  public generatePersonalityAndPhysicalProperties() {
-    const combinations = new Set<string>();
-    while (combinations.size < 4) {
-      const traitRoll = Math.floor(this.generator.random() * 20) + 1;
-      const physicalRoll = Math.floor(this.generator.random() * 20) + 1;
-      const personalityColumnRoll = Math.floor(this.generator.random() * 4) + 1;
-      const physicalColumnRoll = Math.floor(this.generator.random() * 4) + 1;
-      const key = `${traitRoll}-${physicalRoll}-${personalityColumnRoll}-${physicalColumnRoll}`;
-      combinations.add(key);
-    }
+  public async generatePersonalityAndPhysicalProperties() {
+    await init();
 
-    return Array.from(combinations)
-      .map((comb) => comb.split("-").map(Number))
-      .map(
-        ([
-          traitRoll,
-          physicalRoll,
-          personalityColumnRoll,
-          physicalColumnRoll,
-        ]) => ({
-          personalityTrait:
-            personalityTraitsTable[traitRoll][personalityColumnRoll],
-          physicalTrait: physicalTraitsTable[physicalRoll][physicalColumnRoll],
-        }),
-      );
+    const diceConfigurations = [
+      { sides: 20, times: 4, identifier: "trait_rolls" },
+      { sides: 20, times: 4, identifier: "physical_rolls" },
+      { sides: 4, times: 4, identifier: "personality_column_rolls" },
+      { sides: 4, times: 4, identifier: "physical_column_rolls" },
+    ];
+    const rollResultsMap = roll_multiple_dices(diceConfigurations);
+
+    const traitRolls = rollResultsMap.get("trait_rolls") as number[];
+    const physicalRolls = rollResultsMap.get("physical_rolls") as number[];
+    const personalityColumnRolls = rollResultsMap.get(
+      "personality_column_rolls",
+    ) as number[];
+    const physicalColumnRolls = rollResultsMap.get(
+      "physical_column_rolls",
+    ) as number[];
+
+    const properties = traitRolls.map((traitRoll, i) => ({
+      traitRoll,
+      physicalRoll: physicalRolls[i],
+      personalityColumnRoll: personalityColumnRolls[i],
+      physicalColumnRoll: physicalColumnRolls[i],
+      personalityTrait:
+        personalityTraitsTable[traitRoll][personalityColumnRolls[i]],
+      physicalTrait:
+        physicalTraitsTable[physicalRolls[i]][physicalColumnRolls[i]],
+    }));
+
+    return properties;
   }
 
   public getNameByRaceAndGender(
