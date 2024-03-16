@@ -96,6 +96,10 @@ export class NpcGeneratorChainRepository {
           personalityColumnRoll,
           physicalColumnRoll,
         ]) => ({
+          traitRoll,
+          physicalRoll,
+          personalityColumnRoll,
+          physicalColumnRoll,
           personalityTrait:
             personalityTraitsTable[traitRoll][personalityColumnRoll],
           physicalTrait: physicalTraitsTable[physicalRoll][physicalColumnRoll],
@@ -108,14 +112,18 @@ export class NpcGeneratorChainRepository {
     gender: keyof RaceGenderNames,
     rollPrefix: number,
     rollSuffix: number,
-  ): string {
+  ): { name: string; prefix: string; suffix: string } {
     const { prefix } = namesTable[race][gender][rollPrefix];
     const { suffix } = namesTable[race][gender][rollSuffix];
 
     if (!prefix || !suffix) {
       throw new Error("Name entry not found");
     }
-    return `${prefix}${suffix}`;
+    return {
+      name: `${prefix}${suffix}`,
+      prefix,
+      suffix,
+    };
   }
 
   public async generateName(
@@ -123,19 +131,27 @@ export class NpcGeneratorChainRepository {
     gender: keyof RaceGenderNames,
   ): Promise<{
     name: string;
-    rolls: number[];
+    rolls: {
+      preffix: string;
+      suffix: string;
+      value: number;
+    }[];
   }> {
     const [firstNameRoll, secondNameRoll] = roll1d6TwiceAndJoin().map(Number);
     const [firstSurNameRoll, secondSurNameRoll] =
       roll1d6TwiceAndJoin().map(Number);
 
-    const name = this.getNameByRaceAndGender(
+    const { name, prefix, suffix } = this.getNameByRaceAndGender(
       race,
       gender,
       firstNameRoll,
       secondNameRoll,
     );
-    const surName = this.getNameByRaceAndGender(
+    const {
+      name: surName,
+      prefix: surNamePreffix,
+      suffix: surnameSuffix,
+    } = this.getNameByRaceAndGender(
       race,
       gender,
       firstSurNameRoll,
@@ -145,10 +161,16 @@ export class NpcGeneratorChainRepository {
     return {
       name: `${name} ${surName}`,
       rolls: [
-        firstNameRoll,
-        secondNameRoll,
-        firstSurNameRoll,
-        secondSurNameRoll,
+        {
+          preffix: prefix,
+          suffix,
+          value: firstNameRoll,
+        },
+        {
+          preffix: surNamePreffix,
+          suffix: surnameSuffix,
+          value: firstSurNameRoll,
+        },
       ],
     };
   }

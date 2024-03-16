@@ -66,12 +66,14 @@ export async function POST(req: NextRequest) {
       name_rolls: JSON.stringify(name_rolls),
     });
 
-    const contextData = JSON.stringify(
-      context.map((doc) => ({
+    const contextData = JSON.stringify({
+      context: context.map((doc) => ({
         id: doc.metadata.slug,
         content: doc.pageContent,
       })),
-    );
+      name_rolls,
+      personality_and_physical_properties: personalityAndPhysicalProperties,
+    });
 
     await kv.set(`context-${id}`, contextData);
 
