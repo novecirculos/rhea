@@ -84,10 +84,20 @@ export class NpcGeneratorChainRepository {
     await init();
 
     const diceConfigurations = [
-      { sides: 20, times: 4, identifier: "trait_rolls" },
-      { sides: 20, times: 4, identifier: "physical_rolls" },
-      { sides: 4, times: 4, identifier: "personality_column_rolls" },
-      { sides: 4, times: 4, identifier: "physical_column_rolls" },
+      { sides: 20, times: 4, identifier: "trait_rolls", uniqueness: true },
+      { sides: 20, times: 4, identifier: "physical_rolls", uniqueness: true },
+      {
+        sides: 4,
+        times: 4,
+        identifier: "personality_column_rolls",
+        uniqueness: true,
+      },
+      {
+        sides: 4,
+        times: 4,
+        identifier: "physical_column_rolls",
+        uniqueness: true,
+      },
     ];
     const rollResultsMap = roll_multiple_dices(diceConfigurations);
 

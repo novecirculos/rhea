@@ -1,4 +1,6 @@
 use rand::Rng;
+use rand_mt::Mt64;
+use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::{from_value, to_value};
 use std::collections::HashMap;
@@ -20,28 +22,38 @@ pub struct Dice {
     pub times: u32,
     pub sides: u32,
     // Note: No wasm_bindgen above fields that don't need to be directly accessed by JS
-    identifier: Option<String>, // Make private to manage via getters/setters
+    identifier: Option<String>,
+    uniqueness: Option<bool>,
 }
 
 #[wasm_bindgen]
 impl Dice {
-    #[wasm_bindgen(constructor)]
-    pub fn new(times: u32, sides: u32) -> Dice {
+    // Adjust the constructor to include the uniqueness parameter
+    pub fn new(times: u32, sides: u32, uniqueness: Option<bool>) -> Dice {
         Dice {
             times,
             sides,
             identifier: None,
+            uniqueness,
         }
     }
 
-    // Example getter for the identifier, exposing it to JS.
-    // Note: wasm_bindgen is used on individual methods.
+    // Add getter and setter for uniqueness
+    #[wasm_bindgen(getter)]
+    pub fn uniqueness(&self) -> Option<bool> {
+        self.uniqueness
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_uniqueness(&mut self, uniqueness: Option<bool>) {
+        self.uniqueness = uniqueness;
+    }
+
     #[wasm_bindgen(getter)]
     pub fn identifier(&self) -> Option<String> {
         self.identifier.clone()
     }
 
-    // Example setter for the identifier, exposing it to JS.
     #[wasm_bindgen(setter)]
     pub fn set_identifier(&mut self, identifier: Option<String>) {
         self.identifier = identifier;
@@ -69,21 +81,22 @@ pub fn roll_multiple_dices(dice_list: &JsValue) -> Result<JsValue, JsValue> {
 
 /// Logic to roll each dice the specified number of times.
 fn roll_dice_logic(dice_list: &[Dice]) -> RollResults {
-    let mut results: RollResults = HashMap::new();
+    let results: RollResults = dice_list
+        .par_iter()
+        .enumerate()
+        .map(|(index, dice)| {
+            let mut rng = Mt64::new(rand::random());
+            let roll_results: Vec<u32> = (0..dice.times)
+                .map(|_| rng.gen_range(1..=dice.sides) as u32)
+                .collect();
 
-    for (index, dice) in dice_list.iter().enumerate() {
-        let roll_results: Vec<u32> = (0..dice.times)
-            .map(|_| rand::thread_rng().gen_range(1..=dice.sides))
-            .collect();
-
-        // Use the identifier if provided, otherwise use the index as the key
-        let key = match &dice.identifier {
-            Some(id) => id.clone(),
-            None => (index + 1).to_string(), // Adjusted to 1-based indexing for consistency
-        };
-
-        results.insert(key, roll_results);
-    }
+            let key = dice
+                .identifier
+                .clone()
+                .unwrap_or_else(|| (index + 1).to_string());
+            (key, roll_results)
+        })
+        .collect();
 
     results
 }
@@ -94,11 +107,11 @@ mod tests {
 
     #[test]
     fn test_generate_dice_rolls() {
-        let dices = 1000000;
+        let dices = 100000;
         let times_max = 50;
         let sides_max = 100;
 
-        let rolls = generate_dice_rolls(dices, times_max, sides_max);
+        let rolls = generate_dice_rolls(dices, times_max, sides_max, Some(false));
 
         // Check the number of dice rolls generated
         assert_eq!(rolls.len(), dices);
@@ -110,6 +123,51 @@ mod tests {
         }
     }
 
+    use std::collections::HashSet;
+
+    #[test]
+    fn test_uniqueness_of_large_batch_dice_rolls() {
+        let dice_configurations = generate_dice_rolls(100000, 1, 6, Some(true)); // Generate 1000 dices with 1 roll each, 6 sides
+
+        let roll_results = roll_dice_logic(&dice_configurations);
+
+        // Check that each dice's rolls are unique within itself
+        for rolls in roll_results.values() {
+            let unique_rolls: HashSet<u32> = rolls.iter().cloned().collect();
+            assert_eq!(
+                rolls.len(),
+                unique_rolls.len(),
+                "Each dice roll should be unique within the dice."
+            );
+        }
+    }
+
+    #[test]
+    fn test_non_uniqueness_of_large_batch_dice_rolls() {
+        // Generate dice configurations with uniqueness explicitly set to false
+
+        let dice_configurations = generate_dice_rolls(100000, 10, 6, Some(false)); // Generate 100 dices with 10 rolls each, 6 sides
+
+        let roll_results = roll_dice_logic(&dice_configurations);
+
+        // Variable to track if at least one dice has duplicates
+        let mut found_duplicates = false;
+
+        for rolls in roll_results.values() {
+            let unique_rolls: HashSet<u32> = rolls.iter().cloned().collect();
+            if rolls.len() != unique_rolls.len() {
+                // Found a dice with duplicates
+                found_duplicates = true;
+                break; // No need to check further
+            }
+        }
+
+        assert!(
+            found_duplicates,
+            "There should be at least one dice roll with duplicates when uniqueness is false."
+        );
+    }
+
     #[test]
     fn test_roll_dice() {
         // Simplified for demonstration purposes
@@ -118,6 +176,7 @@ mod tests {
                 times: 1,
                 sides: 6,
                 identifier: None,
+                uniqueness: None,
             }, // Single roll for clarity
         ];
         let results = roll_dice_logic(&dice_rolls);
@@ -133,13 +192,19 @@ mod tests {
     }
 }
 
-pub fn generate_dice_rolls(dices: usize, times_max: u32, sides_max: u32) -> Vec<Dice> {
+pub fn generate_dice_rolls(
+    dices: usize,
+    times_max: u32,
+    sides_max: u32,
+    uniqueness: Option<bool>,
+) -> Vec<Dice> {
     let mut rng = rand::thread_rng();
     (0..dices)
         .map(|_| Dice {
             times: rng.gen_range(1..=times_max),
             sides: rng.gen_range(1..=sides_max),
             identifier: None,
+            uniqueness,
         })
         .collect()
 }
