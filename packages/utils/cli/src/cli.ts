@@ -32,6 +32,4 @@ export const cli = async (args: string[]) => {
 
   // Run yarn, run eslint
   const { exec } = await import('shelljs');
-  await exec('yarn');
-  await exec('yarn lint --fix');
 };

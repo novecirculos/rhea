@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/schema",
     "id": "simple-feature-generator",
     "type": "object",
-    "path": "./packages/libs/novecirculos-generator/templates/simple-feature/template",
+    "path": "./packages/utils/cli/templates/simple-feature/template",
     "outputPath": "./packages/features/PARENT/NAME",
     "properties": {
       "name": {
@@ -15,6 +15,5 @@
         "default": "Common"
       }
     },
-    "required": ["name", "parent"],
-    "dependsOn": ["feature-story"]
+    "required": ["name", "parent"]
 }
