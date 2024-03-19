@@ -1,0 +1,15 @@
+niv-engine/
+│
+├── app/
+│   ├── main.py
+│   └── api/
+│       └── __init__.py
+│
+├── tests/
+│   └── __init__.py
+│
+├── .gitignore
+├── .flake8
+├── .black
+├── requirements.txt
+└──
