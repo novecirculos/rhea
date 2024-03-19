@@ -3,6 +3,7 @@ niv-engine/
 ├── app/
 │   ├── main.py
 │   └── api/
+|       └── graphql_client.py
 │       └── __init__.py
 │
 ├── tests/
