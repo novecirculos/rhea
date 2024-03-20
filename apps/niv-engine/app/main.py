@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
-# commit to main test
+# commit to main test 2
 if os.getenv("HYGRAPH_URL") is None:
     raise ValueError("HYGRAPH_URL environment variable is not set.")
 
