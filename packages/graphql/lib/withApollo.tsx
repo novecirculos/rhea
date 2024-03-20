@@ -12,8 +12,18 @@ import {
   // @ts-ignore This path is generated at build time and conflicts otherwise
 } from 'next-server/server/api-utils'
 import { IncomingMessage } from 'http'
-import { client } from './apollo'
-import { getEnvironmentVariables } from '@novecirculos/env'
+import { client, env } from './apollo'
+import { merge } from 'lodash'
+import React from 'react'
+
+function getEnvironmentVariables(
+  options?: {}
+): {} {
+  const envVars = merge(env, process.env, options)
+  Object.assign(process.env, envVars)
+  return envVars
+}
+
 
 getEnvironmentVariables()
 

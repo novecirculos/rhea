@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "chain-generator",
+    "type": "object",
+    "path": "./packages/utils/cli/templates/chain/template",
+    "outputPath": "./apps/dashboard/app/server/chains/PARENT",
+    "properties": {
+      "parent": {
+        "type": "string",
+        "description": "Typeof chain (assistants or generators)",
+        "enum": ["assistants", "generators"],
+        "default": "assistants"
+      },
+      "name": {
+        "type": "string",
+        "description": "Feature name"
+      }
+    },
+    "required": ["name", "parent"],
+    "dependsOn": ["chain-endpoint"]
+}

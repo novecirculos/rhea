@@ -1,2 +1,2 @@
-export * from "./npc_generator";
-export * from "./teobaldo";
+export * from "./generators";
+export * from "./assistants";

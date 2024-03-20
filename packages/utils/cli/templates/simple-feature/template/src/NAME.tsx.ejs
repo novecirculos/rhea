@@ -1,0 +1,15 @@
+import { <%= props.pascalCaseName %>Interface } from './<%= props.pascalCaseName %>Interface';
+import { Button } from '@novecirculos/design';
+
+export const <%= props.pascalCaseName %> = (props: <%= props.pascalCaseName %>Interface) => {
+  const { text, onClick } = props;
+
+  return (
+    <Button
+      variant="outline"
+      onClick={onClick}>
+      Hello! {text}
+    </Button>
+  );
+};
+

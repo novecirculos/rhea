@@ -24,6 +24,7 @@
   },
   "scripts": {
     "dev": "rhea dev",
+    "generate": "rhea generate",
     "build:app": "rhea build",
     "link:install": "bun link:dependencies && bun install",
     "link:dependencies": "find packages -name 'node_modules' -prune -o -name '.next' -prune -o -name '@novecirculos/rhea' -prune -o -name 'package.json' -execdir bun link \\;",
