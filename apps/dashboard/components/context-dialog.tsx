@@ -1,5 +1,6 @@
 import {
   CachedArticle,
+  CachedContext,
   getContext,
 } from "@/app/server/actions/context-actions";
 import { fetcher } from "@/lib/utils";
@@ -16,7 +17,6 @@ import {
   CardTitle,
   CardContent,
 } from "@novecirculos/design";
-import { useQuery } from "@tanstack/react-query";
 
 import { Book } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export function ContextDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const [data, setData] = useState<CachedArticle[]>([]);
+  const [data, setData] = useState<CachedContext>({} as CachedContext);
 
   const getData = async () => {
     const ctx = await getContext(chatId as string);
@@ -55,9 +55,9 @@ export function ContextDialog({
           Fontes da resposta
         </Button>
       </DialogTrigger>
-      <DialogContent className="md:max-w-[800px] sm:max-w-[425px]">
+      <DialogContent className="md:max-w-[800px] max-h-[650px] no-scrollbar overflow-y-scroll sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Editar system prompt</DialogTitle>
+          <DialogTitle>Informações usadas na geração</DialogTitle>
           <DialogDescription>
             O modelo de linguagem utilizou as seguintes fontes para gerar a
             resposta:
@@ -65,9 +65,9 @@ export function ContextDialog({
         </DialogHeader>
         <ul className="grid grid-cols-1 overflow-x-auto w-full px-4">
           {data &&
-            data?.map((doc) => (
-              <Card className="max-h-32 flex-1" key={doc.id}>
-                <CardTitle>{doc.id}</CardTitle>
+            data?.context?.map((doc) => (
+              <Card className="max-h-32 flex-1 p-2" key={doc.id}>
+                <CardTitle className="px-4 py-2">{doc.id}</CardTitle>
 
                 <CardContent>
                   {doc.content.length > 100
@@ -77,8 +77,51 @@ export function ContextDialog({
               </Card>
             ))}
         </ul>
+        <div className="grid grid-cols-1 w-full px-4">
+          <Card className="p-2 flex-1 max-h-32 rounded-lg mb-2 shadow-md">
+            <CardTitle className="font-semibold px-4 py-2">
+              Rolagem do nome
+            </CardTitle>{" "}
+            <CardContent>
+              <div className="text-gray-200 mb-1 flex flex-row">
+                {data?.name_rolls?.map((roll, index) => (
+                  <span key={roll} className="font-semibold">
+                    Rolagem: {roll}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <span className="block mt-4 text-gray-300">
+          <div className="grid grid-cols-1 w-full px-4">
+            {data?.personality_and_physical_properties?.map((roll, index) => (
+              <Card
+                key={index}
+                className="p-2 flex-1 max-h-32 rounded-lg mb-2 shadow-md"
+              >
+                <CardTitle className="font-semibold px-4 py-2">
+                  Personalidade e características físicas:
+                </CardTitle>{" "}
+                <CardContent>
+                  <div className="text-gray-200 mb-1">
+                    <span className="font-semibold">Personalidade:</span>{" "}
+                    {roll.personalityTrait} (Coluna:{" "}
+                    {roll.personalityColumnRoll} Rolagem: {roll.traitRoll})
+                  </div>
+                  <div className="text-gray-200 mb-1">
+                    <span className="font-semibold">Físico:</span>{" "}
+                    {roll.physicalTrait} (Coluna: {roll.physicalColumnRoll}{" "}
+                    Rolagem: {roll.physicalRoll})
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </span>
+
         <DialogFooter>
-          <Button>OK</Button>
+          <Button onClick={() => onOpenChange(false)}>OK</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

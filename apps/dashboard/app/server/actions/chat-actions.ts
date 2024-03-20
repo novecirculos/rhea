@@ -37,6 +37,8 @@ export async function createChat(id: string, messages: Message[]) {
     sharePath: null,
   };
 
+  revalidatePath("/chat");
+
   await faunaClient.query(q.Create(q.Collection("chats"), { data: chat }));
 }
 
@@ -58,7 +60,7 @@ export async function updateChat(id: string, messagesWithResponse: Message[]) {
   };
 
   await faunaClient.query(q.Update(chat.ref, { data: payload }));
-
+  revalidatePath("/chat");
   return payload;
 }
 
@@ -76,6 +78,7 @@ export async function getChats(userId?: string | null) {
     ...chat.data,
   }));
 
+  revalidatePath("/chat");
   return formattedChats;
 }
 

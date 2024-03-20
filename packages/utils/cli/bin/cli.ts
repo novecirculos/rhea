@@ -9,7 +9,7 @@ export const main = async (argv: string[]) => {
       process.exit(1)
     }
 
-    const command = `bunx turbo run build --filter={apps/${appName}}`
+    const command = `turbo run build --filter={apps/${appName}}`
     execSync(command, { stdio: 'inherit' })
     return
   }
@@ -20,7 +20,7 @@ export const main = async (argv: string[]) => {
       console.error('No app was provided')
       process.exit(1)
     }
-    const command = `bunx turbo run dev --filter={apps/${appName}}`
+    const command = `turbo run dev --filter={apps/${appName}}`
     execSync(command, { stdio: 'inherit' })
     return
   }

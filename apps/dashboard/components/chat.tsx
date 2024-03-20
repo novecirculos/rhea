@@ -12,7 +12,7 @@ import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { updateChat } from "@/app/server";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { TeobaldoTemplate } from "@/app/server/chains";
+import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
@@ -32,8 +32,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     content: string;
     endpoint: string;
   }>("@novecirculos/system-prompt", {
-    content: TeobaldoTemplate,
-    endpoint: "chat",
+    content: THEOBALD_ASSISTANT_TEMPLATE,
+    endpoint: "chat/assistants/theobald",
   });
 
   const [streamingFinished, setStreamingFinished] = useState(false);
