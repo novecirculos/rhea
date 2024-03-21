@@ -1,4 +1,5 @@
 import os
+<<<<<<< HEAD
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware 
@@ -9,11 +10,17 @@ from pydub import AudioSegment
 from openai import OpenAI
 from faunadb import query as q
 from faunadb.client import FaunaClient
+=======
+from fastapi import FastAPI
+from app.api.graphql_client import HygraphGraphQLClient
+from dotenv import load_dotenv
+>>>>>>> f761691e70e63d52a7dc26404e808214e4e88c28
 
 load_dotenv()
 
 app = FastAPI()
 
+<<<<<<< HEAD
 allowed_origins = [
     "http://localhost:3000",  
     "https://dashboard.novecirculos.com.br",
@@ -34,6 +41,8 @@ faunakey = os.getenv('FAUNADB_SECRET')
 openai_client = OpenAI(api_key=openaikey)
 fauna_client = FaunaClient(secret=faunakey)
 
+=======
+>>>>>>> f761691e70e63d52a7dc26404e808214e4e88c28
 if os.getenv("HYGRAPH_URL") is None:
     raise ValueError("HYGRAPH_URL environment variable is not set.")
 
