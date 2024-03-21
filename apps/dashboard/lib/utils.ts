@@ -23,6 +23,10 @@ export const api = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}/api`
   : `http://localhost:${process.env.PORT ?? 3000}/api`;
 
+export const engineApi = process.env.ENGINE_URL
+  ? `https://${process.env.ENGINE_URL}/api`
+  : `http://localhost:8000`;
+
 export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,

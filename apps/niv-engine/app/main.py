@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware 
 
 from app.api.graphql_client import HygraphGraphQLClient
 from dotenv import load_dotenv
@@ -12,6 +13,20 @@ from faunadb.client import FaunaClient
 load_dotenv()
 
 app = FastAPI()
+
+allowed_origins = [
+    "http://localhost:3000",  
+    "https://dashboard.novecirculos.com.br",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,  # List of allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
 
 openaikey = os.getenv('OPENAI_API_KEY')
 faunakey = os.getenv('FAUNADB_SECRET')
