@@ -26,7 +26,6 @@ jobs:
   #         vercel-project-id: ${{secrets.VERCEL_UNIVERSE_ID}}
   #         vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
   #         vercel-token: ${{ secrets.VERCEL_TOKEN }}
-  #         prod: true
   #       continue-on-error: true
 
   DeployDashboard:
