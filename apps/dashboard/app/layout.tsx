@@ -70,14 +70,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           href="https://fonts.googleapis.com/css2?family=Alice&family=Noto+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap"
           rel="stylesheet"
         />
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self'"
-        />
-        <meta
-          http-equiv="X-Content-Security-Policy"
-          content="default-src 'self'; script-src 'self'"
-        />
       </head>
 
       <body
