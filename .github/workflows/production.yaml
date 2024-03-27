@@ -1,0 +1,43 @@
+name: Deploy Projects to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  DeployLanding:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Landing (Zaulia)
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-project-id: ${{ secrets.VERCEL_LANDING_ID }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          prod: true
+        continue-on-error: true
+
+  # DeployUniverse:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy Universe (Elfaer)
+  #       uses: amondnet/vercel-action@v20
+  #       with:
+  #         vercel-project-id: ${{secrets.VERCEL_UNIVERSE_ID}}
+  #         vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
+  #         vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  #         prod: true
+  #       continue-on-error: true
+
+  DeployDashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Dashboard (Niv)
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-project-id: ${{ secrets.VERCEL_DASHBOARD_ID }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          prod: true
+        continue-on-error: true

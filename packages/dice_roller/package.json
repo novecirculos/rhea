@@ -1,0 +1,12 @@
+{
+  "name": "@novecirculos/dice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pkg/dice_roller.js",
+  "scripts": {
+    "build": "cargo build --release && wasm-pack build --target web"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
