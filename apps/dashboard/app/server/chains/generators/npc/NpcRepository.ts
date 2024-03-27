@@ -18,7 +18,7 @@ import MersenneTwister from "mersenne-twister";
 import init, {
   roll_dice,
   roll_multiple_dices,
-} from "@packages/dice_roller/pkg/";
+} from "@novecirculos/dice_roller";
 
 export class NpcGeneratorChainRepository {
   private modelName: string;

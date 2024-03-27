@@ -4,6 +4,8 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
+    "@novecirculos/design": "workspace:*",
+    "@tanstack/react-query": "^5.28.9",
     "jotai": "^2.2.2",
     "next-themes": "^0.2.1"
   }

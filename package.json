@@ -7,12 +7,13 @@
     "packages/*/*/*"
   ],
   "devDependencies": {
+    "node-gyp": "10.0.1",
     "@graphql-codegen/cli": "^3.3.0",
     "@graphql-codegen/import-types-preset": "^2.2.6",
     "@graphql-codegen/typescript": "^3.0.3",
     "@graphql-codegen/typescript-operations": "^3.0.3",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
-    "@novecirculos/cli": "link:@novecirculos/cli",
+    "@novecirculos/cli": "workspace:*",
     "@types/react": "^18.0.17",
     "dotenv": "^16.0.3",
     "eslint": "^8.21.0",
@@ -25,24 +26,15 @@
   "scripts": {
     "dev": "rhea dev",
     "generate": "rhea generate",
-    "build:app": "rhea build",
-    "link:install": "bun link:dependencies && bun install",
-    "link:dependencies": "find packages -name 'node_modules' -prune -o -name '.next' -prune -o -name '@novecirculos/rhea' -prune -o -name 'package.json' -execdir bun link \\;",
-    "nuke": "bun nuke:packages && bun nuke:apps && bun nuke:lockfile",
+    "build:package": "rhea build",
+    "nuke": "pnpm nuke:packages && pnpm nuke:apps && pnpm nuke:lockfile",
     "nuke:packages": "for d in packages/*/node_modules packages/*/*/node_modules packages/*/*/*/node_modules packages/*/dist packages/*/*/dist packages/*/*/*/dist packages/*/.turbo packages/*/*/.turbo packages/*/*/*/.turbo; do if [ -d $d ]; then echo $d; rm -rf $d; fi; done",
     "nuke:apps": "rm -rf node_modules .next .turbo storybook-static .vercel; for d in apps/*/node_modules apps/*/.next apps/*/.turbo apps/*/storybook-static apps/*/.vercel; do if [ -d $d ]; then echo $d; rm -rf $d; fi; done",
-    "nuke:lockfile": "rm -rf package-lock.json yarn.lock bun.lockb",
-    "reset": "bun nuke && bun install",
+    "nuke:lockfile": "rm -rf package-lock.json yarn.lock bun.lockb pnpm-lock.yaml",
+    "reset": "pnpm nuke && pnpm install",
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@datastax/astra-db-ts": "^0.1.4",
-    "@langchain/anthropic": "^0.1.1",
-    "@supabase/supabase-js": "^2.39.7",
-    "@tanstack/react-query": "^5.25.0",
-    "fluent-ffmpeg": "^2.1.2",
-    "simplex-noise": "^4.0.1",
-    "vercel": "^29.3.0",
-    "zod": "^3.22.4"
+    "vercel": "^29.3.0"
   }
 }

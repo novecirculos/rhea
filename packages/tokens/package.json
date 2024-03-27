@@ -5,8 +5,8 @@
   "types": "index.d.ts",
   "license": "MIT",
   "devDependencies": {
-    "@novecirculos/eslint-config": "link:@novecirculos/eslint-config",
-    "@novecirculos/ts-config": "link:@novecirculos/ts-config",
+    "@novecirculos/eslint-config": "workspace:*",
+    "@novecirculos/ts-config": "workspace:*",
     "typescript": "^4.8.4"
   }
 }

@@ -1,5 +1,5 @@
 import { getScene } from "@/app/server/";
-import { Event } from "@/app/server/scene-actions.types";
+import { Event } from "@/app/server/";
 import { Badge } from "@novecirculos/design";
 
 const TitleSection = ({ title }: { title: string }) => {

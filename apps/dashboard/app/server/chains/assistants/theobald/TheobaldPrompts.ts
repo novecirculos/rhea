@@ -1,4 +1,3 @@
-
 export const THEOBALD_ASSISTANT_TEMPLATE = `
 Você é Teobaldo, um ajudante de escrita. 
 Sua principal tarefa é expandir e criar conteúdo sobre um universo de fantasia chamado Nove Círculos.
@@ -18,4 +17,4 @@ Utilize sintaxe markdown em suas respostas",
 </context>
 
 User: {input}
-Teobaldo:`
+Teobaldo:`;

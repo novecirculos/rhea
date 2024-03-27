@@ -1,0 +1,8 @@
+packages:
+  # all packages in subdirs of packages/
+  - 'packages/**'
+  # all packages in direct subdirs of apps/
+  - 'apps/*'
+
+  # exclude dice_roller package to always use npm version
+  - '!packages/dice_roller/pkg'

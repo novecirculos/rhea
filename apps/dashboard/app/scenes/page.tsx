@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import * as React from 'react'
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,9 +12,9 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table'
-import { Eye, ChevronDown, MoveUpRight } from 'lucide-react'
-import Textarea from 'react-textarea-autosize'
+} from "@tanstack/react-table";
+import { Eye, ChevronDown, MoveUpRight } from "lucide-react";
+import Textarea from "react-textarea-autosize";
 
 import {
   Badge,
@@ -49,15 +49,15 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@novecirculos/design'
-import { Scene } from '../server/scene-actions.types'
-import { IconPlus } from '@/components/ui/icons'
-import { api, fetcher } from '@/lib/utils'
-import Link from 'next/link'
+} from "@novecirculos/design";
+import { Scene } from "../server/";
+import { IconPlus } from "@/components/ui/icons";
+import { api, fetcher } from "@/lib/utils";
+import Link from "next/link";
 
 const columns: ColumnDef<Scene>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <Checkbox
         className="mt-1"
@@ -79,15 +79,15 @@ const columns: ColumnDef<Scene>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'title',
-    header: 'Título',
+    accessorKey: "title",
+    header: "Título",
   },
   {
-    accessorKey: 'characters',
-    header: 'Personagens',
+    accessorKey: "characters",
+    header: "Personagens",
     cell: ({ row }) => (
       <div>
-        {(row.getValue('characters') as string[]).map((character: string) => (
+        {(row.getValue("characters") as string[]).map((character: string) => (
           <Badge variant="outline" key={character}>
             {character}
           </Badge>
@@ -96,15 +96,15 @@ const columns: ColumnDef<Scene>[] = [
     ),
   },
   {
-    accessorKey: 'location',
-    header: 'Localização',
+    accessorKey: "location",
+    header: "Localização",
   },
   {
-    accessorKey: 'categories',
-    header: 'Categorias',
+    accessorKey: "categories",
+    header: "Categorias",
     cell: ({ row }) => (
       <div>
-        {(row.getValue('categories') as string[]).map((category: string) => (
+        {(row.getValue("categories") as string[]).map((category: string) => (
           <Badge variant="outline" key={category}>
             {category}
           </Badge>
@@ -113,11 +113,11 @@ const columns: ColumnDef<Scene>[] = [
     ),
   },
   {
-    accessorKey: 'events',
-    header: 'Eventos',
+    accessorKey: "events",
+    header: "Eventos",
     cell: ({ row }) => (
       <div>
-        {(row.getValue('events') as Event[]).map((event: any) => (
+        {(row.getValue("events") as Event[]).map((event: any) => (
           <Badge variant="outline" key={event.name || event.title}>
             {event.name || event.title}
           </Badge>
@@ -126,28 +126,28 @@ const columns: ColumnDef<Scene>[] = [
     ),
   },
   {
-    accessorKey: 'content',
-    header: 'Conteúdo',
+    accessorKey: "content",
+    header: "Conteúdo",
     cell: ({ row }) => {
       return (
         <Tooltip>
           <TooltipTrigger asChild>
-            <p>{`${(row.getValue('content') as string).substring(
+            <p>{`${(row.getValue("content") as string).substring(
               0,
               100,
             )}...`}</p>
           </TooltipTrigger>
           <TooltipContent>
             <p className="max-w-md">{`${(
-              row.getValue('content') as string
+              row.getValue("content") as string
             ).substring(0, 400)}...`}</p>
           </TooltipContent>
         </Tooltip>
-      )
+      );
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }) => {
       return (
         <Link href={`/scenes/${row.original.id}`}>
@@ -158,30 +158,30 @@ const columns: ColumnDef<Scene>[] = [
             <TooltipContent>Visualizar</TooltipContent>
           </Tooltip>
         </Link>
-      )
+      );
     },
   },
-]
+];
 
 export default function ScenesDashboardPage() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
-  )
+  );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [data, setData] = React.useState<Scene[]>([])
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [data, setData] = React.useState<Scene[]>([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const response = await fetcher(`${api}/scenes`)
+      const response = await fetcher(`${api}/scenes`);
 
-      setData(response.scenes)
-    }
+      setData(response.scenes);
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -200,16 +200,16 @@ export default function ScenesDashboardPage() {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   return (
     <div className="w-full px-6">
       <div className="flex flex-wrap items-center justify-between py-4">
         <Input
           placeholder="Filtrar por titulo"
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) => {
-            table.getColumn('title')?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value);
           }}
           className="md:max-w-sm"
         />
@@ -236,7 +236,7 @@ export default function ScenesDashboardPage() {
                     >
                       {column.id}
                     </DropdownMenuCheckboxItem>
-                  )
+                  );
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
@@ -311,7 +311,7 @@ export default function ScenesDashboardPage() {
                           header.getContext(),
                         )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
@@ -322,7 +322,7 @@ export default function ScenesDashboardPage() {
               return (
                 <TableRow
                   key={row.original.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -333,7 +333,7 @@ export default function ScenesDashboardPage() {
                     </TableCell>
                   ))}
                 </TableRow>
-              )
+              );
             })
           ) : (
             <TableRow>
@@ -347,7 +347,7 @@ export default function ScenesDashboardPage() {
 
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} de{' '}
+          {table.getFilteredSelectedRowModel().rows.length} de{" "}
           {table.getFilteredRowModel().rows.length} valores(s) selecionados.
         </div>
         <div className="space-x-2">
@@ -370,5 +370,5 @@ export default function ScenesDashboardPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
