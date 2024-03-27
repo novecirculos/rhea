@@ -1,35 +1,35 @@
-import { type Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { type Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { formatDate } from '@/lib/utils'
-import { getSharedChat } from '@/app/server/chat-actions'
-import { ChatList } from '@/components/chat-list'
+import { formatDate } from "@/lib/utils";
+import { getSharedChat } from "@/app/server/";
+import { ChatList } from "@/components/chat-list";
 
-export const runtime = 'edge'
+export const runtime = "edge";
 
-export const preferredRegion = 'home'
+export const preferredRegion = "home";
 
 interface SharePageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export async function generateMetadata({
   params,
 }: SharePageProps): Promise<Metadata> {
-  const chat = await getSharedChat(params.id)
+  const chat = await getSharedChat(params.id);
 
   return {
-    title: chat?.title.slice(0, 50) ?? 'Chat',
-  }
+    title: chat?.title.slice(0, 50) ?? "Chat",
+  };
 }
 
 export default async function SharePage({ params }: SharePageProps) {
-  const chat = await getSharedChat(params.id)
+  const chat = await getSharedChat(params.id);
 
   if (!chat || !chat?.sharePath) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -48,5 +48,5 @@ export default async function SharePage({ params }: SharePageProps) {
       </div>
       <ChatList messages={chat.messages} />
     </div>
-  )
+  );
 }
