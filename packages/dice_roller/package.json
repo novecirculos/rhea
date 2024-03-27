@@ -4,7 +4,7 @@
   "description": "A dice roller implemented in rust",
   "main": "pkg/dice_roller.js",
   "scripts": {
-    "build": "cargo build --release && wasm-pack build --target web"
+    "build": "cargo build --release && wasm-pack build --scope novecirculos --target web"
   },
   "keywords": [],
   "author": "novecirculos",

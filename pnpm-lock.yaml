@@ -78,9 +78,9 @@ importers:
       '@novecirculos/design':
         specifier: workspace:*
         version: link:../../packages/design
-      '@novecirculos/dice':
-        specifier: 1.0.0
-        version: link:../../packages/dice_roller
+      '@novecirculos/dice_roller':
+        specifier: 0.1.0
+        version: 0.1.0
       '@novecirculos/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
@@ -793,8 +793,6 @@ importers:
         version: 4.9.5
 
   packages/dice_roller: {}
-
-  packages/dice_roller/pkg: {}
 
   packages/graphql:
     dependencies:
@@ -6513,6 +6511,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
+
+  /@novecirculos/dice_roller@0.1.0:
+    resolution: {integrity: sha512-Ux1d5Fz0+E09GpBeGwneLnpXbS1xHDvz6ct0TIiXUP8vouucFQXtf7iekDhzSCV/KSYhEmj4Xusrr3Z6XGXcLA==}
+    dev: false
 
   /@npmcli/agent@2.2.1:
     resolution: {integrity: sha512-H4FrOVtNyWC8MUwL3UfjOsAihHvT1Pe8POj3JvjXhSTJipsZMtgUALCT4mGyYZNxymkUfOw3PUj6dE4QPp6osQ==}

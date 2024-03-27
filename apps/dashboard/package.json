@@ -20,7 +20,7 @@
     "@langchain/openai": "^0.0.15",
     "@novecirculos/context": "workspace:*",
     "@novecirculos/design": "workspace:*",
-    "@novecirculos/dice": "1.0.0",
+    "@novecirculos/dice_roller": "^0.1.0",
     "@novecirculos/tokens": "workspace:*",
     "@supabase/supabase-js": "^2.39.7",
     "@tanstack/react-query": "^5.25.0",
