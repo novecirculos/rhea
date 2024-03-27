@@ -9,6 +9,7 @@ jobs:
   DeployLanding:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Deploy Landing (Zaulia)
         uses: amondnet/vercel-action@v25
         with:
@@ -20,6 +21,7 @@ jobs:
   # DeployUniverse:
   #   runs-on: ubuntu-latest
   #   steps:
+  #     - uses: actions/checkout@v2
   #     - name: Deploy Universe (Elfaer)
   #       uses: amondnet/vercel-action@v25
   #       with:
@@ -31,6 +33,7 @@ jobs:
   DeployDashboard:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Deploy Dashboard (Niv)
         uses: amondnet/vercel-action@v25
         with:
