@@ -1,10 +1,10 @@
-import { nanoid } from '@/lib/utils'
-import { Chat } from '@/components/chat'
+import { nanoid } from "@/lib/utils";
+import { Chat } from "@/components/chat";
 
-export const runtime = 'edge'
+export const runtime = "nodejs";
 
 export default function ChatIndex() {
-  const id = nanoid()
+  const id = nanoid();
 
-  return <Chat id={id} />
+  return <Chat id={id} />;
 }
