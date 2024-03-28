@@ -15,7 +15,10 @@ import { roll1d6TwiceAndJoin, supabaseClient } from "@/lib/utils";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { BUILDER_MODEL_TEMPLATE, NPC_GENERATOR_TEMPLATE } from "./NpcPrompts";
 import MersenneTwister from "mersenne-twister";
-import init, { roll_dice, roll_multiple_dices } from "@novecirculos/dice";
+import init, {
+  roll_dice,
+  roll_multiple_dices,
+} from "@novecirculos/dice_roller";
 
 export class NpcGeneratorChainRepository {
   private modelName: string;
