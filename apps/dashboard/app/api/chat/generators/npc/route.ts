@@ -11,7 +11,7 @@ import { kv } from "@vercel/kv";
 import { extractLastQuestion } from "@/lib/langchain";
 import { Message, StreamingTextResponse } from "ai";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   try {
