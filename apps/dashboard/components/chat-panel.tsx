@@ -35,7 +35,7 @@ import {
 } from "@/components/ui/icons";
 import { FooterText } from "./footer";
 import { Popover, PopoverTrigger } from "@novecirculos/design";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { List } from "lucide-react";
 import { ContextDialog } from "./context-dialog";
 import {
@@ -131,6 +131,25 @@ export function ChatPanel({
       setToggledCategories([...toggledCategories, category]);
     }
   };
+
+  const rollMultipleDices = useCallback(async () => {
+    const { default: init, roll_dice } = await import(
+      "@novecirculos/dice_roller"
+    );
+
+    await init();
+
+    const result = roll_dice({
+      sides: 8,
+      times: 6,
+    });
+
+    console.log("WASM on client side", result);
+  }, []);
+
+  useEffect(() => {
+    rollMultipleDices();
+  }, []);
 
   return (
     <div className="from-muted/10 to-muted/30 dark:from-foreground/10 dark:to-foreground/30 fixed inset-x-0 bottom-0 bg-gradient-to-b from-10% to-50%">

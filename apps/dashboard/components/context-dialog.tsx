@@ -19,7 +19,7 @@ import {
 } from "@novecirculos/design";
 
 import { Book } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function ContextDialog({
   chatId,
@@ -41,8 +41,6 @@ export function ContextDialog({
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(data);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
