@@ -3,8 +3,8 @@ import { Chat } from "@/components/chat";
 
 export const runtime = "nodejs";
 
-export default function ChatIndex({ rolls }: { rolls: string }) {
+export default function ChatIndex() {
   const id = nanoid();
 
-  return <Chat id={id} rolls={rolls} />;
+  return <Chat id={id} />;
 }

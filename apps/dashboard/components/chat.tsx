@@ -2,7 +2,7 @@
 
 import { useChat, type Message } from "ai/react";
 
-import { cn, fetcher } from "@/lib/utils";
+import { cn, fetcher, replacer } from "@/lib/utils";
 import { ChatList } from "@/components/chat-list";
 import { ChatPanel } from "@/components/chat-panel";
 import { EmptyScreen } from "@/components/empty-screen";
@@ -13,14 +13,39 @@ import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
+import init, { roll_multiple_dices } from "@novecirculos/dice_roller";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
   id?: string;
-  rolls: string;
 }
 
-export function Chat({ id, initialMessages, className, rolls }: ChatProps) {
+export function Chat({ id, initialMessages, className }: ChatProps) {
+  const { data: rolls } = useQuery({
+    queryKey: ["rolls"],
+    queryFn: async () => {
+      await init();
+
+      const result = await roll_multiple_dices([
+        { sides: 20, times: 4, identifier: "trait_rolls", uniqueness: true },
+        { sides: 20, times: 4, identifier: "physical_rolls", uniqueness: true },
+        {
+          sides: 4,
+          times: 4,
+          identifier: "personality_column_rolls",
+          uniqueness: true,
+        },
+        {
+          sides: 4,
+          times: 4,
+          identifier: "physical_column_rolls",
+          uniqueness: true,
+        },
+      ]);
+
+      return JSON.stringify(result, replacer);
+    },
+  });
   const [modelName, setModelName] = useLocalStorage<string>(
     "@novecirculos/model-name",
     "claude-3-opus-20240229",
@@ -86,23 +111,25 @@ export function Chat({ id, initialMessages, className, rolls }: ChatProps) {
           <EmptyScreen setInput={setInput} />
         )}
       </div>
-      <ChatPanel
-        id={id}
-        isLoading={isLoading}
-        stop={stop}
-        append={append}
-        reload={reload}
-        messages={messages}
-        input={input}
-        setInput={setInput}
-        modelName={modelName}
-        setModelName={setModelName}
-        toggledCategories={toggledCategories}
-        setToggledCategories={setToggledCategories}
-        systemPrompt={systemPrompt}
-        setSystemPrompt={setSystemPrompt}
-        rolls={rolls}
-      />
+      {rolls ? (
+        <ChatPanel
+          id={id}
+          isLoading={isLoading}
+          stop={stop}
+          append={append}
+          reload={reload}
+          messages={messages}
+          input={input}
+          setInput={setInput}
+          modelName={modelName}
+          setModelName={setModelName}
+          toggledCategories={toggledCategories}
+          setToggledCategories={setToggledCategories}
+          systemPrompt={systemPrompt}
+          setSystemPrompt={setSystemPrompt}
+          rolls={rolls}
+        />
+      ) : null}
     </>
   );
 }
