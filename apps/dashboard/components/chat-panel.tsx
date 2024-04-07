@@ -136,8 +136,6 @@ export function ChatPanel({
     }
   };
 
-  console.log(rolls);
-
   return (
     <div className="from-muted/10 to-muted/30 dark:from-foreground/10 dark:to-foreground/30 fixed inset-x-0 bottom-0 bg-gradient-to-b from-10% to-50%">
       <ButtonScrollToBottom />

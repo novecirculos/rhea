@@ -12,7 +12,10 @@ import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
+import {
+  NPC_GENERATOR_TEMPLATE,
+  THEOBALD_ASSISTANT_TEMPLATE,
+} from "@/app/server/chains";
 import init, { roll_multiple_dices } from "@novecirculos/dice_roller";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
@@ -48,7 +51,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   });
   const [modelName, setModelName] = useLocalStorage<string>(
     "@novecirculos/model-name",
-    "claude-3-opus-20240229",
+    "gpt-3.5-turbo-16k",
   );
   const [toggledCategories, setToggledCategories] = useLocalStorage<string[]>(
     "@novecirculos/context-categories",
@@ -58,8 +61,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     content: string;
     endpoint: string;
   }>("@novecirculos/system-prompt", {
-    content: THEOBALD_ASSISTANT_TEMPLATE,
-    endpoint: "chat/assistants/theobald",
+    content: NPC_GENERATOR_TEMPLATE,
+    endpoint: "chat/generators/npc",
   });
 
   const [streamingFinished, setStreamingFinished] = useState(false);
