@@ -17,7 +17,7 @@ import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
   id?: string;
-  rolls: any;
+  rolls: string;
 }
 
 export function Chat({ id, initialMessages, className, rolls }: ChatProps) {

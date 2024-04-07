@@ -67,7 +67,7 @@ export interface ChatPanelProps
     endpoint: string;
   };
   setSystemPrompt: (prompt: { content: string; endpoint: string }) => void;
-  rolls: any;
+  rolls: string;
 }
 
 export function ChatPanel({
