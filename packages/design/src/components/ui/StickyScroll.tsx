@@ -18,7 +18,7 @@ export const StickyScroll = ({
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const componentTop = componentRef.current?.getBoundingClientRect().top + window.scrollY || 0;
+      const componentTop = componentRef.current ? componentRef.current.getBoundingClientRect().top + window.scrollY : 0;
       const componentHeight = componentRef.current?.offsetHeight ?? 0;
       const windowHeight = window.innerHeight;
 

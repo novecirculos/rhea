@@ -1,7 +1,6 @@
-import Transcriptions from './transcriptions/page'
-
-export const runtime = 'edge'
+import Chat from "./chat/page";
+export const runtime = "nodejs";
 
 export default function IndexPage() {
-  return <Transcriptions />
+  return <Chat />;
 }

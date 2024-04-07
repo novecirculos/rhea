@@ -68,6 +68,32 @@ export const roll1d6TwiceAndJoin = (): number[] => {
   return [Number(roll1), Number(roll2)];
 };
 
+export function replacer(key: string, value: Map<any, any> | any) {
+  if (value instanceof Map) {
+    return {
+      dataType: "Map",
+      value: Array.from(value.entries()), // or with spread: value: [...value]
+    };
+  } else {
+    return value;
+  }
+}
+
+export function reviver(
+  key: string,
+  value: {
+    dataType: string;
+    value: any;
+  },
+) {
+  if (typeof value === "object" && value !== null) {
+    if (value.dataType === "Map") {
+      return new Map(value.value);
+    }
+  }
+  return value;
+}
+
 export const generateUniqueRandomNumbers = (
   min: number,
   max: number,
