@@ -1,2 +1,2 @@
 export * from "./generators";
-export * from "./assistants";
+export * from "./conversational";

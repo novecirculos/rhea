@@ -1,20 +1,20 @@
 {
-    "$schema": "http://json-schema.org/schema",
-    "id": "chain-endpoint",
-    "type": "object",
-    "path": "./packages/utils/cli/templates/chain-endpoint/template",
-    "outputPath": "./apps/dashboard/app/api/chat/PARENT",
-    "properties": {
-      "parent": {
-        "type": "string",
-        "description": "Typeof chain (assistants or generators)",
-        "enum": ["assistants", "generators"],
-        "default": "assistants"
-      },
-      "name": {
-        "type": "string",
-        "description": "Feature name"
-      }
+  "$schema": "http://json-schema.org/schema",
+  "id": "chain-endpoint",
+  "type": "object",
+  "path": "./packages/utils/cli/templates/chain-endpoint/template",
+  "outputPath": "./apps/dashboard/app/api/chat/PARENT",
+  "properties": {
+    "parent": {
+      "type": "string",
+      "description": "Typeof chain (conversational or generators)",
+      "enum": ["conversational", "generators"],
+      "default": "conversational"
     },
-    "required": ["name", "parent"]
+    "name": {
+      "type": "string",
+      "description": "Feature name"
+    }
+  },
+  "required": ["name", "parent"]
 }

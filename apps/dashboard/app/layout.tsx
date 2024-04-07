@@ -1,12 +1,13 @@
 import { Metadata } from "next";
 
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 
 import "@/app/globals.css";
 import { fontMain, fontSecondary } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/header";
 import { RootProvider } from "@novecirculos/context";
+import { SidebarProvider } from "@/lib/hooks/use-sidebar";
 
 export const metadata: Metadata = {
   metadataBase:
@@ -76,13 +77,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
         className={cn("font-primary dark antialiased", fontMain, fontSecondary)}
       >
         <RootProvider>
-          <Toaster />
-          <div className="flex min-h-screen flex-col bg-background dark:bg-foreground">
-            {/* @ts-ignore */}
-            <Header />
-            <main className="flex flex-1 flex-col">{children}</main>
-          </div>
-          {/* <TailwindIndicator /> */}
+          <Toaster position="top-center" />
+          <SidebarProvider>
+            <div className="flex min-h-screen flex-col bg-background dark:bg-foreground">
+              {/* @ts-ignore */}
+              <Header />
+              <main className="flex flex-1 flex-col">{children}</main>
+            </div>
+            {/* <TailwindIndicator /> */}
+          </SidebarProvider>
         </RootProvider>
       </body>
     </html>

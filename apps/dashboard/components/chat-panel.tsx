@@ -114,7 +114,7 @@ export function ChatPanel({
     {
       label: "Assistente de escrita",
       content: THEOBALD_ASSISTANT_TEMPLATE,
-      endpoint: "chat/assistants/theobald",
+      endpoint: "chat/conversational/theobald",
     },
     {
       label: "Gerador de NPCS",
