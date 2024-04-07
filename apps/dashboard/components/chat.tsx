@@ -9,17 +9,18 @@ import { EmptyScreen } from "@/components/empty-screen";
 import { ChatScrollAnchor } from "@/components/chat-scroll-anchor";
 import { toast } from "react-hot-toast";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
-import { updateChat } from "@/app/server";
-import { useQuery } from "@tanstack/react-query";
+
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
   id?: string;
+  rolls: any;
 }
 
-export function Chat({ id, initialMessages, className }: ChatProps) {
+export function Chat({ id, initialMessages, className, rolls }: ChatProps) {
   const [modelName, setModelName] = useLocalStorage<string>(
     "@novecirculos/model-name",
     "claude-3-opus-20240229",
@@ -46,6 +47,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       body: {
         id,
         modelName,
+        rolls,
       },
       async onResponse(response) {
         setStreamingFinished(false);
@@ -99,6 +101,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setToggledCategories={setToggledCategories}
         systemPrompt={systemPrompt}
         setSystemPrompt={setSystemPrompt}
+        rolls={rolls}
       />
     </>
   );

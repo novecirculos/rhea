@@ -10,6 +10,7 @@ import { getChats } from "@/app/server";
 import { kv } from "@vercel/kv";
 import { extractLastQuestion } from "@/lib/langchain";
 import { Message, StreamingTextResponse } from "ai";
+import { reviver } from "@/lib/utils";
 
 export const runtime = "nodejs";
 
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const { id, modelName } = body;
+    const { id, modelName, rolls: rawRolls } = body;
     const { question } = extractLastQuestion(body.messages);
 
     const npcGeneratorChainRepo = new NpcGeneratorChainRepository(modelName);
@@ -47,13 +48,15 @@ export async function POST(req: NextRequest) {
 
     const { race, gender } = await formatNameChain.invoke({ input: question });
 
-    // niv.rollDiceInTable(physicalTraitsTable, '1d20', '1d4')
-
     const { name, rolls: name_rolls } =
       await npcGeneratorChainRepo.generateName(race, gender);
 
+    const rolls = JSON.parse(rawRolls, reviver);
+
     const personalityAndPhysicalProperties =
-      await npcGeneratorChainRepo.generatePersonalityAndPhysicalProperties();
+      await npcGeneratorChainRepo.generatePersonalityAndPhysicalProperties(
+        rolls,
+      );
 
     const stream = await streamingChain.stream({
       npc_name: name,

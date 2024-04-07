@@ -43,6 +43,8 @@ import {
   THEOBALD_ASSISTANT_TEMPLATE,
   TABLE_GENERATOR_TEMPLATE,
 } from "@/app/server/chains";
+import init, { roll_multiple_dices } from "@novecirculos/dice_roller";
+import { useQuery } from "@tanstack/react-query";
 
 export interface ChatPanelProps
   extends Pick<
@@ -65,6 +67,7 @@ export interface ChatPanelProps
     endpoint: string;
   };
   setSystemPrompt: (prompt: { content: string; endpoint: string }) => void;
+  rolls: any;
 }
 
 export function ChatPanel({
@@ -82,6 +85,7 @@ export function ChatPanel({
   toggledCategories,
   setSystemPrompt,
   systemPrompt,
+  rolls,
 }: ChatPanelProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [contextDialogOpen, setContextDialogOpen] = useState(false);
@@ -132,24 +136,7 @@ export function ChatPanel({
     }
   };
 
-  const rollMultipleDices = useCallback(async () => {
-    const { default: init, roll_dice } = await import(
-      "@novecirculos/dice_roller"
-    );
-
-    await init();
-
-    const result = roll_dice({
-      sides: 8,
-      times: 6,
-    });
-
-    console.log("WASM on client side", result);
-  }, []);
-
-  useEffect(() => {
-    rollMultipleDices();
-  }, []);
+  console.log(rolls);
 
   return (
     <div className="from-muted/10 to-muted/30 dark:from-foreground/10 dark:to-foreground/30 fixed inset-x-0 bottom-0 bg-gradient-to-b from-10% to-50%">
@@ -322,6 +309,7 @@ export function ChatPanel({
                 data: {
                   modelName,
                   systemPrompt,
+                  rolls,
                 },
               });
             }}

@@ -15,10 +15,6 @@ import { roll1d6TwiceAndJoin, supabaseClient } from "@/lib/utils";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { BUILDER_MODEL_TEMPLATE, NPC_GENERATOR_TEMPLATE } from "./NpcPrompts";
 import MersenneTwister from "mersenne-twister";
-import init, {
-  roll_dice,
-  roll_multiple_dices,
-} from "@novecirculos/dice_roller";
 
 export class NpcGeneratorChainRepository {
   private modelName: string;
@@ -80,27 +76,9 @@ export class NpcGeneratorChainRepository {
     });
   }
 
-  public async generatePersonalityAndPhysicalProperties() {
-    await init();
-
-    const diceConfigurations = [
-      { sides: 20, times: 4, identifier: "trait_rolls", uniqueness: true },
-      { sides: 20, times: 4, identifier: "physical_rolls", uniqueness: true },
-      {
-        sides: 4,
-        times: 4,
-        identifier: "personality_column_rolls",
-        uniqueness: true,
-      },
-      {
-        sides: 4,
-        times: 4,
-        identifier: "physical_column_rolls",
-        uniqueness: true,
-      },
-    ];
-    const rollResultsMap = roll_multiple_dices(diceConfigurations);
-
+  public async generatePersonalityAndPhysicalProperties(
+    rollResultsMap: Map<string, number[]>,
+  ) {
     const traitRolls = rollResultsMap.get("trait_rolls") as number[];
     const physicalRolls = rollResultsMap.get("physical_rolls") as number[];
     const personalityColumnRolls = rollResultsMap.get(
@@ -154,17 +132,13 @@ export class NpcGeneratorChainRepository {
     const [firstSurNameRoll, secondSurNameRoll] =
       roll1d6TwiceAndJoin().map(Number);
 
-    const { name, prefix, suffix } = this.getNameByRaceAndGender(
+    const { name } = this.getNameByRaceAndGender(
       race,
       gender,
       firstNameRoll,
       secondNameRoll,
     );
-    const {
-      name: surName,
-      prefix: surNamePreffix,
-      suffix: surnameSuffix,
-    } = this.getNameByRaceAndGender(
+    const { name: surName } = this.getNameByRaceAndGender(
       race,
       gender,
       firstSurNameRoll,
