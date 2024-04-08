@@ -9,6 +9,9 @@ import { SidebarList } from "@/components/sidebar-list";
 import { IconBrandRed, IconSeparator } from "@/components/ui/icons";
 
 import { UserMenu } from "@/components/user-menu";
+import { SidebarMobile } from "./sidebar-mobile";
+import { ChatHistory } from "./chat-history";
+import { SidebarToggle } from "./sidebar-toggle";
 
 export async function Header() {
   const session = await auth();
@@ -18,6 +21,11 @@ export async function Header() {
       <div className="flex items-center">
         {session?.user ? (
           <div className="mt-1 flex items-center gap-4">
+            <SidebarMobile>
+              <ChatHistory userId={session.user.id} />
+            </SidebarMobile>
+            <SidebarToggle />
+
             <UserMenu user={session.user} />
             <Link
               href="/dataset"
@@ -32,13 +40,13 @@ export async function Header() {
               Cenas
             </Link>
             <Link
-              href="/chat"
+              href="/"
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
               Chat
             </Link>
             <Link
-              href="/"
+              href="/transcriptions"
               className="text-muted-foreground text-xs font-medium hover:underline dark:text-gray-50"
             >
               Transcrições

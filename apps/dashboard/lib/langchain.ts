@@ -1,7 +1,7 @@
-import { AIMessage, HumanMessage } from "langchain/schema";
 import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 import { Message as VercelChatMessage } from "ai";
 import { Document } from "@langchain/core/documents";
+import { AIMessage, HumanMessage } from "@langchain/core/messages";
 
 type ChatMessage = {
   role: "user" | "assistant";

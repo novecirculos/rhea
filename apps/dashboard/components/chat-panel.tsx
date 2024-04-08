@@ -35,7 +35,7 @@ import {
 } from "@/components/ui/icons";
 import { FooterText } from "./footer";
 import { Popover, PopoverTrigger } from "@novecirculos/design";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { List } from "lucide-react";
 import { ContextDialog } from "./context-dialog";
 import {
@@ -43,6 +43,8 @@ import {
   THEOBALD_ASSISTANT_TEMPLATE,
   TABLE_GENERATOR_TEMPLATE,
 } from "@/app/server/chains";
+import init, { roll_multiple_dices } from "@novecirculos/dice_roller";
+import { useQuery } from "@tanstack/react-query";
 
 export interface ChatPanelProps
   extends Pick<
@@ -65,6 +67,7 @@ export interface ChatPanelProps
     endpoint: string;
   };
   setSystemPrompt: (prompt: { content: string; endpoint: string }) => void;
+  rolls: string;
 }
 
 export function ChatPanel({
@@ -82,6 +85,7 @@ export function ChatPanel({
   toggledCategories,
   setSystemPrompt,
   systemPrompt,
+  rolls,
 }: ChatPanelProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [contextDialogOpen, setContextDialogOpen] = useState(false);
@@ -110,7 +114,7 @@ export function ChatPanel({
     {
       label: "Assistente de escrita",
       content: THEOBALD_ASSISTANT_TEMPLATE,
-      endpoint: "chat/assistants/theobald",
+      endpoint: "chat/conversational/theobald",
     },
     {
       label: "Gerador de NPCS",
@@ -303,6 +307,7 @@ export function ChatPanel({
                 data: {
                   modelName,
                   systemPrompt,
+                  rolls,
                 },
               });
             }}

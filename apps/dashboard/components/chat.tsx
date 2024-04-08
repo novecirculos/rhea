@@ -2,17 +2,21 @@
 
 import { useChat, type Message } from "ai/react";
 
-import { cn, fetcher } from "@/lib/utils";
+import { cn, fetcher, replacer } from "@/lib/utils";
 import { ChatList } from "@/components/chat-list";
 import { ChatPanel } from "@/components/chat-panel";
 import { EmptyScreen } from "@/components/empty-screen";
 import { ChatScrollAnchor } from "@/components/chat-scroll-anchor";
 import { toast } from "react-hot-toast";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
-import { updateChat } from "@/app/server";
-import { useQuery } from "@tanstack/react-query";
+
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { THEOBALD_ASSISTANT_TEMPLATE } from "@/app/server/chains";
+import {
+  NPC_GENERATOR_TEMPLATE,
+  THEOBALD_ASSISTANT_TEMPLATE,
+} from "@/app/server/chains";
+import init, { roll_multiple_dices } from "@novecirculos/dice_roller";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
@@ -20,9 +24,34 @@ export interface ChatProps extends React.ComponentProps<"div"> {
 }
 
 export function Chat({ id, initialMessages, className }: ChatProps) {
+  const { data: rolls } = useQuery({
+    queryKey: ["rolls"],
+    queryFn: async () => {
+      await init();
+
+      const result = await roll_multiple_dices([
+        { sides: 20, times: 4, identifier: "trait_rolls", uniqueness: true },
+        { sides: 20, times: 4, identifier: "physical_rolls", uniqueness: true },
+        {
+          sides: 4,
+          times: 4,
+          identifier: "personality_column_rolls",
+          uniqueness: true,
+        },
+        {
+          sides: 4,
+          times: 4,
+          identifier: "physical_column_rolls",
+          uniqueness: true,
+        },
+      ]);
+
+      return JSON.stringify(result, replacer);
+    },
+  });
   const [modelName, setModelName] = useLocalStorage<string>(
     "@novecirculos/model-name",
-    "claude-3-opus-20240229",
+    "gpt-3.5-turbo-16k",
   );
   const [toggledCategories, setToggledCategories] = useLocalStorage<string[]>(
     "@novecirculos/context-categories",
@@ -32,8 +61,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     content: string;
     endpoint: string;
   }>("@novecirculos/system-prompt", {
-    content: THEOBALD_ASSISTANT_TEMPLATE,
-    endpoint: "chat/assistants/theobald",
+    content: NPC_GENERATOR_TEMPLATE,
+    endpoint: "chat/generators/npc",
   });
 
   const [streamingFinished, setStreamingFinished] = useState(false);
@@ -46,6 +75,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       body: {
         id,
         modelName,
+        rolls,
       },
       async onResponse(response) {
         setStreamingFinished(false);
@@ -74,7 +104,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
 
   return (
     <>
-      <div className={cn("pb-[200px] pt-4 md:pt-10", className)}>
+      <div
+        className={cn(
+          "pb-[200px] pt-4 md:pt-10 mx-auto overflow-y-auto flex-1",
+          className,
+        )}
+      >
         {messages.length ? (
           <>
             <ChatList messages={messages} />
@@ -84,22 +119,25 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
           <EmptyScreen setInput={setInput} />
         )}
       </div>
-      <ChatPanel
-        id={id}
-        isLoading={isLoading}
-        stop={stop}
-        append={append}
-        reload={reload}
-        messages={messages}
-        input={input}
-        setInput={setInput}
-        modelName={modelName}
-        setModelName={setModelName}
-        toggledCategories={toggledCategories}
-        setToggledCategories={setToggledCategories}
-        systemPrompt={systemPrompt}
-        setSystemPrompt={setSystemPrompt}
-      />
+      {rolls ? (
+        <ChatPanel
+          id={id}
+          isLoading={isLoading}
+          stop={stop}
+          append={append}
+          reload={reload}
+          messages={messages}
+          input={input}
+          setInput={setInput}
+          modelName={modelName}
+          setModelName={setModelName}
+          toggledCategories={toggledCategories}
+          setToggledCategories={setToggledCategories}
+          systemPrompt={systemPrompt}
+          setSystemPrompt={setSystemPrompt}
+          rolls={rolls}
+        />
+      ) : null}
     </>
   );
 }
