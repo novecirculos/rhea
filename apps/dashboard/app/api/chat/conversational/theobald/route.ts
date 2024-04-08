@@ -5,6 +5,8 @@ import { kv } from "@vercel/kv";
 import { auth } from "@/auth";
 import { TheobaldChainRepository } from "@/app/server/chains/";
 
+export const maxDuration = 30;
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
