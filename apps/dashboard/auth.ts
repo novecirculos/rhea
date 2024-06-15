@@ -1,12 +1,12 @@
-import NextAuth, { type DefaultSession } from 'next-auth'
-import Auth0 from 'next-auth/providers/auth0'
+import NextAuth, { type DefaultSession } from "next-auth";
+import Auth0 from "next-auth/providers/auth0";
 
-declare module 'next-auth' {
+declare module "next-auth" {
   interface Session {
     user: {
       /** The user's id. */
-      id: string
-    } & DefaultSession['user']
+      id: string;
+    } & DefaultSession["user"];
   }
 }
 
@@ -25,18 +25,18 @@ export const {
   callbacks: {
     jwt({ token, profile }) {
       if (profile) {
-        token.id = profile.sub
-        token.image = profile.picture
+        token.id = profile.sub;
+        token.image = profile.picture;
       }
-      return token
+      return token;
     },
     authorized({ auth, request }) {
-      const url = request.nextUrl
+      const url = request.nextUrl;
 
-      return !!auth?.user // this ensures there is a logged in user for -every- request
+      return !!auth?.user; // this ensures there is a logged in user for -every- request
     },
   },
   pages: {
-    signIn: '/sign-in', // overrides the next-auth default signin page https://authjs.dev/guides/basics/pages
+    signIn: "/sign-in", // overrides the next-auth default signin page https://authjs.dev/guides/basics/pages
   },
-})
+});
