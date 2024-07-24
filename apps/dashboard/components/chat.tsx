@@ -46,7 +46,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         },
       ]);
 
-      return JSON.stringify(result, replacer);
+      return result;
     },
   });
   const [modelName, setModelName] = useLocalStorage<string>(
@@ -75,7 +75,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       body: {
         id,
         modelName,
-        rolls,
+        rolls: JSON.stringify(rolls, replacer),
       },
       async onResponse(response) {
         setStreamingFinished(false);

@@ -94,7 +94,7 @@ export function ChatPanel({
   const modelOptions = [
     { modelName: "claude-3-opus-20240229", label: "Claude 3 Opus" },
     { modelName: "claude-3-sonnet-20240229", label: "Claude 3 Sonnet" },
-    { modelName: "gpt-4", label: "GPT4" },
+    { modelName: "gpt-4o", label: "GPT4o" },
     { modelName: "gpt-4-turbo-preview", label: "GPT4-Turbo" },
     { modelName: "gpt-3.5-turbo-16k", label: "GPT3.5-Turbo" },
   ];
