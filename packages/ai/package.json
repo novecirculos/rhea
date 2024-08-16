@@ -1,0 +1,15 @@
+{
+  "name": "@novecirculos/ai",
+  "version": "1.0.0",
+  "description": "AI Package for @novecirculos context",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ky": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.3.0"
+  }
+}

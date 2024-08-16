@@ -1,0 +1,32 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  ky:
+    specifier: ^1.6.0
+    version: 1.6.0
+
+devDependencies:
+  '@types/node':
+    specifier: ^22.3.0
+    version: 22.3.0
+
+packages:
+
+  /@types/node@22.3.0:
+    resolution: {integrity: sha512-nrWpWVaDZuaVc5X84xJ0vNrLvomM205oQyLsRt7OHNZbSHslcWsvgFR7O7hire2ZonjLrWBbedmotmIlJDVd6g==}
+    dependencies:
+      undici-types: 6.18.2
+    dev: true
+
+  /ky@1.6.0:
+    resolution: {integrity: sha512-MG7hlH26oShC4Lysk5TYzXshHLfEY52IJ0ofOeCsifquqTymbXCSTx+g4rXO30XYxoM6Y1ed5pNnpULe9Rx19A==}
+    engines: {node: '>=18'}
+    dev: false
+
+  /undici-types@6.18.2:
+    resolution: {integrity: sha512-5ruQbENj95yDYJNS3TvcaxPMshV7aizdv/hWYjGIKoANWKjhWNBsr2YEuYZKodQulB1b8l7ILOuDQep3afowQQ==}
+    dev: true
