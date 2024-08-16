@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
-import { Card, CardContent, Button } from '@novecirculos/design'
-import { Import } from 'lucide-react'
+import React, { useRef, useState } from "react";
+import { Card, CardContent, Button } from "@novecirculos/design";
+import { Import } from "lucide-react";
 
 interface DropzoneProps {
-  onChange: React.Dispatch<React.SetStateAction<string[]>>
-  className?: string
-  fileExtension?: string
+  onChange: (files: File[]) => void; // Change to accept a function that handles File[]
+  className?: string;
+  fileExtension?: string;
 }
 
 export function Dropzone({
@@ -14,53 +14,62 @@ export function Dropzone({
   fileExtension,
   ...props
 }: DropzoneProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const [fileInfo, setFileInfo] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [fileInfo, setFileInfo] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-  }
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const { files } = e.dataTransfer
-    handleFiles(files)
-  }
+    e.preventDefault();
+    e.stopPropagation();
+    const { files } = e.dataTransfer;
+    handleFiles(files);
+  };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target
+    const { files } = e.target;
     if (files) {
-      handleFiles(files)
+      handleFiles(files);
     }
-  }
+  };
 
   const handleFiles = (files: FileList) => {
-    const uploadedFile = files[0]
+    const uploadedFiles = Array.from(files);
 
-    // Check file extension
-    if (fileExtension && !uploadedFile.name.endsWith(`.${fileExtension}`)) {
-      setError(`Invalid file type. Expected: .${fileExtension}`)
-      return
+    // Optionally, check file extension for each file
+    if (fileExtension) {
+      const invalidFile = uploadedFiles.find(
+        (file) => !file.name.endsWith(`.${fileExtension}`),
+      );
+      if (invalidFile) {
+        setError(
+          `Invalid file type for ${invalidFile.name}. Expected: .${fileExtension}`,
+        );
+        return;
+      }
     }
 
-    const fileSizeInKB = Math.round(uploadedFile.size / 1024) // Convert to KB
+    // Optionally, display information about the first file
+    if (uploadedFiles.length > 0) {
+      const fileSizeInKB = Math.round(uploadedFiles[0].size / 1024); // Convert to KB
+      setFileInfo(
+        `Uploaded file: ${uploadedFiles[0].name} (${fileSizeInKB} KB)`,
+      );
+    }
 
-    const fileList = Array.from(files).map((file) => URL.createObjectURL(file))
-    onChange((prevFiles) => [...prevFiles, ...fileList])
-
-    // Display file information
-    setFileInfo(`Uploaded file: ${uploadedFile.name} (${fileSizeInKB} KB)`)
-    setError(null) // Reset error state
-  }
+    setError(null); // Reset error state
+    onChange(uploadedFiles); // Pass the File objects to the parent component
+  };
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click()
+      fileInputRef.current.click();
     }
-  }
+  };
 
   return (
     <Card
@@ -95,5 +104,5 @@ export function Dropzone({
         {error && <span className="text-red-500">{error}</span>}
       </CardContent>
     </Card>
-  )
+  );
 }

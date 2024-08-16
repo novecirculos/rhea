@@ -31,6 +31,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   Input,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -41,11 +42,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@novecirculos/design";
-import { Scene } from "../server/";
-import { IconPlus } from "@/components/ui/icons";
-import { api, fetcher } from "@/lib/utils";
+import { Scene, Transcription } from "../server/";
+import { IconPlus, IconSpinner } from "@/components/ui/icons";
+import { api, engineApi, fetcher } from "@/lib/utils";
 import Link from "next/link";
 import { Dropzone } from "@/components/dropzone";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const columns: ColumnDef<Scene>[] = [
   {
@@ -121,20 +123,51 @@ export default function TranscriptionsDashboardPage() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const [data, setData] = React.useState<Scene[]>([]);
+  const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetcher(`${api}/transcriptions`);
+  const { data, isLoading } = useQuery({
+    queryKey: ["transcriptions"],
+    queryFn: async () => {
+      const data = await fetcher(`${api}/transcriptions`);
+      return data;
+    },
+  });
 
-      setData(response.transcriptions);
-    };
+  const { mutateAsync: uploadTranscription } = useMutation({
+    mutationKey: ["transcriptions"],
+    mutationFn: async (formData: FormData) => {
+      const response = await fetch(`${engineApi}/transcriptions`, {
+        method: "POST",
+        body: formData,
+      });
 
-    fetchData();
-  }, []);
+      return response.json();
+    },
+  });
+
+  const handleFileChange = (files: File[]) => {
+    const file = files[0];
+    if (file) {
+      setSelectedFile(file);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+
+        formData.append("file", selectedFile);
+
+        const data = await uploadTranscription(formData);
+      } catch (error) {
+        console.error("Upload failed", error);
+      }
+    }
+  };
 
   const table = useReactTable({
-    data,
+    data: data?.transcriptions ?? [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -196,6 +229,7 @@ export default function TranscriptionsDashboardPage() {
                 Nova transcrição <IconPlus className="ml-1" />
               </Button>
             </DialogTrigger>
+
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Adicionar nova transcrição</DialogTitle>
@@ -204,15 +238,12 @@ export default function TranscriptionsDashboardPage() {
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-1 items-center gap-4">
-                  <Dropzone
-                    fileExtension="mp3"
-                    onChange={(e) => console.log(e)}
-                  />
-                </div>
+                <Dropzone fileExtension="mp3" onChange={handleFileChange} />
               </div>
               <DialogFooter>
-                <Button type="submit">Enviar</Button>
+                <Button onClick={handleSubmit} type="submit">
+                  Enviar
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -260,7 +291,14 @@ export default function TranscriptionsDashboardPage() {
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                Nenhum resultado
+                {isLoading ? (
+                  <>
+                    <IconSpinner className="mx-auto w-6 h-6" />
+                    <span className="font-medium p-1">Carregando...</span>
+                  </>
+                ) : (
+                  "Nenhum resultado"
+                )}
               </TableCell>
             </TableRow>
           )}
