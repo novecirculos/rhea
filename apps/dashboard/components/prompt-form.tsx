@@ -11,9 +11,9 @@ import ListItem from '@tiptap/extension-list-item'
 import OrderedList from '@tiptap/extension-ordered-list'
 import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
-import { cn } from '@/lib/utils'
 import { Extension } from '@tiptap/core'
 import { NodeHtmlMarkdown } from 'node-html-markdown'
+import { cn } from '@/lib/utils'
 
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
