@@ -1,6 +1,6 @@
 0 silly argv {
 0 silly argv   _: [ 'run' ],
-0 silly argv   scope: '@novecirculos/dashboard',
+0 silly argv   scope: '@novecirculos/*',
 0 silly argv   stream: true,
 0 silly argv   lernaVersion: '^4.0.0',
 0 silly argv   '$0': 'node_modules/@novecirculos/cli/bin/rhea',

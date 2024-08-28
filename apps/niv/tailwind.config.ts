@@ -1,9 +1,13 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
+import tailwindConfig from '@novecirculos/tokens'
 
 export default {
-  content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-} satisfies Config;
+  content: [
+    'app/**/*.{ts,tsx}',
+    'components/**/*.{ts,tsx}',
+    'components/*.{ts,tsx}',
+    '../../packages/design/src/**/**/*.{ts,tsx}',
+    '../../packages/editor/src/**/**/*.{ts,tsx}',
+  ],
+  ...tailwindConfig,
+} satisfies Config
