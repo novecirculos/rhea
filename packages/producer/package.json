@@ -1,0 +1,15 @@
+{
+  "name": "@novecirculos/producer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "bun index.ts"
+  },
+  "dependencies": {
+    "@novecirculos/ai": "workspace:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

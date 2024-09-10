@@ -49,11 +49,4 @@ const thread = async ({
   }
 }
 
-const { response, threadId } = await thread({
-  content: 'Hello',
-  creator: 'Quave',
-})
-
-console.log(response, threadId)
-
 export { thread, messages }
