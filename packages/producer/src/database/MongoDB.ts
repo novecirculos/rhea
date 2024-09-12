@@ -1,6 +1,6 @@
 import { MongoClient, Db, Collection, ObjectId } from 'mongodb'
 import { Agent } from '../models/Agent'
-import { Interaction } from '../models/types'
+import { AgentState, Interaction } from '../models/types'
 
 export class MongoDB {
   private client: MongoClient
@@ -26,9 +26,21 @@ export class MongoDB {
       {
         $set: {
           type: agent.type,
-          state: agent.state,
           threadId: agent.threadId,
+          currentState: agent.state,
         },
+        // @ts-ignore
+        $push: {
+          stateHistory: {
+            $each: [
+              {
+                state: agent.state,
+                timestamp: new Date(),
+              },
+            ],
+          },
+        },
+        $currentDate: { lastModified: true },
       },
       { upsert: true }
     )
@@ -45,6 +57,65 @@ export class MongoDB {
       interaction,
       timestamp: new Date(),
     })
+  }
+
+  async getAgentInitialState(agentId: ObjectId): Promise<AgentState> {
+    const result = await this.agents.findOne(
+      { _id: agentId },
+      { projection: { stateHistory: { $slice: [0, 1] } } }
+    )
+    return result?.stateHistory[0]?.state || {}
+  }
+
+  async getAgentFinalState(agentId: ObjectId): Promise<AgentState> {
+    const result = await this.agents.findOne(
+      { _id: agentId },
+      { projection: { currentState: 1 } }
+    )
+    return result?.currentState || {}
+  }
+
+  async getAgentActionCounts(
+    agentId: ObjectId
+  ): Promise<Record<string, number>> {
+    const result = await this.interactions
+      .aggregate([
+        { $match: { agentId: agentId } },
+        { $group: { _id: '$interaction.action', count: { $sum: 1 } } },
+        { $project: { _id: 0, action: '$_id', count: 1 } },
+      ])
+      .toArray()
+
+    if (result.length === 0) {
+      return {}
+    }
+
+    return result.reduce(
+      (acc, { action, count }) => ({ ...acc, [action]: count }),
+      {}
+    )
+  }
+
+  async getTotalInteractions() {
+    return this.interactions.countDocuments()
+  }
+
+  async getAllActionCounts(): Promise<Record<string, number>> {
+    const result = await this.interactions
+      .aggregate([
+        { $group: { _id: '$interaction.action', count: { $sum: 1 } } },
+        { $project: { _id: 0, action: '$_id', count: 1 } },
+      ])
+      .toArray()
+
+    if (result.length === 0) {
+      return {}
+    }
+
+    return result.reduce(
+      (acc, { action, count }) => ({ ...acc, [action]: count }),
+      {}
+    )
   }
 
   async close() {

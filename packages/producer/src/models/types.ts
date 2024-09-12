@@ -37,3 +37,26 @@ export const InteractionSchema = z.object({
 export type Resource = z.infer<typeof ResourceSchema>
 export type Decision = z.infer<typeof DecisionSchema>
 export type Interaction = z.infer<typeof InteractionSchema>
+
+export type AgentState = {
+  gold?: number
+  food?: number
+  goods?: number
+  land?: number
+}
+
+export type AgentSummary = {
+  type: string
+  initialState: AgentState
+  finalState: AgentState
+  netWorthChange: number
+  mostFrequentAction: string
+}
+
+export type SimulationSummary = {
+  rounds: number
+  agentSummaries: AgentSummary[]
+  totalInteractions: number
+  mostCommonAction: string
+  economyGrowth: number
+}

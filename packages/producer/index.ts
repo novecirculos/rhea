@@ -8,7 +8,7 @@ async function runSimulation() {
 
   try {
     await simulation.initialize()
-    await simulation.runSimulation(10)
+    await simulation.runSimulation(5)
   } catch (error) {
     console.error('Simulation error:', error)
   } finally {

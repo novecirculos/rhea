@@ -828,6 +828,9 @@ importers:
       '@novecirculos/ai':
         specifier: workspace:*
         version: link:../ai
+      '@novecirculos/dice':
+        specifier: workspace:*
+        version: link:../dice_roller
       mongodb:
         specifier: ^6.8.1
         version: 6.8.1
