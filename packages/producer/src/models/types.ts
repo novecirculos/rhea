@@ -60,3 +60,9 @@ export type SimulationSummary = {
   mostCommonAction: string
   economyGrowth: number
 }
+
+export enum EconomyState {
+  Unstable = 'unstable',
+  Stable = 'stable',
+  Booming = 'booming',
+}

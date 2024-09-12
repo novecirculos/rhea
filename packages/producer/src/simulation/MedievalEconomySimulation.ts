@@ -1,15 +1,17 @@
 import { MongoDB } from '../database/MongoDB'
 import { Agent } from '../models/Agent'
-import { Action, SimulationSummary } from '../models/types'
+import { Action, SimulationSummary, EconomyState } from '../models/types'
 import init, { roll_dice } from '@novecirculos/dice'
 
 export class MedievalEconomySimulation {
   agents: Agent[]
   mongodb: MongoDB
+  economyState: EconomyState
 
   constructor(mongoUri: string, dbName: string) {
     this.agents = []
     this.mongodb = new MongoDB(mongoUri, dbName)
+    this.economyState = EconomyState.Stable
   }
 
   async initialize() {
@@ -31,34 +33,24 @@ export class MedievalEconomySimulation {
   async runSimulation(rounds: number) {
     for (let i = 0; i < rounds; i++) {
       console.log(`Round ${i + 1}`)
+      console.log(`Economy State: ${this.economyState}`)
+
+      this.updateEconomyState()
 
       for (const agent of this.agents) {
         const context = `It's round ${
           i + 1
-        } of the simulation. The current state of the economy is stable.`
+        } of the simulation. The current state of the economy is ${
+          this.economyState
+        }.`
         const decision = await agent.makeDecision(context)
         console.log(`${agent.type} decided:`, JSON.stringify(decision, null, 2))
 
-        // Handle the decision based on the action
-        switch (decision.action) {
-          case Action.Work:
-            await this.handleWork(agent)
-            break
-          case Action.Trade:
-            await this.handleTrade(agent, context)
-            break
-          case Action.Invest:
-            await this.handleInvest(agent)
-            break
-          case Action.Rest:
-            await this.handleRest(agent)
-            break
-          case Action.Produce:
-            await this.handleProduce(agent)
-            break
-          case Action.Consume:
-            await this.handleConsume(agent)
-            break
+        const success = this.performAction(agent, decision.action)
+        if (success) {
+          console.log(`${agent.type}'s action was successful.`)
+        } else {
+          console.log(`${agent.type}'s action failed.`)
         }
 
         await this.mongodb.saveAgent(agent)
@@ -70,17 +62,96 @@ export class MedievalEconomySimulation {
     console.log(JSON.stringify(summary, null, 2))
   }
 
-  private async handleWork(agent: Agent) {
-    const workGain = await roll_dice({ times: 2, sides: 6 })
-    const totalGain = workGain.reduce((sum, value) => sum + value, 0)
-    await agent.updateState({ gold: (agent.state.gold || 0) + totalGain })
-    console.log(`${agent.type} worked and earned ${totalGain} gold.`)
+  private updateEconomyState() {
+    const stateRoll = roll_dice({ times: 1, sides: 20 })[0]
+    if (stateRoll === 1) {
+      this.economyState = EconomyState.Unstable
+    } else if (stateRoll === 20) {
+      this.economyState = EconomyState.Booming
+    } else if (stateRoll >= 15) {
+      this.economyState = EconomyState.Stable
+    }
   }
 
-  private async handleTrade(agent: Agent, context: string) {
+  private performAction(agent: Agent, action: Action): boolean {
+    const dc = this.getActionDC(action)
+    const roll = roll_dice({ times: 1, sides: 20 })[0]
+    const success = roll >= dc
+
+    if (success) {
+      switch (action) {
+        case Action.Work:
+          this.handleWork(agent)
+          break
+        case Action.Trade:
+          this.handleTrade(agent)
+          break
+        case Action.Invest:
+          this.handleInvest(agent)
+          break
+        case Action.Rest:
+          this.handleRest(agent)
+          break
+        case Action.Produce:
+          this.handleProduce(agent)
+          break
+        case Action.Consume:
+          this.handleConsume(agent)
+          break
+      }
+      console.log(
+        `${agent.type}'s ${action} action was successful. (Roll: ${roll}, DC: ${dc})`
+      )
+    } else {
+      console.log(
+        `${agent.type}'s ${action} action failed. (Roll: ${roll}, DC: ${dc})`
+      )
+    }
+
+    return success
+  }
+
+  private getActionDC(action: Action): number {
+    const baseDC = {
+      [Action.Work]: 10,
+      [Action.Trade]: 12,
+      [Action.Invest]: 15,
+      [Action.Rest]: 5,
+      [Action.Produce]: 8,
+      [Action.Consume]: 5,
+    }[action]
+
+    switch (this.economyState) {
+      case EconomyState.Unstable:
+        return baseDC + 2
+      case EconomyState.Booming:
+        return baseDC - 2
+      default:
+        return baseDC
+    }
+  }
+
+  private handleWork(agent: Agent) {
+    const workGain = roll_dice({ times: 2, sides: 6 })
+    const totalGain = workGain.reduce((sum, value) => sum + value, 0)
+    const modifier =
+      this.economyState === EconomyState.Booming
+        ? 1.5
+        : this.economyState === EconomyState.Unstable
+        ? 0.5
+        : 1
+    const finalGain = Math.floor(totalGain * modifier)
+    agent.updateState({ gold: (agent.state.gold || 0) + finalGain })
+    console.log(`${agent.type} worked and earned ${finalGain} gold.`)
+  }
+
+  private async handleTrade(agent: Agent) {
     const otherAgent = this.agents.find((a) => a !== agent)
     if (otherAgent) {
-      const interaction = await agent.interact(otherAgent, context)
+      const interaction = await agent.interact(
+        otherAgent,
+        `The current state of the economy is ${this.economyState}.`
+      )
       console.log(
         `${agent.type} interacted with ${otherAgent.type}:`,
         JSON.stringify(interaction, null, 2)
