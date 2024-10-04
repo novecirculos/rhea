@@ -63,7 +63,7 @@ export class MedievalEconomySimulation {
   }
 
   private updateEconomyState() {
-    const stateRoll = roll_dice({ times: 1, sides: 20 })[0]
+    const [stateRoll] = roll_dice({ times: 1, sides: 20 })
     if (stateRoll === 1) {
       this.economyState = EconomyState.Unstable
     } else if (stateRoll === 20) {
