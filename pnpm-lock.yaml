@@ -420,6 +420,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.50.0
         version: 5.52.2(react@18.3.1)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.28.14
+        version: 5.55.4(@tanstack/react-query@5.52.2)(react@18.3.1)
       '@trpc/client':
         specifier: ^11.0.0-rc.446
         version: 11.0.0-rc.553(@trpc/server@11.0.0-rc.553)
@@ -450,6 +453,15 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      react-markdown:
+        specifier: ^8.0.7
+        version: 8.0.7(@types/react@18.3.4)(react@18.3.1)
+      react-syntax-highlighter:
+        specifier: ^15.5.0
+        version: 15.5.0(react@18.3.1)
+      remark-gfm:
+        specifier: ^3.0.1
+        version: 3.0.1
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -460,6 +472,9 @@ importers:
         specifier: ^3.23.3
         version: 3.23.8
     devDependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.9
+        version: 0.5.14(tailwindcss@3.4.10)
       '@types/eslint':
         specifier: ^8.56.10
         version: 8.56.12
@@ -472,6 +487,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      '@types/react-syntax-highlighter':
+        specifier: ^15.5.7
+        version: 15.5.13
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.1.0
         version: 8.8.0(@typescript-eslint/parser@8.8.0)(eslint@8.57.1)(typescript@5.5.4)
@@ -12746,7 +12764,6 @@ packages:
 
   /@tanstack/query-devtools@5.55.1:
     resolution: {integrity: sha512-2g0TWQGlkyHs9maHIU5A7lRunG4Rj3Y5lOEenE+fydE4zk7GqRs7rKJBp7F74iqRo/cA9V6t1YYQWqd6YRBmcQ==}
-    dev: true
 
   /@tanstack/react-query-devtools@5.55.4(@tanstack/react-query@5.52.2)(react@18.3.1):
     resolution: {integrity: sha512-4uXcG95JV6TrlefF6n0NDckgY9QVwNPKVcn81a+MmJyKkZ704otBjtuSgXNznx5zNFnGrWlgH1luoD+bZPASuQ==}
@@ -12757,7 +12774,6 @@ packages:
       '@tanstack/query-devtools': 5.55.1
       '@tanstack/react-query': 5.52.2(react@18.3.1)
       react: 18.3.1
-    dev: true
 
   /@tanstack/react-query@4.36.1(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
@@ -28811,7 +28827,7 @@ packages:
     peerDependencies:
       react: '>= 0.14.0'
     dependencies:
-      '@babel/runtime': 7.25.4
+      '@babel/runtime': 7.25.6
       highlight.js: 10.7.3
       lowlight: 1.20.0
       prismjs: 1.29.0

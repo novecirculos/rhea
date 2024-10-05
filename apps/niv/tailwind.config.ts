@@ -10,5 +10,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [import("@tailwindcss/typography")],
 } satisfies Config;

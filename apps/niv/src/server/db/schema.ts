@@ -23,8 +23,9 @@ export const notes = createTable(
       .notNull()
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
-    title: text("title", { length: 255 }),
-    contentUrl: text("content_url"), // URL to the content pointed to Cloudflare R2
+    title: text("title", { length: 255 }).notNull(),
+    folder: text("folder", { length: 255 }),
+    contentUrl: text("content_url").notNull(), // URL to the content pointed to Cloudflare R2
     createdAt: int("created_at", { mode: "timestamp" })
       .default(sql`(unixepoch())`)
       .notNull(),

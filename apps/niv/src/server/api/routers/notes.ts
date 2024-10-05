@@ -7,6 +7,8 @@ import {
 import { notes } from "~/server/db/schema";
 import { getR2FileUrl, uploadFileToR2 } from "~/server/utils/r2";
 import JSZip from "jszip";
+import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const notesRouter = createTRPCRouter({
   getLatest: publicProcedure.query(async ({ ctx }) => {
@@ -77,6 +79,7 @@ export const notesRouter = createTRPCRouter({
             title: fileName,
             contentUrl,
             userId: ctx.session.user.id,
+            folder: fileDir ?? null,
           });
 
           return { path: file.name, contentUrl };
@@ -87,5 +90,42 @@ export const notesRouter = createTRPCRouter({
         (result): result is { path: string; contentUrl: string } =>
           result !== null,
       );
+    }),
+  getUserNotes: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    return ctx.db.query.notes.findMany({
+      where: eq(notes.userId, userId),
+    });
+  }),
+  getNote: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+      const userId = ctx.session.user.id;
+
+      const note = await ctx.db.query.notes.findFirst({
+        where: eq(notes.id, id),
+      });
+
+      if (!note) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Note not found.",
+        });
+      }
+
+      if (note.userId !== userId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You do not have access to this note.",
+        });
+      }
+
+      return note;
     }),
 });
