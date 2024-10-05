@@ -1,51 +1,58 @@
-// apps/niv/src/app/_components/post.tsx
-
 "use client";
 
 import { useState } from "react";
 import { api } from "~/trpc/react";
 
 export function LatestPost() {
-  // Fetch the latest post if needed
   const [latestPost] = api.notes.getLatest.useSuspenseQuery();
 
-  const utils = api.useContext();
-  const [title, setTitle] = useState("");
-  const [fileContent, setFileContent] = useState<string | null>(null);
-  const createNote = api.notes.create.useMutation({
+  const utils = api.useUtils();
+  const [zipFile, setZipFile] = useState<File | null>(null);
+  const createNotes = api.notes.create.useMutation({
     onSuccess: async () => {
       await utils.notes.invalidate();
-      setTitle("");
-      setFileContent(null);
+      setZipFile(null);
     },
   });
 
-  // Handle file selection and read content
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.type !== "text/markdown" && !file.name.endsWith(".md")) {
-        alert("Please select a markdown (.md) file");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const content = event.target?.result as string;
-        setFileContent(content);
-      };
-      reader.readAsText(file);
-    } else {
-      setFileContent(null);
-    }
-  };
+    const selectedFiles = e.target.files;
+    if (!selectedFiles) return;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!fileContent) {
-      alert("Please select a markdown file");
+    const file = selectedFiles[0];
+    if (file?.type !== "application/zip") {
+      alert("Please select a valid ZIP file.");
       return;
     }
-    createNote.mutate({ title, content: fileContent });
+
+    setZipFile(file);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!zipFile) {
+      alert("Please select a ZIP file.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const binaryStr = reader.result;
+      if (binaryStr instanceof ArrayBuffer) {
+        // Convert ArrayBuffer to Base64
+        const bytes = new Uint8Array(binaryStr);
+        let binary = "";
+        bytes.forEach((b) => (binary += String.fromCharCode(b)));
+        const base64 = btoa(binary);
+        createNotes.mutate({ zipFile: base64 });
+      } else {
+        alert("Failed to read the ZIP file.");
+      }
+    };
+    reader.onerror = () => {
+      alert("Error reading the ZIP file.");
+    };
+    reader.readAsArrayBuffer(zipFile);
   };
 
   return (
@@ -57,16 +64,8 @@ export function LatestPost() {
       )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-full px-4 py-2 text-black"
-          required
-        />
-        <input
           type="file"
-          accept=".md,text/markdown"
+          accept=".zip"
           onChange={handleFileChange}
           className="w-full"
           required
@@ -74,11 +73,17 @@ export function LatestPost() {
         <button
           type="submit"
           className="rounded-full bg-blue-500 px-4 py-2 font-semibold text-white transition hover:bg-blue-600"
-          disabled={createNote.isPending}
+          disabled={createNotes.isPending}
         >
-          {createNote.isPending ? "Submitting..." : "Submit"}
+          {createNotes.isPending ? "Uploading..." : "Upload ZIP"}
         </button>
       </form>
+      {zipFile && (
+        <div className="mt-4">
+          <h3 className="font-semibold">Selected File:</h3>
+          <p className="truncate">{zipFile.name}</p>
+        </div>
+      )}
     </div>
   );
 }
