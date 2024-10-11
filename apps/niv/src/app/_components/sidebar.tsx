@@ -1,8 +1,13 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import { api } from "~/trpc/react";
+import { File, Folder, Tree } from "./file-tree";
+
+import { ScrollArea } from "@novecirculos/design";
+import { Skeleton } from "@novecirculos/design";
+import { useParams } from "next/navigation";
 
 interface Note {
   id: string;
@@ -14,125 +19,129 @@ interface Note {
   updatedAt: Date | null;
 }
 
-interface FolderNode {
+type TreeViewElement = {
+  id: string;
   name: string;
-  children: { [key: string]: FolderNode };
-  notes: Note[];
-}
-
-interface FolderProps {
-  node: FolderNode;
-  level: number;
-}
-
-const Folder: React.FC<FolderProps> = ({ node, level }) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(node.name === "Root");
-
-  const hasChildren = Object.keys(node.children).length > 0;
-  const hasNotes = node.notes.length > 0;
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  return (
-    <div>
-      {node.name !== "Root" && (
-        <div
-          className={`flex cursor-pointer items-center justify-between px-2 py-1 hover:bg-gray-700`}
-          style={{ paddingLeft: `${level * 16}px` }}
-          onClick={toggleExpand}
-        >
-          <span>{node.name}</span>
-          {(hasChildren || hasNotes) && <span>{isExpanded ? "▲" : "▼"}</span>}
-        </div>
-      )}
-
-      {isExpanded && hasNotes && (
-        <ul>
-          {node.notes.map((note) => (
-            <li
-              key={note.id}
-              className="px-4 py-1 hover:bg-gray-600"
-              style={{ paddingLeft: `${(level + 1) * 16}px` }}
-            >
-              <Link href={`/notes/${note.id}`}>{note.title}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {isExpanded && hasChildren && (
-        <div>
-          {Object.values(node.children).map((child) => (
-            <Folder key={child.name} node={child} level={level + 1} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const buildFolderTree = (notes: Note[]) => {
-  const root: FolderNode = { name: "Root", children: {}, notes: [] };
-
-  notes.forEach((note) => {
-    if (note.folder) {
-      const path = note.folder.split("/").map((part) => part.trim());
-      let currentNode = root;
-
-      path.forEach((part) => {
-        if (!currentNode.children[part]) {
-          currentNode.children[part] = { name: part, children: {}, notes: [] };
-        }
-        currentNode = currentNode.children[part];
-      });
-
-      currentNode.notes.push(note);
-    } else {
-      root.notes.push(note);
-    }
-  });
-
-  return root;
+  isSelectable?: boolean;
+  children?: TreeViewElement[];
 };
 
 export const Sidebar: React.FC = () => {
   const { data: notes, isLoading, error } = api.notes.getUserNotes.useQuery();
 
-  const folderTree = useMemo<FolderNode>(() => {
-    if (!notes) return { name: "Root", children: {}, notes: [] };
-    return buildFolderTree(notes);
+  const buildElements = (notes: Note[]): TreeViewElement[] => {
+    const root: { [key: string]: TreeViewElement } = {};
+
+    notes.forEach((note) => {
+      const path = note.folder
+        ? note.folder.split("/").map((part) => part.trim())
+        : ["Root"];
+      let currentLevel = root;
+
+      path.forEach((part, index) => {
+        if (!currentLevel[part]) {
+          const id = `folder-${part}-${index}-${Math.random().toString(36).substr(2, 9)}`;
+          currentLevel[part] = {
+            id,
+            name: part,
+            isSelectable: false,
+            children: [],
+          };
+        }
+
+        if (index === path.length - 1) {
+          currentLevel[part].children!.push({
+            id: note.id,
+            name: note.title || "Untitled",
+            isSelectable: true,
+          });
+        } else {
+          const nextPart = path[index + 1];
+          let nextLevel = currentLevel[part].children!.find(
+            (child) => child.name === nextPart,
+          );
+
+          if (!nextLevel) {
+            const id = `folder-${nextPart}-${index + 1}-${Math.random()
+              .toString(36)
+              .substr(2, 9)}`;
+            nextLevel = {
+              id,
+              name: nextPart as string,
+              isSelectable: false,
+              children: [],
+            };
+            currentLevel[part].children!.push(nextLevel);
+          }
+
+          currentLevel = { [nextPart as string]: nextLevel };
+        }
+      });
+    });
+
+    return Object.values(root);
+  };
+
+  const ELEMENTS = useMemo(() => {
+    if (!notes) return [];
+    return buildElements(notes);
   }, [notes]);
 
+  const { id } = useParams();
+
+  const renderTreeNodes = (elements: TreeViewElement[]) => {
+    return elements.map((element) => {
+      if (element.children && element.children.length > 0) {
+        return (
+          <Folder key={element.id} element={element.name} value={element.id}>
+            {renderTreeNodes(element.children)}
+          </Folder>
+        );
+      } else {
+        return (
+          <File key={element.id} value={element.id}>
+            <Link className="truncate text-left" href={`/notes/${element.id}`}>
+              {element.name}
+            </Link>
+          </File>
+        );
+      }
+    });
+  };
+
   return (
-    <aside className="fixed h-screen w-64 overflow-y-auto bg-gray-800 text-white">
-      <h2 className="mb-4 p-4 text-xl font-bold">Your Notes</h2>
+    <aside className="h-screen min-w-[16rem] max-w-[16rem] border-r bg-background">
+      <ScrollArea className="h-full">
+        <div className="p-4">
+          <h2 className="mb-4 text-xl font-bold">Your Notes</h2>
 
-      {isLoading && (
-        <div className="px-4 py-2 text-gray-300">Loading notes...</div>
-      )}
+          {isLoading && (
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+            </div>
+          )}
 
-      {error && (
-        <div className="px-4 py-2 text-red-500">
-          Error loading notes. Please try again later.
-        </div>
-      )}
+          {error && (
+            <div className="px-4 py-2 text-destructive">
+              Error loading notes. Please try again later.
+            </div>
+          )}
 
-      {!isLoading && !error && (
-        <div>
-          {folderTree.notes.length === 0 &&
-          Object.keys(folderTree.children).length === 0 ? (
-            <div className="px-4 py-2 text-gray-300">No notes available.</div>
-          ) : (
-            <Folder node={folderTree} level={0} />
+          {!isLoading && !error && ELEMENTS.length === 0 && (
+            <div className="px-4 py-2 text-muted-foreground">
+              No notes available.
+            </div>
+          )}
+
+          {!isLoading && !error && ELEMENTS.length > 0 && (
+            <Tree initialSelectedId={id as string} elements={ELEMENTS}>
+              {renderTreeNodes(ELEMENTS)}
+            </Tree>
           )}
         </div>
-      )}
-
-      {!isLoading && !error && notes && notes.length === 0 && (
-        <div className="px-4 py-2 text-gray-300">No notes available.</div>
-      )}
+      </ScrollArea>
     </aside>
   );
 };

@@ -9,8 +9,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const NotePage: React.FC = () => {
-  const params = useParams();
-  const { id } = params;
+  const { id } = useParams();
 
   const {
     data: note,
@@ -51,7 +50,7 @@ const NotePage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <p className="text-gray-500">Loading note...</p>
       </div>
     );
@@ -74,7 +73,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="ml-64 min-h-screen bg-gray-100 p-8">
+    <div className="h-screen w-full overflow-y-auto bg-background p-8">
       <h1 className="mb-4 text-3xl font-bold">{note.title}</h1>
 
       {contentLoading && <p className="text-gray-500">Loading content...</p>}
@@ -85,7 +84,7 @@ const NotePage: React.FC = () => {
 
       {markdownContent && (
         <ReactMarkdown
-          className="prose"
+          className="prose dark:prose-invert"
           remarkPlugins={[remarkGfm]}
           components={{
             code({ node, inline, className, children, ...props }) {
