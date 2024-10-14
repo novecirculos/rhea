@@ -6,6 +6,7 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Sidebar } from "./_components/sidebar";
 import { ThemeProvider } from "./_components/theme-provider";
+import AiDrawer from "./_components/ai-drawer";
 
 export const metadata: Metadata = {
   title: "Niv",
@@ -31,6 +32,7 @@ export default function RootLayout({
               {children}
             </div>
           </TRPCReactProvider>
+          <AiDrawer />
         </ThemeProvider>
       </body>
     </html>

@@ -165,7 +165,9 @@ const Tree = forwardRef<HTMLDivElement, TreeViewProps>(
               value={expandedItems}
               className="flex flex-col gap-1"
               onValueChange={(value) =>
-                setExpandedItems((prev) => [...(prev ?? []), value[0]])
+                setExpandedItems((prev) => {
+                  return [...(prev ?? []), value[0]];
+                })
               }
               dir={dir as Direction}
             >
@@ -191,7 +193,7 @@ const TreeIndicator = forwardRef<
       dir={direction}
       ref={ref}
       className={cn(
-        "bg-muted absolute left-1.5 h-full w-px rounded-md py-3 duration-300 ease-in-out hover:bg-slate-300 rtl:right-1.5",
+        "absolute left-1.5 h-full w-px rounded-md bg-muted py-3 duration-300 ease-in-out hover:bg-slate-300 rtl:right-1.5",
         className,
       )}
       {...props}
@@ -249,7 +251,7 @@ const Folder = forwardRef<
             `flex items-center gap-1 rounded-md text-sm`,
             className,
             {
-              "bg-muted rounded-md": isSelect && isSelectable,
+              "rounded-md bg-muted": isSelect && isSelectable,
               "cursor-pointer": isSelectable,
               "cursor-not-allowed opacity-50": !isSelectable,
             },
@@ -262,7 +264,7 @@ const Folder = forwardRef<
             : (closeIcon ?? <FolderIcon className="size-4" />)}
           <span>{element}</span>
         </AccordionPrimitive.Trigger>
-        <AccordionPrimitive.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down relative h-full overflow-hidden text-sm">
+        <AccordionPrimitive.Content className="relative h-full overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
           {element && indicator && <TreeIndicator aria-hidden="true" />}
           <AccordionPrimitive.Root
             dir={direction}
