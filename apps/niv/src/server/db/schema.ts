@@ -76,6 +76,9 @@ export const users = createTable("user", {
   emailVerified: int("email_verified", {
     mode: "timestamp",
   }).default(sql`(unixepoch())`),
+  hasFinishedOnboarding: int("has_finished_onboarding", {
+    mode: "boolean",
+  }).default(false),
   image: text("image", { length: 255 }),
 });
 
