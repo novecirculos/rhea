@@ -3,10 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api } from "~/trpc/react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { Markdown } from "~/app/_components/custom/markdown";
 
 const NotePage: React.FC = () => {
   const { id } = useParams();
@@ -82,33 +79,7 @@ const NotePage: React.FC = () => {
         <p className="text-red-500">Error loading content: {contentError}</p>
       )}
 
-      {markdownContent && (
-        <ReactMarkdown
-          className="prose dark:prose-invert"
-          remarkPlugins={[remarkGfm]}
-          components={{
-            code({ node, inline, className, children, ...props }) {
-              const match = /language-(\w+)/.exec(className || "");
-              return !inline && match ? (
-                <SyntaxHighlighter
-                  style={vscDarkPlus as any}
-                  language={match[1]}
-                  PreTag="div"
-                  {...props}
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
-              ) : (
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              );
-            },
-          }}
-        >
-          {markdownContent}
-        </ReactMarkdown>
-      )}
+      {markdownContent && <Markdown>{markdownContent}</Markdown>}
     </div>
   );
 };
