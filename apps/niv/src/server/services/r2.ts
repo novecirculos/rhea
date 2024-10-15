@@ -1,4 +1,8 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  PutObjectCommand,
+  S3Client,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 
 export const R2_BASE_URL = "https://assets.novecirculos.com.br";
 
@@ -46,3 +50,12 @@ export const uploadFileToR2 = async ({
 };
 
 export const getR2FileUrl = (key: string) => `${R2_BASE_URL}/${key}`;
+
+export const deleteFileFromR2 = async (key: string) => {
+  const client = getR2Client();
+  const command = new DeleteObjectCommand({
+    Bucket: bucket,
+    Key: key,
+  });
+  return client.send(command);
+};
