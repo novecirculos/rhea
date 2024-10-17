@@ -18,18 +18,18 @@ export const createAssistantStatesEnum = ({
       title: "Configure the Assistant",
       description: "Change your preferences.",
       content: Configuration,
-      footer: () => <Button variant="secondary">Done</Button>,
+      footer: <Button variant="secondary">Done</Button>,
     },
     CHAT: {
       title: "Chat",
       description: "Start a conversation with the assistant.",
       content: Chat,
-      footer: () => <Button variant="secondary">Send</Button>,
+      footer: null,
     },
     SCENARIO: {
       title: "Scenario",
       description: "Select a scenario or create a new one",
       content: Scenario,
-      footer: () => <Button variant="secondary">Select</Button>,
+      footer: <Button variant="secondary">Select</Button>,
     },
   });

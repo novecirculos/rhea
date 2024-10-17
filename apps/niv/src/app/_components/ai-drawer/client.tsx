@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useLayoutEffect } from "react";
 
+import React, { useState, useLayoutEffect } from "react";
 import {
   Button,
   Drawer,
@@ -16,6 +16,8 @@ import {
 } from "@novecirculos/design";
 import { X } from "lucide-react";
 import { createAssistantStatesEnum } from "./enums";
+import { Chat as AssistantChat } from "../custom/chat";
+import { generateUUID } from "~/lib/utils";
 
 const Configuration = () => (
   <form className="flex flex-col gap-2">
@@ -32,7 +34,10 @@ const Configuration = () => (
   </form>
 );
 
-const Chat = () => <div>Chat content</div>;
+const Chat = () => {
+  const id = generateUUID();
+  return <AssistantChat id={id} initialMessages={[]} />;
+};
 
 const Scenario = () => <div>Scenario content</div>;
 
@@ -62,7 +67,7 @@ const AiDrawerTitle = ({
   </DrawerHeader>
 );
 
-export function AiDrawerContent() {
+export function AiDrawer() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentAssistantState, setCurrentAssistantState] = useState(
     AssistantStates.CHAT,
@@ -93,9 +98,7 @@ export function AiDrawerContent() {
           <div className="flex-grow overflow-y-auto p-4">
             <Content />
           </div>
-          <DrawerFooter>
-            <Footer />
-          </DrawerFooter>
+          {Footer && <DrawerFooter>{Footer}</DrawerFooter>}
         </div>
       </DrawerContent>
     </Drawer>

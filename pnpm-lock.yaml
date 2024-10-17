@@ -405,6 +405,9 @@ importers:
 
   apps/niv:
     dependencies:
+      '@ai-sdk/openai':
+        specifier: ^0.0.67
+        version: 0.0.67(zod@3.23.8)
       '@auth/drizzle-adapter':
         specifier: ^1.1.0
         version: 1.5.3
@@ -1171,6 +1174,17 @@ importers:
   packages/utils/ts-config: {}
 
 packages:
+
+  /@ai-sdk/openai@0.0.67(zod@3.23.8):
+    resolution: {integrity: sha512-LOvbQaKXuNdhlZ+Asinc4DGdh4v32wKTzFB8FIKvVYjPuXwMWAsK4ZjrS6sxwB37AjmyGLPTMVBUtwcHZdpk+A==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
+    dependencies:
+      '@ai-sdk/provider': 0.0.24
+      '@ai-sdk/provider-utils': 1.0.20(zod@3.23.8)
+      zod: 3.23.8
+    dev: false
 
   /@ai-sdk/provider-utils@1.0.17(zod@3.23.8):
     resolution: {integrity: sha512-2VyeTH5DQ6AxqvwdyytKIeiZyYTyJffpufWjE67zM2sXMIHgYl7fivo8m5wVl6Cbf1dFPSGKq//C9s+lz+NHrQ==}

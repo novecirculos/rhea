@@ -1,10 +1,10 @@
 "use client";
 
-import { Attachment, Message } from "ai";
+import { Attachment, Message as MessageType } from "ai";
 import { useChat } from "ai/react";
 import { useState } from "react";
 
-import { Message as PreviewMessage } from "~/app/_components/custom/message";
+import { Message } from "~/app/_components/custom/message";
 import { useScrollToBottom } from "~/app/_components/custom/use-scroll-to-bottom";
 
 import { MultimodalInput } from "./multimodal-input";
@@ -14,7 +14,7 @@ export function Chat({
   initialMessages,
 }: {
   id: string;
-  initialMessages: Array<Message>;
+  initialMessages: Array<MessageType>;
 }) {
   const { messages, handleSubmit, input, setInput, append, isLoading, stop } =
     useChat({
@@ -28,14 +28,14 @@ export function Chat({
   const [attachments, setAttachments] = useState<Array<Attachment>>([]);
 
   return (
-    <div className="flex h-dvh flex-row justify-center bg-background pb-4 md:pb-8">
-      <div className="flex flex-col items-center justify-between gap-4">
+    <div className="flex h-full w-full flex-row justify-center bg-background pb-4 md:pb-8">
+      <div className="flex flex-grow flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
-          className="flex h-full w-dvw flex-col items-center gap-4 overflow-y-scroll"
+          className="no-scrollbar flex flex-col gap-4 overflow-y-auto"
         >
           {messages.map((message) => (
-            <PreviewMessage
+            <Message
               key={message.id}
               role={message.role}
               content={message.content}
@@ -50,7 +50,7 @@ export function Chat({
           />
         </div>
 
-        <form className="max-w-[calc(100dvw-32px) relative flex w-full flex-row items-end gap-2 px-4 md:max-w-[500px] md:px-0">
+        <form className="relative flex w-full flex-row items-end gap-2 px-4 md:px-0">
           <MultimodalInput
             input={input}
             setInput={setInput}

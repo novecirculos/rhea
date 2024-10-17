@@ -156,7 +156,7 @@ export function MultimodalInput({
       {messages.length === 0 &&
         attachments.length === 0 &&
         uploadQueue.length === 0 && (
-          <div className="mx-auto grid w-full gap-2 sm:grid-cols-2 md:max-w-[500px] md:px-0">
+          <div className="mx-auto grid w-full gap-2 sm:grid-cols-2 md:px-0">
             {suggestedActions.map((suggestedAction, index) => (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

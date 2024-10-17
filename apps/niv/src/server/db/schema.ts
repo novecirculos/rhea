@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm";
+import { InferSelectModel, relations, sql } from "drizzle-orm";
 import {
   index,
   int,
@@ -7,6 +7,7 @@ import {
   text,
 } from "drizzle-orm/sqlite-core";
 import { type AdapterAccount } from "next-auth/adapters";
+import { Message } from "ai";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -15,6 +16,32 @@ import { type AdapterAccount } from "next-auth/adapters";
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const createTable = sqliteTableCreator((name) => `niv_${name}`);
+
+export const chat = createTable(
+  "chat",
+  {
+    id: text("id", { length: 255 })
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    createdAt: int("created_at", { mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+    messages: text("messages", {
+      length: 1000000,
+    }).notNull(),
+    userId: text("user_id", { length: 255 })
+      .notNull()
+      .references(() => users.id),
+  },
+  (example) => ({
+    chatUserIdIdx: index("chatUserId_idx").on(example.userId),
+  }),
+);
+
+export type Chat = Omit<InferSelectModel<typeof chat>, "messages"> & {
+  messages: Array<Message>;
+};
 
 export const notes = createTable(
   "note",
