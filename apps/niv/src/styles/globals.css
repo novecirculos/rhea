@@ -74,3 +74,9 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@media (hover: hover) and (pointer: fine) {
+  [data-vaul-drawer] {
+    /* user-select: none; */
+  }
+}

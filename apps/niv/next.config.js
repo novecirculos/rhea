@@ -5,6 +5,26 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  experimental: {
+    outputFileTracingIncludes: {
+      "/api/chat": ["./node_modules/@novecirculos/dice/pkg/*.wasm"],
+    },
+  },
+  webpack(config, { isServer }) {
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+      syncWebAssembly: true,
+    };
+
+    config.module.rules.push({
+      test: /\.wasm$/,
+      type: "webassembly/async",
+    });
+
+    return config;
+  },
+};
 
 export default config;

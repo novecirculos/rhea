@@ -420,6 +420,12 @@ importers:
       '@novecirculos/design':
         specifier: workspace:*
         version: link:../../packages/design
+      '@novecirculos/dice':
+        specifier: workspace:*
+        version: link:../../packages/dice_roller
+      '@novecirculos/dice_roller':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@novecirculos/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens

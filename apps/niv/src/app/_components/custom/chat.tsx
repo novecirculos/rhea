@@ -32,7 +32,7 @@ export function Chat({
       <div className="flex flex-grow flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
-          className="no-scrollbar flex flex-col gap-4 overflow-y-auto"
+          className="no-scrollbar flex max-w-3xl flex-col gap-4 overflow-y-auto"
         >
           {messages.map((message) => (
             <Message

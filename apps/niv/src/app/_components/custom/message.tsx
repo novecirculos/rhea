@@ -2,12 +2,13 @@
 
 import { Attachment, ToolInvocation } from "ai";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useState, useEffect } from "react";
 
 import { BotIcon, UserIcon } from "./icons";
 import { Markdown } from "./markdown";
 import { PreviewAttachment } from "./preview-attachment";
 import { Weather } from "./weather";
+import { RollDice } from "./dice";
 
 export const Message = ({
   role,
@@ -40,6 +41,7 @@ export const Message = ({
         {toolInvocations && (
           <div className="flex flex-col gap-4">
             {toolInvocations.map((toolInvocation) => {
+              console.log(toolInvocation);
               const { toolName, toolCallId, state } = toolInvocation;
 
               if (state === "result") {
@@ -49,13 +51,26 @@ export const Message = ({
                   <div key={toolCallId}>
                     {toolName === "getWeather" ? (
                       <Weather weatherAtLocation={result} />
+                    ) : toolName === "rollDice" ? (
+                      <RollDice
+                        result={result}
+                        sides={toolInvocation.args.sides}
+                        times={toolInvocation.args.times}
+                      />
                     ) : null}
                   </div>
                 );
               } else {
                 return (
                   <div key={toolCallId} className="skeleton">
-                    {toolName === "getWeather" ? <Weather /> : null}
+                    {toolName === "getWeather" ? (
+                      <Weather />
+                    ) : toolName === "rollDice" ? (
+                      <RollDice
+                        sides={toolInvocation.args.sides}
+                        times={toolInvocation.args.times}
+                      />
+                    ) : null}
                   </div>
                 );
               }

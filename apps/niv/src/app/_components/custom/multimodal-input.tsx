@@ -173,10 +173,10 @@ export function MultimodalInput({
                       content: suggestedAction.action,
                     });
                   }}
-                  className="flex w-full flex-col rounded-lg border border-zinc-200 p-2 text-left text-sm text-zinc-800 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                  className="flex w-full flex-col rounded-lg border border-gray-200 p-2 text-left text-sm text-gray-800 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-800"
                 >
                   <span className="font-medium">{suggestedAction.title}</span>
-                  <span className="text-zinc-500 dark:text-zinc-400">
+                  <span className="text-gray-500 dark:text-gray-400">
                     {suggestedAction.label}
                   </span>
                 </button>
@@ -258,7 +258,7 @@ export function MultimodalInput({
       )}
 
       <Button
-        className="absolute bottom-2 right-10 m-0.5 h-fit rounded-full p-1.5 dark:border-zinc-700"
+        className="absolute bottom-2 right-10 m-0.5 h-fit rounded-full p-1.5 dark:border-gray-700"
         onClick={(event) => {
           event.preventDefault();
           fileInputRef.current?.click();

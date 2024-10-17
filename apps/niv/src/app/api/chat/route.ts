@@ -5,6 +5,8 @@ import { customModel } from "~/ai";
 import { getServerAuthSession } from "~/server/auth";
 import { deleteChatById, getChatById, saveChat } from "~/server/db/queries";
 
+import { roll_dice } from "@novecirculos/dice";
+
 export async function POST(request: Request) {
   const { id, messages }: { id: string; messages: Array<Message> } =
     await request.json();
@@ -20,10 +22,26 @@ export async function POST(request: Request) {
   const result = await streamText({
     model: customModel,
     system:
-      "you are a friendly assistant! keep your responses concise and helpful.",
+      "you are a friendly assistant! keep your responses concise and helpful. Never return data structures like arrays, objects for the final user.",
     messages: coreMessages,
     maxSteps: 5,
     tools: {
+      rollDice: {
+        description: "Roll a dice",
+        parameters: z.object({
+          sides: z.number(),
+          times: z.number().optional(),
+        }),
+        execute: async ({ sides, times }) => {
+          try {
+            const roll = roll_dice({ sides, times: times || 1 });
+            return roll;
+          } catch (error) {
+            console.error("Error executing rollDice:", error);
+            throw new Error("Failed to roll dice.");
+          }
+        },
+      },
       getWeather: {
         description: "Get the current weather at a location",
         parameters: z.object({

@@ -88,7 +88,7 @@ export function AiDrawer() {
       </DrawerTrigger>
       <DrawerContent
         noOverlay
-        className="left-auto h-full w-screen min-w-[50%] sm:w-max"
+        className="left-auto h-full w-screen min-w-[50%] !select-auto sm:w-max"
       >
         <div className="mx-auto flex h-full w-full flex-col">
           <AiDrawerTitle
