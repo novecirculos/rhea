@@ -1,11 +1,15 @@
-import { InferSelectModel, relations, sql } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import {
   index,
-  int,
+  integer,
   primaryKey,
-  sqliteTableCreator,
+  pgTableCreator,
+  varchar,
+  timestamp,
+  boolean,
   text,
-} from "drizzle-orm/sqlite-core";
+  json,
+} from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import { Message } from "ai";
 
@@ -15,22 +19,18 @@ import { Message } from "ai";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator((name) => `niv_${name}`);
+export const createTable = pgTableCreator((name) => `niv_${name}`);
 
 export const chat = createTable(
   "chat",
   {
-    id: text("id", { length: 255 })
+    id: varchar("id", { length: 255 })
       .notNull()
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
-    createdAt: int("created_at", { mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-    messages: text("messages", {
-      length: 1000000,
-    }).notNull(),
-    userId: text("user_id", { length: 255 })
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    messages: json("messages").notNull(),
+    userId: varchar("user_id", { length: 255 })
       .notNull()
       .references(() => users.id),
   },
@@ -46,22 +46,18 @@ export type Chat = Omit<InferSelectModel<typeof chat>, "messages"> & {
 export const notes = createTable(
   "note",
   {
-    id: text("id", { length: 255 })
+    id: varchar("id", { length: 255 })
       .notNull()
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
-    title: text("title", { length: 255 }).notNull(),
-    folder: text("folder", { length: 255 }),
+    title: varchar("title", { length: 255 }).notNull(),
+    folder: varchar("folder", { length: 255 }),
     contentUrl: text("content_url").notNull(), // URL to the content pointed to Cloudflare R2
-    createdAt: int("created_at", { mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-    userId: text("user_id", { length: 255 })
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    userId: varchar("user_id", { length: 255 })
       .notNull()
       .references(() => users.id),
-    updatedAt: int("updated_at", { mode: "timestamp" }).$onUpdate(
-      () => new Date(),
-    ),
+    updatedAt: timestamp("updated_at").defaultNow(),
   },
   (example) => ({
     userIdIdx: index("userId_idx").on(example.userId),
@@ -72,20 +68,16 @@ export const notes = createTable(
 export const posts = createTable(
   "post",
   {
-    id: text("id", { length: 255 })
+    id: varchar("id", { length: 255 })
       .notNull()
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
-    name: text("name", { length: 256 }),
-    createdById: text("created_by", { length: 255 })
+    name: varchar("name", { length: 256 }),
+    createdById: varchar("created_by", { length: 255 })
       .notNull()
       .references(() => users.id),
-    createdAt: int("created_at", { mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-    updatedAt: int("updatedAt", { mode: "timestamp" }).$onUpdate(
-      () => new Date(),
-    ),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow(),
   },
   (example) => ({
     createdByIdIdx: index("created_by_idx").on(example.createdById),
@@ -94,19 +86,15 @@ export const posts = createTable(
 );
 
 export const users = createTable("user", {
-  id: text("id", { length: 255 })
+  id: varchar("id", { length: 255 })
     .notNull()
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: text("name", { length: 255 }),
-  email: text("email", { length: 255 }).notNull(),
-  emailVerified: int("email_verified", {
-    mode: "timestamp",
-  }).default(sql`(unixepoch())`),
-  hasFinishedOnboarding: int("has_finished_onboarding", {
-    mode: "boolean",
-  }).default(false),
-  image: text("image", { length: 255 }),
+  name: varchar("name", { length: 255 }),
+  email: varchar("email", { length: 255 }).notNull(),
+  emailVerified: timestamp("email_verified"),
+  hasFinishedOnboarding: boolean("has_finished_onboarding").default(false),
+  image: varchar("image", { length: 255 }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -116,21 +104,23 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const accounts = createTable(
   "account",
   {
-    userId: text("user_id", { length: 255 })
+    userId: varchar("user_id", { length: 255 })
       .notNull()
       .references(() => users.id),
-    type: text("type", { length: 255 })
+    type: varchar("type", { length: 255 })
       .$type<AdapterAccount["type"]>()
       .notNull(),
-    provider: text("provider", { length: 255 }).notNull(),
-    providerAccountId: text("provider_account_id", { length: 255 }).notNull(),
+    provider: varchar("provider", { length: 255 }).notNull(),
+    providerAccountId: varchar("provider_account_id", {
+      length: 255,
+    }).notNull(),
     refresh_token: text("refresh_token"),
     access_token: text("access_token"),
-    expires_at: int("expires_at"),
-    token_type: text("token_type", { length: 255 }),
-    scope: text("scope", { length: 255 }),
+    expires_at: integer("expires_at"),
+    token_type: varchar("token_type", { length: 255 }),
+    scope: varchar("scope", { length: 255 }),
     id_token: text("id_token"),
-    session_state: text("session_state", { length: 255 }),
+    session_state: varchar("session_state", { length: 255 }),
   },
   (account) => ({
     compoundKey: primaryKey({
@@ -147,11 +137,13 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 export const sessions = createTable(
   "session",
   {
-    sessionToken: text("session_token", { length: 255 }).notNull().primaryKey(),
-    userId: text("userId", { length: 255 })
+    sessionToken: varchar("session_token", { length: 255 })
+      .notNull()
+      .primaryKey(),
+    userId: varchar("userId", { length: 255 })
       .notNull()
       .references(() => users.id),
-    expires: int("expires", { mode: "timestamp" }).notNull(),
+    expires: timestamp("expires").notNull(),
   },
   (session) => ({
     userIdIdx: index("session_userId_idx").on(session.userId),
@@ -165,9 +157,9 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 export const verificationTokens = createTable(
   "verification_token",
   {
-    identifier: text("identifier", { length: 255 }).notNull(),
-    token: text("token", { length: 255 }).notNull(),
-    expires: int("expires", { mode: "timestamp" }).notNull(),
+    identifier: varchar("identifier", { length: 255 }).notNull(),
+    token: varchar("token", { length: 255 }).notNull(),
+    expires: timestamp("expires").notNull(),
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),

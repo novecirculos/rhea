@@ -24,12 +24,11 @@ export function NumberTicker({
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-
     if (loop) {
       interval = setInterval(() => {
         const randomValue = Math.floor(Math.random() * value) + 1;
         motionValue.set(randomValue);
-      }, 15);
+      }, 15) as unknown as NodeJS.Timeout;
     } else {
       motionValue.set(value);
     }

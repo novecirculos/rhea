@@ -470,7 +470,7 @@ importers:
         version: 4.1.0
       drizzle-orm:
         specifier: ^0.33.0
-        version: 0.33.0(@libsql/client@0.9.0)(@types/react@18.3.4)(react@18.3.1)
+        version: 0.33.0(@libsql/client@0.9.0)(@types/react@18.3.4)(postgres@3.4.4)(react@18.3.1)
       framer-motion:
         specifier: ^10.16.4
         version: 10.18.0(react-dom@18.3.1)(react@18.3.1)
@@ -492,6 +492,9 @@ importers:
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.2.14)(react-dom@18.3.1)(react@18.3.1)
+      postgres:
+        specifier: ^3.4.4
+        version: 3.4.4
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -18634,7 +18637,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.33.0(@libsql/client@0.9.0)(@types/react@18.3.4)(react@18.3.1):
+  /drizzle-orm@0.33.0(@libsql/client@0.9.0)(@types/react@18.3.4)(postgres@3.4.4)(react@18.3.1):
     resolution: {integrity: sha512-SHy72R2Rdkz0LEq0PSG/IdvnT3nGiWuRk+2tXZQ90GVq/XQhpCzu/EFT3V2rox+w8MlkBQxifF8pCStNYnERfA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -18725,6 +18728,7 @@ packages:
     dependencies:
       '@libsql/client': 0.9.0
       '@types/react': 18.3.4
+      postgres: 3.4.4
       react: 18.3.1
     dev: false
 
@@ -28169,6 +28173,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       xtend: 4.0.2
+    dev: false
+
+  /postgres@3.4.4:
+    resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
+    engines: {node: '>=12'}
     dev: false
 
   /preact-render-to-string@5.2.3(preact@10.11.3):
