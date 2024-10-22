@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api } from "~/trpc/react";
 import { Markdown } from "~/app/_components/custom/markdown";
+import { SidebarTrigger } from "@novecirculos/design";
 
 const NotePage: React.FC = () => {
   const { id } = useParams();
@@ -70,7 +71,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen w-full overflow-y-auto bg-background p-8">
+    <div className="h-full w-full overflow-y-auto bg-background p-8">
       <h1 className="mb-4 text-3xl font-bold">{note.title}</h1>
 
       {contentLoading && <p className="text-gray-500">Loading content...</p>}

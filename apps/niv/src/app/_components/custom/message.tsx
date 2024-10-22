@@ -2,13 +2,32 @@
 
 import { Attachment, ToolInvocation } from "ai";
 import { motion } from "framer-motion";
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode } from "react";
 
 import { BotIcon, UserIcon } from "./icons";
 import { Markdown } from "./markdown";
 import { PreviewAttachment } from "./preview-attachment";
 import { Weather } from "./weather";
 import { RollDice } from "./dice";
+
+const toolComponents: Record<string, React.ComponentType<any>> = {
+  getWeather: Weather,
+  rollDice: RollDice,
+};
+
+const ToolInvocationComponent = ({
+  toolName,
+  result,
+  args,
+}: {
+  toolName: string;
+  result: any;
+  args: Record<string, any>;
+}) => {
+  const Component = toolComponents[toolName];
+
+  return Component ? <Component result={result} {...args} /> : null;
+};
 
 export const Message = ({
   role,
@@ -41,36 +60,28 @@ export const Message = ({
         {toolInvocations && (
           <div className="flex flex-col gap-4">
             {toolInvocations.map((toolInvocation) => {
-              console.log(toolInvocation);
-              const { toolName, toolCallId, state } = toolInvocation;
+              const { toolName, toolCallId, state, args } = toolInvocation;
 
               if (state === "result") {
                 const { result } = toolInvocation;
 
                 return (
                   <div key={toolCallId}>
-                    {toolName === "getWeather" ? (
-                      <Weather weatherAtLocation={result} />
-                    ) : toolName === "rollDice" ? (
-                      <RollDice
-                        result={result}
-                        sides={toolInvocation.args.sides}
-                        times={toolInvocation.args.times}
-                      />
-                    ) : null}
+                    <ToolInvocationComponent
+                      args={toolInvocation.args}
+                      toolName={toolName}
+                      result={result}
+                    />
                   </div>
                 );
               } else {
                 return (
                   <div key={toolCallId} className="skeleton">
-                    {toolName === "getWeather" ? (
-                      <Weather />
-                    ) : toolName === "rollDice" ? (
-                      <RollDice
-                        sides={toolInvocation.args.sides}
-                        times={toolInvocation.args.times}
-                      />
-                    ) : null}
+                    <ToolInvocationComponent
+                      toolName={toolName}
+                      result={null}
+                      args={args}
+                    />
                   </div>
                 );
               }

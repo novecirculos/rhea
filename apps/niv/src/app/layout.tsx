@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { Sidebar } from "./_components/sidebar";
 import { ThemeProvider } from "./_components/theme-provider";
 import { AiDrawer } from "./_components/ai-drawer";
+import { SidebarProvider, TooltipProvider } from "@novecirculos/design";
 
 export const metadata: Metadata = {
   title: "Niv",
@@ -19,21 +20,22 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TRPCReactProvider>
-            <div className="flex">
-              <Sidebar />
-              {children}
-            </div>
-          </TRPCReactProvider>
-          <AiDrawer />
-        </ThemeProvider>
+      <body className="antialiased">
+        <TRPCReactProvider>
+          <SidebarProvider>
+            <TooltipProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <Sidebar>{children}</Sidebar>
+                <AiDrawer />
+              </ThemeProvider>
+            </TooltipProvider>
+          </SidebarProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );
